@@ -14,7 +14,10 @@ from config_files.config import config
 
 class InvoiceCreator:
     def __init__(self, invoice_type, issuer_tax_no, recipient_tax_no) -> None:
-        self.invoice_type = invoice_type
+        if invoice_type in config["INVOICE_TYPES"]:
+            self.invoice_type = invoice_type
+        else:
+            raise ValueError("Wrong invoice type")
         self.issuer_tax_no = issuer_tax_no
         self.recipient_tax_no = recipient_tax_no
 
