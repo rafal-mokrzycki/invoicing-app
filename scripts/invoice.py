@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from config_files.config import config
+from fpdf import FPDF
 
 
 class InvoiceCreator:
@@ -40,29 +41,33 @@ class InvoiceCreator:
         self.sum_tax = self.sum_gross - self.sum_net
 
     def show_invoice(self):
-        print(
-            f"""
-{'='*60}
-{self.invoice_type.upper()} INVOICE
+        string1 = f"""
+        {'='*60}
+        {self.invoice_type.upper()} INVOICE
 
-Issuer tax no.: {self.issuer_tax_no}
-Recipient tax no.: {self.recipient_tax_no}
-"""
-        )
+        Issuer tax no.: {self.issuer_tax_no}
+        Recipient tax no.: {self.recipient_tax_no}
 
-        print("Position", "Net amount", "Tax rate", "Gross amount", sep="\t")
-        for i, j, k, l in zip(
-            self.positions, self.prices_net, self.tax_rates, self.prices_gross
-        ):
-            print(i, "\t\t", j, "\t\t", k, "\t\t", l)
+        Position\tNet amount\tTax rate\tGross amount
+        """
+        string2 = ""
+        # string2 = f"""
+        # {[(i, j, k, l) for i, j, k, l in zip(self.positions, self.prices_net, self.tax_rates, self.prices_gross)]}
+        # """
+        string3 = f"""
+        Net sum: {self.sum_net}
+        Tax sum: {self.sum_tax}
+        TOTAL SUM: {self.sum_gross}
+        {'='*60}"""
 
-        print(
-            f"""
-Net sum: {self.sum_net}
-Tax sum: {self.sum_tax}
-TOTAL SUM: {self.sum_gross}
-{'='*60}"""
-        )
+        print(string1, string2, string3, sep="\n\n")
+
+    def save_to_pdf(self):
+        pdf = FPDF("P", "mm", "A4")
+        pdf.add_page()
+        pdf.set_font("Times", "", 12)
+        pdf.cell(200, 10, txt="Hey", ln=2, align="C")
+        pdf.output("GFG.pdf")
 
 
 def calculate_gross(amount, tax_rate):
