@@ -66,6 +66,8 @@ class InvoiceCreator:
 
     def save_to_pdf(self):
         """Saves invoice as a pdf file"""
+        # tax_rates_to_print = [str(int(i * 100), "%") for i in self.tax_rates]
+        tax_rates_to_print = [str(int(i * 100)) + "%" for i in self.tax_rates]
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page()
 
@@ -90,7 +92,7 @@ class InvoiceCreator:
         for position in range(len(self.positions)):
             for size, elem in zip(
                 [100, 30, 30, 30],
-                [self.positions, self.prices_net, self.tax_rates, self.prices_gross],
+                [self.positions, self.prices_net, tax_rates_to_print, self.prices_gross],
             ):
                 pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)
             pdf.cell(10, 10, txt="", ln=1)
