@@ -2,7 +2,7 @@
 """
 Utilities to create a new ivoice
 """
-import datetime as dt
+import datetime
 import logging
 import random
 import smtplib
@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 from config_files.config import config
 from fpdf import FPDF
+
+CURRENCY = config["CURRENCY"]
 
 
 class InvoiceCreator:
@@ -63,19 +65,53 @@ class InvoiceCreator:
         print(string1, string2, string3, sep="\n\n")
 
     def save_to_pdf(self):
+        """Saves invoice as a pdf file"""
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page()
+
+        # Set invoice name
+        pdf.set_font("Times", "B", 16)
+        pdf.cell(0, 16, txt=f"{self.invoice_type.upper()} INVOICE", ln=2, align="L")
+
+        # Issuer and recipient data
         pdf.set_font("Times", "", 12)
-        pdf.cell(200, 10, txt="Hey", ln=2, align="C")
-        pdf.output("GFG.pdf")
+        pdf.cell(200, 10, txt=f"Issuer tax no.: {self.issuer_tax_no}", ln=2, align="l")
+        pdf.cell(
+            200, 10, txt=f"Recipient tax no.: {self.recipient_tax_no}", ln=2, align="l"
+        )
+        # Positions of an invoice
+        pdf.set_font("Times", "B", 12)
+        for size, elem in zip(
+            [100, 30, 30, 30], ["Position", "Net amount", "Tax rate", "Gross amount"]
+        ):
+            pdf.cell(size, 8, txt=elem, ln=0, border=1)
+        pdf.cell(10, 8, txt="", ln=1)
+        pdf.set_font("Times", "", 12)
+        for position in range(len(self.positions)):
+            # TODO: inner for loop
+            pdf.cell(100, 10, txt=str(self.positions[position]), ln=0, border=1)
+            pdf.cell(30, 10, txt=str(self.prices_net[position]), ln=0, border=1)
+            pdf.cell(30, 10, txt=str(self.tax_rates[position]), ln=0, border=1)
+            pdf.cell(30, 10, txt=str(self.prices_gross[position]), ln=0, border=1)
+            pdf.cell(10, 10, txt="", ln=1)
+
+        # Net, tax and gross amount
+        pdf.cell(200, 10, txt=f"Net sum: {self.sum_net} {CURRENCY}", ln=2, align="R")
+        pdf.cell(200, 10, txt=f"Tax sum: {self.sum_tax} {CURRENCY}", ln=2, align="R")
+        pdf.set_font("Times", "B", 12)
+        pdf.cell(200, 10, txt=f"TOTAL SUM: {self.sum_gross} {CURRENCY}", ln=2, align="R")
+
+        pdf.output(
+            f"{self.invoice_type.replace(' ','_')}_invoice_{datetime.datetime.now().strftime('%Y%m%d')}.pdf"
+        )
 
 
 def calculate_gross(amount, tax_rate):
     if tax_rate in config["TAX_RATES"]:
-        return amount + amount * tax_rate
+        return float(amount + amount * tax_rate)
     else:
         raise ValueError("Wrong tax rate")
 
 
 def calculate_sum(iterable):
-    return np.sum(iterable)
+    return float(np.sum(iterable))

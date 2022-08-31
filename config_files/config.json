@@ -9,5 +9,6 @@
         "regular",
         "proforma",
         "advanced payment"
-    ]
+    ],
+    "CURRENCY": "PLN"
 }
