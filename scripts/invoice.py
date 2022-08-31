@@ -88,11 +88,11 @@ class InvoiceCreator:
         pdf.cell(10, 8, txt="", ln=1)
         pdf.set_font("Times", "", 12)
         for position in range(len(self.positions)):
-            # TODO: inner for loop
-            pdf.cell(100, 10, txt=str(self.positions[position]), ln=0, border=1)
-            pdf.cell(30, 10, txt=str(self.prices_net[position]), ln=0, border=1)
-            pdf.cell(30, 10, txt=str(self.tax_rates[position]), ln=0, border=1)
-            pdf.cell(30, 10, txt=str(self.prices_gross[position]), ln=0, border=1)
+            for size, elem in zip(
+                [100, 30, 30, 30],
+                [self.positions, self.prices_net, self.tax_rates, self.prices_gross],
+            ):
+                pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)
             pdf.cell(10, 10, txt="", ln=1)
 
         # Net, tax and gross amount
