@@ -67,7 +67,9 @@ class InvoiceCreator:
     def save_to_pdf(self):
         """Saves invoice as a pdf file"""
         # tax_rates_to_print = [str(int(i * 100), "%") for i in self.tax_rates]
-        tax_rates_to_print = [str(int(i * 100)) + "%" for i in self.tax_rates]
+        tax_rates_to_print = [format_percentages(i) for i in self.tax_rates]
+        prices_net_to_print = [format_number(i) for i in self.prices_net]
+        prices_gross_to_print = [format_number(i) for i in self.prices_gross]
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page()
 
@@ -92,7 +94,12 @@ class InvoiceCreator:
         for position in range(len(self.positions)):
             for size, elem in zip(
                 [100, 30, 30, 30],
-                [self.positions, self.prices_net, tax_rates_to_print, self.prices_gross],
+                [
+                    self.positions,
+                    prices_net_to_print,
+                    tax_rates_to_print,
+                    prices_gross_to_print,
+                ],
             ):
                 pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)
             pdf.cell(10, 10, txt="", ln=1)
@@ -117,3 +124,11 @@ def calculate_gross(amount, tax_rate):
 
 def calculate_sum(iterable):
     return float(np.sum(iterable))
+
+
+def format_percentages(number):
+    return str(int(number * 100)) + "%"
+
+
+def format_number(number):
+    return "{:.2f}".format(number) + f" {CURRENCY}"
