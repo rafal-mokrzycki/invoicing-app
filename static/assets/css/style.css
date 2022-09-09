@@ -204,7 +204,7 @@ section {
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 .navbar {
   padding: 0;
@@ -332,7 +332,7 @@ section {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #012970;
@@ -2404,4 +2404,51 @@ section {
   text-align: center;
   font-size: 13px;
   color: #012970;
+}
+
+/* Login page */
+
+#login h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  color: #012970;
+  text-align: center;
+}
+
+.login-form {
+  text-align: center;
+}
+
+/* Style inputs */
+#login .login-form input[type=text],
+#login .login-form input[type=password] {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Style the submit button */
+#login .login-form input[type=submit] {
+  width: 30%;
+  /* background-color: #04AA6D;
+  color: white; */
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  font-size: 16px;
+  background: #4154f1;
+  color: #fff;
+  transition: 0.3s;
+}
+
+#login .login-form input[type=submit]:hover {
+  background: #5969f3;
 }
