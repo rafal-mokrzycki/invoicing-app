@@ -43,20 +43,31 @@
           request.form.name }}">
                     </div>
                     <div class="feature-box col-lg-6 ">
-                        <input type="text" placeholder="Phone number" name="phone_no" value="{{
-          request.form.phone_no }}">
+                        <input type="tel" placeholder="Phone number" name="phone_no"
+                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="{{ request.form.phone_no }}" required>
                     </div>
                     <div class="feature-box col-lg-6 ">
-                        <input type="email" placeholder="Email address" name="username" value="{{
-          request.form.username }}">
+                        <input type="email" placeholder="Email address" name="username"
+                            value="{{ request.form.username }}" required>
                     </div>
                     <div class="feature-box col-lg-12 ">
-                        <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
+                        <input type="password" placeholder="Password" name="password"
+                            value="{{ request.form.password }}" required>
                     </div>
+                    <!-- <div class="feature-box col-lg-12 ">
+                        <input list="choose-plan" id="choose-plan" name="choose-plan" placeholder="Choose plan"
+                            value="{{ request.form.plan }}" />
+
+                        <datalist id="choose-plan">
+                            <option value="free-plan">
+                            <option value="starter-plan">
+                            <option value="business-plan">
+                            <option value="ultimate-plan">
+                        </datalist>
+                    </div> -->
                     <div class="feature-box col-lg-12 ">
-                        <input type="password" placeholder="Confirm password" name="password" value="{{
-          request.form.password }}">
+                        <input type="password" placeholder="Confirm password" name="password"
+                            value="{{ request.form.password }}" required>
                     </div>
                     <div class="feature-box col-lg-12 ">
                         <input class="btn btn-default" type="submit" value="Login">
