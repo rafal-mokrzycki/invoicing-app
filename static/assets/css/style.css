@@ -2408,7 +2408,8 @@ section {
 
 /* Login page */
 
-#login h1 {
+#login h1,
+#register h1 {
   margin: 0;
   font-size: 48px;
   font-weight: 700;
@@ -2416,14 +2417,21 @@ section {
   text-align: center;
 }
 
-.login-form {
+.login-form,
+.register-form {
   text-align: center;
 }
 
+.register-form {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
 /* Style inputs */
-#login .login-form input[type=text],
-#login .login-form input[type=password] {
-  width: 30%;
+input[type=text],
+input[type=password],
+input[type=email] {
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -2432,11 +2440,15 @@ section {
   box-sizing: border-box;
 }
 
-/* Style the submit button */
-#login .login-form input[type=submit] {
+.login input[type=text],
+.login input[type=password],
+.login input[type=email] {
   width: 30%;
-  /* background-color: #04AA6D;
-  color: white; */
+}
+
+/* Style the submit button */
+input[type=submit] {
+  width: 30%;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -2449,6 +2461,7 @@ section {
   transition: 0.3s;
 }
 
-#login .login-form input[type=submit]:hover {
+input[type=submit]:hover {
   background: #5969f3;
+  color: #fff
 }
