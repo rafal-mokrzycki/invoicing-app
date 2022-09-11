@@ -2463,3 +2463,14 @@ input[type=submit]:hover {
   background: #5969f3;
   color: #fff
 }
+
+.checkbox {
+  font-size: 14px;
+  text-align: left;
+}
+
+/* TODO minus percent */
+input[type=checkbox] {
+  width: 20%;
+  margin: -5%;
+}
