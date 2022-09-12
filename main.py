@@ -67,7 +67,11 @@ def user():
 
 @app.route("/new-invoice")
 def new_invoice():
-    return render_template("new_invoice.html", variable=get_new_invoice_number())
+    return render_template(
+        "new_invoice.html",
+        invoice_number=get_new_invoice_number(),
+        issue_date=datetime.datetime.now().strftime("%Y-%m-%d"),
+    )
 
 
 def create_table(name="accounts"):

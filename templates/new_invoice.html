@@ -65,13 +65,14 @@
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_no">Invoice number</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value="{{ variable }}"
-                            name="invoice[sell_date]" id="invoice_no" autocomplete="off">
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text"
+                            value="{{ invoice_number }}" name="invoice[sell_date]" id="invoice_no" autocomplete="off"
+                            readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_issue_date">Issue date</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
-                            name="invoice[sell_date]" id="invoice_issue_date" autocomplete="off">
+                        <input class="form-control  datepicker f3 hasDatepicker" type="date" value="{{ issue_date }}"
+                            name="invoice[sell_date]" id="invoice_issue_date" autocomplete="off" readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_issue_city">City of issue</label>
@@ -80,7 +81,7 @@
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_sell_date">Sell date</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
+                        <input class="form-control  datepicker f3 hasDatepicker" type="date" value="{{ issue_date }}"
                             name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off">
                     </div>
                     <div class="feature-box col-lg-6 ">
