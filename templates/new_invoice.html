@@ -56,12 +56,17 @@
         <div class="container">
             <form class="new-invoice-form" action="" method="post">
                 <div class="row">
+
                     <!-- main data -->
 
-                    <div class="col-sm-2 expense_hidden22 ">
+                    <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
-                            name="invoice[sell_date]" id="invoice_type" autocomplete="off">
+                        <select class="form-control  datepicker f3 hasDatepicker" type="text" name="invoice[sell_date]"
+                            id="invoice_type" autocomplete="off">
+                            <option value="regular">Regular</option>
+                            <option value="Proforma">Proforma</option>
+                            <option value="Advanced payment">Advanced payment</option>
+                        </select>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_no">Invoice number</label>
@@ -85,37 +90,73 @@
                             name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off" min="{{ min_date }}"
                             max="{{ max_date }}">
                     </div>
-                    <div class="feature-box col-lg-6 ">
-                        <input type="text" placeholder="Last name" name="name" value="{{
-          request.form.name }}">
+
+                    <!-- issuer -->
+
+                    <div class="col-sm-6 expense_hidden22 ">
+                        <label for="issuer">Issuer</label>
+                        <p>{{ tax_no }}</p>
+                        <p>{{ name }}</p>
+                        <p>{{ address }}</p>
+                        <p>{{ bank_account }}</p>
                     </div>
-                    <div class="feature-box col-lg-6 ">
-                        <input type="tel" placeholder="Phone number" name="phone_no" pattern="\+[0-9]{9,11}|[0-9]{9}"
-                            value="{{ request.form.phone_no }}" required>
+
+                    <!-- receiver -->
+
+                    <div class="col-sm-6 expense_hidden22 ">
+                        <label for="receiver">Receiver</label>
+                        <p>{{ tax_no }}</p>
+                        <p>{{ name }}</p>
+                        <p>{{ address }}</p>
+                        <p>{{ bank_account }}</p>
                     </div>
-                    <div class="feature-box col-lg-6 ">
-                        <input type="text" placeholder="Email address" name="email" value="{{ request.form.email }}"
-                            required>
-                    </div>
+
+                    <!-- invoice positions - texts -->
+
+                    <div class="feature-box col-lg-6 ">Invoice positions</div>
+                    <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
+                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
+                    <div class="col-sm-1 row3 ">Amount</div>
+                    <div class="col-sm-1 row3">Unit</div>
+                    <div class="col-sm-1 more_discount2 row1">Net price</div>
+                    <div class="col-sm-1 more row_tax ">VAT %</div>
+                    <div class="col-sm-1 row1 ">Net sum</div>
+                    <div class="col-sm-1 row1">Gross sum</div>
+
+                    <!-- invoice positions - values -->
+
+                    <div class="feature-box col-lg-6 "><input type="text" name="position" value="{{
+                        request.form.position }}"></div>
+                    <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
+                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
+                    <div class="col-sm-1 row3 "><input type="number" name="amount" value="{{
+                        request.form.amount }}"></div>
+                    <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
+                        request.form.unit }}">
+                            <option value="item">item</option>
+                            <option value="h">h</option>
+                            <option value="days">days</option>
+                            <option value="months">months</option>
+                            <option value="km">km</option>
+                            <option value="m2">m2</option>
+                            <option value="kg">kg</option>
+                        </select></div>
+                    <div class="col-sm-1 more_discount2 row1"><input type="number" name="net_price" value="{{
+                        request.form.net_price }}"></div>
+                    <div class="col-sm-1 more row_tax "><select type="number" name="tax_rate" value="{{
+                        request.form.tax_rate }}">
+                            <option value="0.0">0%</option>
+                            <option value="0.05">5%</option>
+                            <option value="0.08">8%</option>
+                            <option value="0.23">23%</option>
+                        </select></div>
+                    <div class="col-sm-1 row1 "><input type="number" name="net_sum" value="{{
+                        request.form.net_sum }}" readonly></div>
+                    <div class="col-sm-1 row1"><input type="number" name="gross_sum" value="{{
+                        request.form.gross_sum }}" readonly></div>
+
                     <div class="feature-box col-lg-12 ">
-                        <input type="password" placeholder="Password" name="password"
-                            value="{{ request.form.password }}" required>
-                    </div>
-                    <div class="feature-box col-lg-12 ">
-                        <input type="password" placeholder="Confirm password" name="password"
-                            value="{{ request.form.password }}" required>
-                    </div>
-                    <div class="checkbox col-lg-12 ">
-                        <input type="checkbox" id="terms-and-conditions" value="{{ request.form.password }}" required>I
-                        accept the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a> and the <a
-                            href="/privacy-policy" target="_blank">Privacy Policy</a>
-                    </div>
-                    <div class="checkbox col-lg-12 ">
-                        <input type="checkbox" id="newsletter" value="{{ request.form.password }}">I wish to subscribe
-                        to the newsletter
-                    </div>
-                    <div class="feature-box col-lg-12 ">
-                        <input class="btn btn-default" type="submit" value="Register">
+                        <input class="btn btn-default" type="submit" value="Issue">
                     </div>
                     <div class="feature-box col-lg-12 ">
                         <a href="/login">Already have an account?</a>

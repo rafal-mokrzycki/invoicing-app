@@ -137,3 +137,7 @@ def format_number(number):
 
 def get_new_invoice_number():
     return datetime.datetime.now().strftime(f"%Y/%m/1")  # TODO: invoices database
+
+
+def ceidg_api():
+    pass
