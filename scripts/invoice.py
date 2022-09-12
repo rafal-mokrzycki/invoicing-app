@@ -28,21 +28,24 @@ CURRENCY = config["CURRENCY"]
 class Invoice(db.Model):
     __tablename__ = "invoices"
     invoice_no = db.Column(db.String(250), primary_key=True)
-    invoice_type = (db.Column(db.String(250), nullable=False),)
-    issuer_tax_no = (db.Column(db.String(250), nullable=False),)
-    recipient_tax_no = (db.Column(db.String(250), nullable=False),)
-    positions = (db.Column(db.String(250), nullable=False),)
-    prices_net = (db.Column(db.String(250), nullable=False),)
-    tax_rates = (db.Column(db.String(250), nullable=False),)
+    invoice_type = db.Column(db.String(250), nullable=False)
+    issuer_tax_no = db.Column(db.Integer, nullable=False)
+    recipient_tax_no = db.Column(db.Integer, nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
+    position = db.Column(db.String(250), nullable=False)
+    price_net = db.Column(db.Integer, nullable=False)
+    tax_rate = db.Column(db.Integer, nullable=False)
 
     def __init__(
         self,
         invoice_type,
         issuer_tax_no,
         recipient_tax_no,
-        positions,
-        prices_net,
-        tax_rates,
+        position,
+        amount,
+        price_net,
+        tax_rate,
+        price_gross,
     ):
         if invoice_type in config["INVOICE_TYPES"]:
             self.invoice_type = invoice_type
@@ -50,15 +53,17 @@ class Invoice(db.Model):
             raise ValueError("Wrong invoice type")
         self.issuer_tax_no = issuer_tax_no
         self.recipient_tax_no = recipient_tax_no
-        self.positions = positions
-        self.prices_net = prices_net
-        self.tax_rates = tax_rates
-        self.prices_gross = [
-            calculate_gross(i, j) for i, j in zip(self.prices_net, self.tax_rates)
-        ]
-        self.sum_net = calculate_sum(self.prices_net)
-        self.sum_gross = calculate_sum(self.prices_gross)
-        self.sum_tax = self.sum_gross - self.sum_net
+        self.position = position
+        self.amount = amount
+        self.price_net = price_net
+        self.tax_rate = tax_rate
+        self.price_gross = price_gross
+        # self.price_gross = [
+        #     calculate_gross(i, j) for i, j in zip(self.price_net, self.tax_rate)
+        # ]
+        # self.sum_net = calculate_sum(self.price_net)
+        # self.sum_gross = calculate_sum(self.price_gross)
+        # self.sum_tax = self.sum_gross - self.sum_net
 
     def show_invoice(self):
         string1 = f"""
@@ -72,7 +77,7 @@ class Invoice(db.Model):
         """
         string2 = ""
         # string2 = f"""
-        # {[(i, j, k, l) for i, j, k, l in zip(self.positions, self.prices_net, self.tax_rates, self.prices_gross)]}
+        # {[(i, j, k, l) for i, j, k, l in zip(self.position, self.price_net, self.tax_rate, self.price_gross)]}
         # """
         string3 = f"""
         Net sum: {self.sum_net}
@@ -84,10 +89,10 @@ class Invoice(db.Model):
 
     def save_to_pdf(self):
         """Saves invoice as a pdf file"""
-        # tax_rates_to_print = [str(int(i * 100), "%") for i in self.tax_rates]
-        tax_rates_to_print = [format_percentages(i) for i in self.tax_rates]
-        prices_net_to_print = [format_number(i) for i in self.prices_net]
-        prices_gross_to_print = [format_number(i) for i in self.prices_gross]
+        # tax_rate_to_print = [str(int(i * 100), "%") for i in self.tax_rate]
+        tax_rate_to_print = [format_percentages(i) for i in self.tax_rate]
+        price_net_to_print = [format_number(i) for i in self.price_net]
+        price_gross_to_print = [format_number(i) for i in self.price_gross]
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page()
 
@@ -101,7 +106,7 @@ class Invoice(db.Model):
         pdf.cell(
             200, 10, txt=f"Recipient tax no.: {self.recipient_tax_no}", ln=2, align="l"
         )
-        # Positions of an invoice
+        # position of an invoice
         pdf.set_font("Times", "B", 12)
         for size, elem in zip(
             [100, 30, 30, 30], ["Position", "Net amount", "Tax rate", "Gross amount"]
@@ -109,14 +114,14 @@ class Invoice(db.Model):
             pdf.cell(size, 8, txt=elem, ln=0, border=1)
         pdf.cell(10, 8, txt="", ln=1)
         pdf.set_font("Times", "", 12)
-        for position in range(len(self.positions)):
+        for position in range(len(self.position)):
             for size, elem in zip(
                 [100, 30, 30, 30],
                 [
-                    self.positions,
-                    prices_net_to_print,
-                    tax_rates_to_print,
-                    prices_gross_to_print,
+                    self.position,
+                    price_net_to_print,
+                    tax_rate_to_print,
+                    price_gross_to_print,
                 ],
             ):
                 pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)

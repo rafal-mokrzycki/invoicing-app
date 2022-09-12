@@ -72,16 +72,18 @@ def new_invoice():
         invoice_type = request.form["invoice_type"]
         issuer_tax_no = request.form["issuer_tax_no"]
         recipient_tax_no = request.form["recipient_tax_no"]
-        positions = request.form["positions"]
-        prices_net = request.form["prices_net"]
-        tax_rates = request.form["tax_rates"]
+        position = request.form["position"]
+        amount = request.form["amount"]
+        price_net = request.form["price_net"]
+        tax_rate = request.form["tax_rate"]
         new_invoice = Invoice(
             invoice_type=invoice_type,
             issuer_tax_no=issuer_tax_no,
             recipient_tax_no=recipient_tax_no,
-            positions=positions,
-            prices_net=prices_net,
-            tax_rates=tax_rates,
+            position=position,
+            amount=amount,
+            price_net=price_net,
+            tax_rate=tax_rate,
         )
         db.session.add(new_invoice)
         db.session.commit()
@@ -90,6 +92,9 @@ def new_invoice():
         "new_invoice.html",
         invoice_number=get_new_invoice_number(),
         issue_date=today.strftime("%Y-%m-%d"),
+        net_sum=Invoice.price_net * Invoice.amount,
+        # gross_sum=Invoice.price_net * Invoice.tax_rate + Invoice.price_net,
+        gross_sum=None,
         # According to the Polish tax law it is allowed to issue an invoice 60 days before
         # or 90 days after the sell date.
         min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),

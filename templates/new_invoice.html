@@ -111,9 +111,9 @@
                         <p>{{ bank_account }}</p>
                     </div>
 
-                    <!-- invoice positions - texts -->
+                    <!-- invoice position - texts -->
                     <div class="row invoice-positions">
-                        <div class="feature-box col-lg-6 ">Invoice positions</div>
+                        <div class="feature-box col-lg-6 ">Invoice position</div>
                         <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
                     <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
                         <div class="col-sm-1 row3 ">Amount</div>
@@ -123,7 +123,7 @@
                         <div class="col-sm-1 row1 ">Net sum</div>
                         <div class="col-sm-1 row1">Gross sum</div>
 
-                        <!-- invoice positions - values -->
+                        <!-- invoice position - values -->
 
                         <div class="feature-box col-lg-6 "><input type="text" name="position" value="{{
                         request.form.position }}"></div>
@@ -133,7 +133,7 @@
                         request.form.amount }}"></div>
                         <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
                         request.form.unit }}">
-                                <option value="item">item</option>
+                                <option value="item" selected>item</option>
                                 <option value="h">h</option>
                                 <option value="days">days</option>
                                 <option value="months">months</option>
@@ -143,17 +143,17 @@
                             </select></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" name="net_price" value="{{
                         request.form.net_price }}"></div>
-                        <div class="col-sm-1 more row_tax "><select type="number" name="tax_rates" value="{{
-                        request.form.tax_rates }}">
+                        <div class="col-sm-1 more row_tax "><select type="number" name="tax_rate" value="{{
+                        request.form.tax_rate }}">
                                 <option value="0.0">0%</option>
                                 <option value="0.05">5%</option>
                                 <option value="0.08">8%</option>
-                                <option value="0.23">23%</option>
+                                <option value="0.23" selected>23%</option>
                             </select></div>
                         <div class="col-sm-1 row1 "><input type="number" name="net_sum" value="{{
-                        request.form.net_sum }}" readonly></div>
+                        net_sum }}" readonly></div>
                         <div class="col-sm-1 row1"><input type="number" name="gross_sum" value="{{
-                        request.form.gross_sum }}" readonly></div>
+                        gross_sum }}" readonly></div>
                     </div>
                     <div class="issue-box col-lg-12 ">
                         <input class="btn btn-default" type="submit" value="Issue">
