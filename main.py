@@ -9,6 +9,7 @@ import sqlite3
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
+from scripts.invoice import get_new_invoice_number
 from scripts.persons import User
 
 app = Flask(__name__)
@@ -62,6 +63,11 @@ def register():
 @app.route("/user")
 def user():
     return render_template("user.html")
+
+
+@app.route("/new-invoice")
+def new_invoice():
+    return render_template("new_invoice.html", variable=get_new_invoice_number())
 
 
 def create_table(name="accounts"):

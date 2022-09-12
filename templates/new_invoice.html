@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>User panel</title>
+    <title>New invoice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
 
@@ -25,7 +25,6 @@
     <!-- Template Main CSS File -->
     <link href="static/assets/css/style.css" rel="stylesheet">
 </head>
-
 <!-- ======== HEADER ======== -->
 
 <body>
@@ -41,11 +40,11 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="getstarted scrollto" href="/new-invoice">New invoice</a></li>
+                    <li><a class="new-invoice scrollto" href="/new-invoice">New invoice</a></li>
                     <li><a class="nav-link scrollto" href="#">Your invoices</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                    <li><a class="getstarted scrollto" href="#">Logout</a></li>
+                    <li><a class="login-logout scrollto" href="#">Logout</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -53,15 +52,36 @@
         </div>
     </header><!-- End Header -->
 
-    <section id="register" class="register d-flex align-items-center">
+    <section id="new-invoice" class="new-invoice d-flex align-items-center">
         <div class="container">
-            <h1>New here? Please register</h1>
-            <br>
-            <form class="register-form" action="" method="post">
+            <form class="new-invoice-form" action="" method="post">
                 <div class="row">
-                    <div class="feature-box col-lg-6 ">
-                        <input type="text" placeholder="First name" name="surname" value="{{
-          request.form.surname }}">
+                    <!-- main data -->
+
+                    <div class="col-sm-2 expense_hidden22 ">
+                        <label for="invoice_type">Invoice type</label>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
+                            name="invoice[sell_date]" id="invoice_type" autocomplete="off">
+                    </div>
+                    <div class="col-sm-2 expense_hidden22 ">
+                        <label for="invoice_no">Invoice number</label>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value="{{ variable }}"
+                            name="invoice[sell_date]" id="invoice_no" autocomplete="off">
+                    </div>
+                    <div class="col-sm-2 expense_hidden22 ">
+                        <label for="invoice_issue_date">Issue date</label>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
+                            name="invoice[sell_date]" id="invoice_issue_date" autocomplete="off">
+                    </div>
+                    <div class="col-sm-2 expense_hidden22 ">
+                        <label for="invoice_issue_city">City of issue</label>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
+                            name="invoice[sell_date]" id="invoice_issue_city" autocomplete="off">
+                    </div>
+                    <div class="col-sm-2 expense_hidden22 ">
+                        <label for="invoice_sell_date">Sell date</label>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value=""
+                            name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off">
                     </div>
                     <div class="feature-box col-lg-6 ">
                         <input type="text" placeholder="Last name" name="name" value="{{
@@ -79,17 +99,6 @@
                         <input type="password" placeholder="Password" name="password"
                             value="{{ request.form.password }}" required>
                     </div>
-                    <!-- <div class="feature-box col-lg-12 ">
-                        <input list="choose-plan" id="choose-plan" name="choose-plan" placeholder="Choose plan"
-                            value="{{ request.form.plan }}" />
-
-                        <datalist id="choose-plan">
-                            <option value="free-plan">
-                            <option value="starter-plan">
-                            <option value="business-plan">
-                            <option value="ultimate-plan">
-                        </datalist>
-                    </div> -->
                     <div class="feature-box col-lg-12 ">
                         <input type="password" placeholder="Confirm password" name="password"
                             value="{{ request.form.password }}" required>
@@ -117,6 +126,25 @@
                 {% endif %}
         </div>
     </section>
+    <!-- ======= Footer ======= -->
+    <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."static/assets/php/"; include($IPATH."footernav.html") ?>
+    <!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="static/assets/vendor/aos/aos.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="static/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/assets/js/main.js"></script>
+
 </body>
 
 </html>

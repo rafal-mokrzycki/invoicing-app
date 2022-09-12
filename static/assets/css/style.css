@@ -250,8 +250,8 @@ section {
   color: #4154f1;
 }
 
-.navbar .getstarted,
-.navbar .getstarted:focus {
+.navbar .login-logout,
+.navbar .login-logout:focus {
   background: #4154f1;
   padding: 8px 20px;
   margin-left: 30px;
@@ -259,11 +259,27 @@ section {
   color: #fff;
 }
 
-.navbar .getstarted:hover,
-.navbar .getstarted:focus:hover {
+.navbar .login-logout:hover,
+.navbar .login-logout:focus:hover {
   color: #fff;
-  background: #5969f3;
+  background: #4154f1;
 }
+
+.navbar .new-invoice,
+.navbar .new-invoice:focus {
+  background: #012970;
+  padding: 8px 20px;
+  margin-left: 30px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.navbar .new-invoice:hover,
+.navbar .new-invoice:focus:hover {
+  color: #fff;
+  background: #003185;
+}
+
 
 .navbar .dropdown ul {
   display: block;
@@ -401,8 +417,10 @@ section {
   color: #4154f1;
 }
 
-.navbar-mobile .getstarted,
-.navbar-mobile .getstarted:focus {
+.navbar-mobile .login-logout,
+.navbar-mobile .new-invoice,
+.navbar-mobile .login-logout:focus,
+.navbar-mobile .new-invoice:focus {
   margin: 15px;
 }
 
@@ -445,6 +463,7 @@ section {
 --------------------------------------------------------------*/
 #login,
 #register,
+#new-invoice,
 .hero {
   width: 100%;
   height: 100vh;
@@ -2411,12 +2430,17 @@ section {
 /* Login page */
 
 #login h1,
-#register h1 {
+#register h1,
+#new-invoice h1 {
   margin: 0;
   font-size: 48px;
   font-weight: 700;
   color: #012970;
   text-align: center;
+}
+
+#new-invoice h1 {
+  text-align: left
 }
 
 .login-form,
@@ -2427,6 +2451,10 @@ section {
 .register-form {
   margin-left: 30%;
   margin-right: 30%;
+}
+
+.new-invoice-form {
+  margin-top: 10%;
 }
 
 /* Style inputs */
