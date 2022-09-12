@@ -1,0 +1,122 @@
+<html>
+
+<head>
+    <title>User panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- Favicons -->
+    <link href="static/assets/img/favicon.png" rel="icon">
+    <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/assets/css/style.css" rel="stylesheet">
+</head>
+
+<!-- ======== HEADER ======== -->
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+            <a href="/home" class="logo d-flex align-items-center">
+                <img src="static/assets/img/logo.png" alt="">
+                <span>FlexStart</span>
+            </a>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="getstarted scrollto" href="/new-invoice">New invoice</a></li>
+                    <li><a class="nav-link scrollto" href="#">Your invoices</a></li>
+                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    <li><a class="getstarted scrollto" href="#">Logout</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
+
+    <section id="register" class="register d-flex align-items-center">
+        <div class="container">
+            <h1>New here? Please register</h1>
+            <br>
+            <form class="register-form" action="" method="post">
+                <div class="row">
+                    <div class="feature-box col-lg-6 ">
+                        <input type="text" placeholder="First name" name="surname" value="{{
+          request.form.surname }}">
+                    </div>
+                    <div class="feature-box col-lg-6 ">
+                        <input type="text" placeholder="Last name" name="name" value="{{
+          request.form.name }}">
+                    </div>
+                    <div class="feature-box col-lg-6 ">
+                        <input type="tel" placeholder="Phone number" name="phone_no"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" value="{{ request.form.phone_no }}" required>
+                    </div>
+                    <div class="feature-box col-lg-6 ">
+                        <input type="text" placeholder="Email address" name="email" value="{{ request.form.email }}"
+                            required>
+                    </div>
+                    <div class="feature-box col-lg-12 ">
+                        <input type="password" placeholder="Password" name="password"
+                            value="{{ request.form.password }}" required>
+                    </div>
+                    <!-- <div class="feature-box col-lg-12 ">
+                        <input list="choose-plan" id="choose-plan" name="choose-plan" placeholder="Choose plan"
+                            value="{{ request.form.plan }}" />
+
+                        <datalist id="choose-plan">
+                            <option value="free-plan">
+                            <option value="starter-plan">
+                            <option value="business-plan">
+                            <option value="ultimate-plan">
+                        </datalist>
+                    </div> -->
+                    <div class="feature-box col-lg-12 ">
+                        <input type="password" placeholder="Confirm password" name="password"
+                            value="{{ request.form.password }}" required>
+                    </div>
+                    <div class="checkbox col-lg-12 ">
+                        <input type="checkbox" id="terms-and-conditions" value="{{ request.form.password }}" required>I
+                        accept the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a> and the <a
+                            href="/privacy-policy" target="_blank">Privacy Policy</a>
+                    </div>
+                    <div class="checkbox col-lg-12 ">
+                        <input type="checkbox" id="newsletter" value="{{ request.form.password }}">I wish to subscribe
+                        to the newsletter
+                    </div>
+                    <div class="feature-box col-lg-12 ">
+                        <input class="btn btn-default" type="submit" value="Register">
+                    </div>
+                    <div class="feature-box col-lg-12 ">
+                        <a href="/login">Already have an account?</a>
+                    </div>
+
+                </div>
+            </form>
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+                {% endif %}
+        </div>
+    </section>
+</body>
+
+</html>
