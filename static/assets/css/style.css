@@ -2453,9 +2453,21 @@ section {
   margin-right: 30%;
 }
 
+/* Invoice page */
+
 .new-invoice-form {
   margin-top: 10%;
 }
+
+.invoice-positions input,
+.invoice-positions select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 12px;
+}
+
+
 
 /* Style inputs */
 input,
