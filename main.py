@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 """
 To run type: flask --app hello run
 """
 
 import datetime
-import re
 import sqlite3
 
 from flask import Flask, redirect, render_template, request, url_for
@@ -23,11 +23,18 @@ def home():
     return render_template("index.html", current_year=current_year)
 
 
-# Route for handling the login page logic
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    error = None
-    return render_template("login.html", error=error)
+    email = request.form.get("email", False)
+    password = request.form.get("password", False)
+    user = User.query.filter_by(email=email).first()
+    if user and user.password == password:
+        return redirect(url_for("home"))
+    # elif not user:
+    #     return redirect(url_for("register"))
+    elif user and user.password != password:
+        return redirect(url_for("login"))
+    return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
