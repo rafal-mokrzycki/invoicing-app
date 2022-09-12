@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 
 
 @app.route("/")
+@app.route("/home")
 def home():
     current_year = datetime.date.today().year
     return render_template("index.html", current_year=current_year)
@@ -56,6 +57,11 @@ def register():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("register.html")
+
+
+@app.route("/user")
+def user():
+    return render_template("user.html")
 
 
 def create_table(name="accounts"):
