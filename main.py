@@ -9,7 +9,7 @@ import sqlite3
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-from scripts.invoice import get_new_invoice_number
+from scripts.invoice import Invoice, get_new_invoice_number
 from scripts.persons import User
 
 app = Flask(__name__)
@@ -68,6 +68,24 @@ def user():
 @app.route("/new-invoice")
 def new_invoice():
     today = datetime.datetime.now()
+    if request.method == "POST":
+        invoice_type = request.form["invoice_type"]
+        issuer_tax_no = request.form["issuer_tax_no"]
+        recipient_tax_no = request.form["recipient_tax_no"]
+        positions = request.form["positions"]
+        prices_net = request.form["prices_net"]
+        tax_rates = request.form["tax_rates"]
+        new_invoice = Invoice(
+            invoice_type=invoice_type,
+            issuer_tax_no=issuer_tax_no,
+            recipient_tax_no=recipient_tax_no,
+            positions=positions,
+            prices_net=prices_net,
+            tax_rates=tax_rates,
+        )
+        db.session.add(new_invoice)
+        db.session.commit()
+        return redirect(url_for("home"))
     return render_template(
         "new_invoice.html",
         invoice_number=get_new_invoice_number(),

@@ -12,12 +12,29 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from config_files.config import config
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from fpdf import FPDF
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mybooks.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy(app)
+
 
 CURRENCY = config["CURRENCY"]
 
 
-class InvoiceCreator:
+class Invoice(db.Model):
+    __tablename__ = "invoices"
+    invoice_no = db.Column(db.String(250), primary_key=True)
+    invoice_type = (db.Column(db.String(250), nullable=False),)
+    issuer_tax_no = (db.Column(db.String(250), nullable=False),)
+    recipient_tax_no = (db.Column(db.String(250), nullable=False),)
+    positions = (db.Column(db.String(250), nullable=False),)
+    prices_net = (db.Column(db.String(250), nullable=False),)
+    tax_rates = (db.Column(db.String(250), nullable=False),)
+
     def __init__(
         self,
         invoice_type,
