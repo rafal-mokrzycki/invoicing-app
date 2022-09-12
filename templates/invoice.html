@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Registration page</title>
+    <title>New invoice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
 
@@ -43,10 +43,10 @@
                     </div>
                     <div class="feature-box col-lg-6 ">
                         <input type="tel" placeholder="Phone number" name="phone_no"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" value="{{ request.form.phone_no }}" required>
+                            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="{{ request.form.phone_no }}" required>
                     </div>
                     <div class="feature-box col-lg-6 ">
-                        <input type="text" placeholder="Email address" name="email" value="{{ request.form.email }}"
+                        <input type="email" placeholder="Email address" name="email" value="{{ request.form.email }}"
                             required>
                     </div>
                     <div class="feature-box col-lg-12 ">
