@@ -131,4 +131,5 @@ dmypy.json
 # tmp
 test.py
 test2.py
+test3.py
 *.pdf

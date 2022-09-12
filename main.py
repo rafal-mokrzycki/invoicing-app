@@ -33,15 +33,17 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+        email = request.form["email"]
         name = request.form["name"]
-        # b_author = request.form["author"]
-        # b_rating = request.form["rating"]
+        surname = request.form["surname"]
+        phone_no = request.form["phone_no"]
+        password = request.form["password"]
         new_user = User(
-            email="asd@interia.pl",
+            email=email,
             name=name,
-            surname=name,
-            phone_no="123-123-123",
-            password="qweasd",
+            surname=surname,
+            phone_no=phone_no,
+            password=password,
         )
         db.session.add(new_user)
         db.session.commit()
