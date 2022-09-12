@@ -90,8 +90,8 @@
           request.form.name }}">
                     </div>
                     <div class="feature-box col-lg-6 ">
-                        <input type="tel" placeholder="Phone number" name="phone_no"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" value="{{ request.form.phone_no }}" required>
+                        <input type="tel" placeholder="Phone number" name="phone_no" pattern="\+[0-9]{9,11}|[0-9]{9}"
+                            value="{{ request.form.phone_no }}" required>
                     </div>
                     <div class="feature-box col-lg-6 ">
                         <input type="text" placeholder="Email address" name="email" value="{{ request.form.email }}"
