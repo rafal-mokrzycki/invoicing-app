@@ -82,7 +82,8 @@
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_sell_date">Sell date</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="date" value="{{ issue_date }}"
-                            name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off">
+                            name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off" min="{{ min_date }}"
+                            max="{{ max_date }}">
                     </div>
                     <div class="feature-box col-lg-6 ">
                         <input type="text" placeholder="Last name" name="name" value="{{
