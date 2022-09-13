@@ -2439,6 +2439,16 @@ section {
   text-align: center;
 }
 
+#login h1,
+#new-invoice h1 {
+  margin: 0;
+
+}
+
+#register h1 {
+  margin-top: 5%;
+}
+
 #new-invoice h1 {
   text-align: left
 }
@@ -2473,7 +2483,7 @@ section {
 input,
 select {
   width: 100%;
-  padding: 12px 20px;
+  padding: 8px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
