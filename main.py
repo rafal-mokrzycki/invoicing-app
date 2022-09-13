@@ -6,37 +6,71 @@ To run type: flask --app hello run
 import datetime
 import sqlite3
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import (
+    Flask,
+    flash,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
+from flask_login import (
+    LoginManager,
+    UserMixin,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from scripts.invoice import Invoice, get_new_invoice_number
 from scripts.persons import User
 
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "secret-key-goes-here"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route("/")
 @app.route("/home")
 def home():
     current_year = datetime.date.today().year
-    return render_template("index.html", current_year=current_year)
+    return render_template(
+        "index.html", current_year=current_year, logged_in=current_user.is_authenticated
+    )
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    email = request.form.get("email", False)
-    password = request.form.get("password", False)
-    user = User.query.filter_by(email=email).first()
-    if user and user.password == password:
-        return redirect(url_for("home"))
-    # elif not user:
-    #     return redirect(url_for("register"))
-    elif user and user.password != password:
-        return redirect(url_for("login"))
-    return render_template("login.html")
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        user = User.query.filter_by(email=email).first()
+        # Email doesn't exist or password incorrect.
+        if not user:
+            flash("That email does not exist, please try again.")
+            return redirect(url_for("login"))
+        elif not check_password_hash(user.password, password):
+            flash("Password incorrect, please try again.")
+            return redirect(url_for("login"))
+        else:
+            login_user(user)
+            return redirect(url_for("secrets"))
+
+    return render_template("login.html", logged_in=current_user.is_authenticated)
 
 
 @app.route("/register", methods=["GET", "POST"])
