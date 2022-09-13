@@ -2458,6 +2458,11 @@ section {
   text-align: center;
 }
 
+.error-message {
+  text-align: center;
+  color: rgb(201, 36, 36);
+}
+
 .register-form {
   margin-left: 30%;
   margin-right: 30%;

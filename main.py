@@ -40,8 +40,8 @@ login_manager.init_app(app)
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+def load_user(email):
+    return User.query.get(email)
 
 
 @app.route("/")
@@ -68,7 +68,7 @@ def login():
             return redirect(url_for("login"))
         else:
             login_user(user)
-            return redirect(url_for("secrets"))
+            return redirect(url_for("user"))
 
     return render_template("login.html", logged_in=current_user.is_authenticated)
 

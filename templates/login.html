@@ -8,6 +8,14 @@
     <div class="container">
         <h1>Please login</h1>
         <br>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="error-message">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
         <form class="login-form" action="" method="post">
             <div class="row">
 
