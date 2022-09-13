@@ -3,14 +3,8 @@
 Utilities to create a new ivoice
 """
 import datetime
-import logging
-import random
-import smtplib
-import sqlite3
-from pathlib import Path
 
 import numpy as np
-import pandas as pd
 from config_files.config import config
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
