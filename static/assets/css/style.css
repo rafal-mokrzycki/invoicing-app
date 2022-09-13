@@ -2532,3 +2532,9 @@ input[type=checkbox] {
   width: 20%;
   margin: -5%;
 }
+
+.feature-box p {
+  margin: 0% 30%;
+  padding-bottom: 10px;
+  font-size: 14px;
+}

@@ -5,15 +5,9 @@ To run type: flask --app hello run
 
 import datetime
 import sqlite3
+import time
 
-from flask import (
-    Flask,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
     current_user,
@@ -95,6 +89,26 @@ def register():
         login_user(new_user)
         return redirect(url_for("user"))
     return render_template("register.html", logged_in=current_user.is_authenticated)
+
+
+@app.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
+    if request.method == "POST":
+        email = request.form.get("email")
+        user = User.query.filter_by(email=email).first()
+        # print(email)
+        # Email doesn't exist or password incorrect.
+        if not user:
+            # print("not")
+            flash("That email does not exist, please sign up for free.")
+            time.sleep(3)
+            return redirect(url_for("register"))
+        else:
+            # print("yes")
+            login_user(user)
+            return redirect(url_for("user"))
+
+    return render_template("reset_password.html", logged_in=current_user.is_authenticated)
 
 
 @app.route("/user")
