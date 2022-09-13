@@ -76,30 +76,44 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        email = request.form["email"]
-        name = request.form["name"]
-        surname = request.form["surname"]
-        phone_no = request.form["phone_no"]
-        password = request.form["password"]
+
+        if User.query.filter_by(email=request.form.get("email")).first():
+            # User already exists
+            flash("You've already signed up with that email, log in instead!")
+            return redirect(url_for("login"))
+
+        hash_and_salted_password = generate_password_hash(
+            request.form.get("password"), method="pbkdf2:sha256", salt_length=8
+        )
         new_user = User(
-            email=email,
-            name=name,
-            surname=surname,
-            phone_no=phone_no,
-            password=password,
+            email=request.form.get("email"),
+            name=request.form.get("name"),
+            password=hash_and_salted_password,
+            surname=request.form.get("surname"),
+            phone_no=request.form.get("phone_no"),
         )
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for("home"))
-    return render_template("register.html")
+        login_user(new_user)
+        return redirect(url_for("user"))
+    return render_template("register.html", logged_in=current_user.is_authenticated)
 
 
 @app.route("/user")
+@login_required
 def user():
     return render_template("user.html")
 
 
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
+
+
 @app.route("/new-invoice")
+@login_required
 def new_invoice():
     today = datetime.datetime.now()
     if request.method == "POST":
