@@ -135,5 +135,5 @@ test3.py
 *.pdf
 
 # sql & databases
-.db
-.sql
+database.db
+schema.sql

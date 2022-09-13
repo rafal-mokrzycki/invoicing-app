@@ -1,63 +1,37 @@
-<html>
+{% extends "base.html" %}
+{% block content %}
 
-<head>
-    <title>Login page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+<!-- ======= Login Section ======= -->
 
-    <!-- Favicons -->
-    <link href="static/assets/img/favicon.png" rel="icon">
-    <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<section id="login" class="login d-flex align-items-center">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <div class="container">
+        <h1>Please login</h1>
+        <br>
+        <form class="login-form" action="" method="post">
+            <div class="row">
 
-    <!-- Vendor CSS Files -->
-    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="static/assets/css/style.css" rel="stylesheet">
-</head>
-
-<body>
-    <section id="login" class="login d-flex align-items-center">
-
-        <div class="container">
-            <h1>Please login</h1>
-            <br>
-            <form class="login-form" action="" method="post">
-                <div class="row">
-
-                    <div class="feature-box col-sm-12">
-                        <input type="email" placeholder="E-mail" name="email" value="{{
+                <div class="feature-box col-sm-12">
+                    <input type="email" placeholder="E-mail" name="email" value="{{
           request.form.email }}">
-                    </div>
-                    <div class="feature-box col-sm-12">
-                        <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-                    </div>
-                    <div class="feature-box col-sm-12">
-                        <input class="btn btn-default" type="submit" name="login" value="Login">
-                    </div>
-
-                    <div class="feature-box col-sm-12">
-                        <a href="/register">Don't have an account?</a>
-                    </div>
-
                 </div>
-            </form>
-            {% if error %}
-            <p class="error"><strong>Error:</strong> {{ error }}
-                {% endif %}
-        </div>
-    </section>
-</body>
+                <div class="feature-box col-sm-12">
+                    <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+                </div>
+                <div class="feature-box col-sm-12">
+                    <input class="btn btn-default" type="submit" name="login" value="Login">
+                </div>
 
-</html>
+                <div class="feature-box col-sm-12">
+                    <a href="/register">Don't have an account?</a>
+                </div>
+
+            </div>
+        </form>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
+    </div>
+</section>
+{% endblock %}
