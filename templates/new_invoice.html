@@ -129,7 +129,7 @@
                         request.form.position }}"></div>
                         <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
                     <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" value="{{
+                        <div class="col-sm-1 row3 "><input type="number" name="amount" min=0 value="{{
                         request.form.amount }}"></div>
                         <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
                         request.form.unit }}">
@@ -141,7 +141,7 @@
                                 <option value="m2">m2</option>
                                 <option value="kg">kg</option>
                             </select></div>
-                        <div class="col-sm-1 more_discount2 row1"><input type="number" name="net_price" value="{{
+                        <div class="col-sm-1 more_discount2 row1"><input type="number" name="net_price" min=0 value="{{
                         request.form.net_price }}"></div>
                         <div class="col-sm-1 more row_tax "><select type="number" name="tax_rate" value="{{
                         request.form.tax_rate }}">
