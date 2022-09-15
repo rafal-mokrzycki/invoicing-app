@@ -73,3 +73,9 @@ class Database:
     def __drop_table__(self, table_name, connection=create_connection()):
         cursor = connection.cursor()
         cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
+
+    def add_record(self, db_file, table_name):
+        pass
+
+    def __delete_record__(self, db_file, table_name, key):
+        pass

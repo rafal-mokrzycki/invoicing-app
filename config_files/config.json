@@ -10,5 +10,14 @@
         "proforma",
         "advanced payment"
     ],
-    "CURRENCY": "PLN"
+    "CURRENCY": "PLN",
+    "DATABASE": "database.db",
+    "TABLE_NAMES": [
+        "accounts",
+        "contractors",
+        "invoices"
+    ],
+    "SECRET_KEY": "secret-key-goes-here",
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///database.db",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false
 }

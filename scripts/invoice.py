@@ -11,9 +11,8 @@ from flask_sqlalchemy import SQLAlchemy
 from fpdf import FPDF
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mybooks.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+app.config.update(config)
 
 
 CURRENCY = config["CURRENCY"]

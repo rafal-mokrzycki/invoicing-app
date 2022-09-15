@@ -18,17 +18,19 @@ from flask_login import (
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from config_files.config import config
 from scripts.invoice import Invoice, get_new_invoice_number
 from scripts.persons import User
 
 app = Flask(__name__)
-
-app.config["SECRET_KEY"] = "secret-key-goes-here"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# print(app.config)
+# app.config["SECRET_KEY"] = "secret-key-goes-here"
+# app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{config['DATABASE']}"
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+app.config.update(config)
 
 
 @login_manager.user_loader
