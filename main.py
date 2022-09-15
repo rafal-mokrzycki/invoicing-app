@@ -23,10 +23,10 @@ from scripts.invoice import Invoice, get_new_invoice_number
 from scripts.persons import User
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config.update(config)
+db = SQLAlchemy(app)
 
 
 @login_manager.user_loader

@@ -11,8 +11,8 @@ from flask_sqlalchemy import SQLAlchemy
 from fpdf import FPDF
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
 app.config.update(config)
+db = SQLAlchemy(app)
 
 
 CURRENCY = config["CURRENCY"]
