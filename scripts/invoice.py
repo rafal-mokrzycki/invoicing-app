@@ -26,8 +26,11 @@ class Invoice(db.Model):
     recipient_tax_no = db.Column(db.Integer, nullable=False)
     position = db.Column(db.String(250), nullable=False)
     amount = db.Column(db.Integer, nullable=False)
+    unit = db.Column(db.String(250), nullable=False)
     price_net = db.Column(db.Integer, nullable=False)
     tax_rate = db.Column(db.Integer, nullable=False)
+    sum_net = db.Column(db.Integer, nullable=False)
+    sum_gross = db.Column(db.Integer, nullable=False)
 
     def __init__(
         self,
@@ -36,9 +39,11 @@ class Invoice(db.Model):
         recipient_tax_no,
         position,
         amount,
+        unit,
         price_net,
         tax_rate,
-        price_gross,
+        sum_net,
+        sum_gross,
     ):
         if invoice_type in config["INVOICE_TYPES"]:
             self.invoice_type = invoice_type
@@ -48,9 +53,11 @@ class Invoice(db.Model):
         self.recipient_tax_no = recipient_tax_no
         self.position = position
         self.amount = amount
+        self.unit = unit
         self.price_net = price_net
         self.tax_rate = tax_rate
-        self.price_gross = price_gross
+        self.sum_net = sum_net
+        self.sum_gross = sum_gross
         # self.price_gross = [
         #     calculate_gross(i, j) for i, j in zip(self.price_net, self.tax_rate)
         # ]

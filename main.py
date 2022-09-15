@@ -6,6 +6,7 @@ To run type: flask --app hello run
 import datetime
 import time
 
+import numpy as np
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
@@ -131,7 +132,9 @@ def new_invoice():
         recipient_tax_no = request.form["recipient_tax_no"]
         position = request.form["position"]
         amount = request.form["amount"]
-        price_net = request.form["price_net"]
+        unit = request.form["unit"]
+        # price_net = request.form["price_net"]
+        price_net = np.round(amount * unit, 2)
         tax_rate = request.form["tax_rate"]
         new_invoice = Invoice(
             invoice_type=invoice_type,
@@ -139,6 +142,7 @@ def new_invoice():
             recipient_tax_no=recipient_tax_no,
             position=position,
             amount=amount,
+            unit=unit,
             price_net=price_net,
             tax_rate=tax_rate,
         )
@@ -149,9 +153,9 @@ def new_invoice():
         "new_invoice.html",
         invoice_number=get_new_invoice_number(),
         issue_date=today.strftime("%Y-%m-%d"),
-        net_sum=Invoice.price_net * Invoice.amount,
-        # gross_sum=Invoice.price_net * Invoice.tax_rate + Invoice.price_net,
-        gross_sum=None,
+        sum_net=Invoice.price_net * Invoice.amount,
+        # sum_gross=Invoice.price_net * Invoice.tax_rate + Invoice.price_net,
+        sum_gross=None,
         # According to the Polish tax law it is allowed to issue an invoice 60 days before
         # or 90 days after the sell date.
         min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),
