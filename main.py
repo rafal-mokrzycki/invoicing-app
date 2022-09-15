@@ -162,18 +162,5 @@ def new_invoice():
     )
 
 
-def create_table(name="accounts"):
-    cursor = sqlite3.connect("database.db", check_same_thread=False).cursor()
-    cursor.execute(
-        f"""
-        CREATE TABLE IF NOT EXISTS {name} (
-            email varchar(250) PRIMARY KEY,
-            surname varchar(250) NOT NULL,
-            name varchar(250) NOT NULL,
-            phone_no varchar(250) NOT NULL,
-            password varchar(250) NOT NULL)"""
-    )
-
-
 if __name__ == "__main__":
     app.run(debug=True)

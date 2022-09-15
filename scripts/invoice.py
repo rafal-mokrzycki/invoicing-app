@@ -25,8 +25,8 @@ class Invoice(db.Model):
     invoice_type = db.Column(db.String(250), nullable=False)
     issuer_tax_no = db.Column(db.Integer, nullable=False)
     recipient_tax_no = db.Column(db.Integer, nullable=False)
-    amount = db.Column(db.Integer, nullable=False)
     position = db.Column(db.String(250), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
     price_net = db.Column(db.Integer, nullable=False)
     tax_rate = db.Column(db.Integer, nullable=False)
 
