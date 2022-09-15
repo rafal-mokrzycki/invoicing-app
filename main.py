@@ -4,7 +4,6 @@ To run type: flask --app hello run
 """
 
 import datetime
-import sqlite3
 import time
 
 from flask import Flask, flash, redirect, render_template, request, url_for
@@ -23,10 +22,6 @@ from scripts.invoice import Invoice, get_new_invoice_number
 from scripts.persons import User
 
 app = Flask(__name__)
-# print(app.config)
-# app.config["SECRET_KEY"] = "secret-key-goes-here"
-# app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{config['DATABASE']}"
-# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)

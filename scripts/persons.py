@@ -1,16 +1,12 @@
 #!/usr/bin/env python
+from config_files.config import config
 from flask import Flask
-from flask_login import LoginManager, UserMixin
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-
-app.config["SECRET_KEY"] = "secret-key-goes-here"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mybooks.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
+app.config.update(config)
 
 
 class User(db.Model, UserMixin):
