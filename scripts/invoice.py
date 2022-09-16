@@ -160,7 +160,13 @@ def format_number(number):
 
 
 def get_new_invoice_number():
-    return datetime.datetime.now().strftime(f"%Y/%m/1")  # TODO: invoices database
+    current_year_and_month = datetime.datetime.now().strftime(f"%Y/%m/")
+    count = (
+        db.session.query(Invoice)
+        .filter(Invoice.invoice_type == "regular")
+        .filter(Invoice.invoice_no.like(f"{current_year_and_month}%"))
+    ).count()
+    return datetime.datetime.now().strftime(f"%Y/%m/{count+1}")  # TODO: invoices database
 
 
 def ceidg_api():
