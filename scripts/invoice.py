@@ -3,44 +3,70 @@
 Utilities to create a new ivoice
 """
 import datetime
-import logging
-import random
-import smtplib
-from pathlib import Path
 
 import numpy as np
-import pandas as pd
 from config_files.config import config
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from fpdf import FPDF
+
+app = Flask(__name__)
+app.config.update(config)
+db = SQLAlchemy(app)
+
 
 CURRENCY = config["CURRENCY"]
 
 
-class InvoiceCreator:
+class Invoice(db.Model):
+    __tablename__ = "invoices"
+    invoice_no = db.Column(db.String(250), primary_key=True)
+    invoice_type = db.Column(db.String(250), nullable=False)
+    issue_date = db.Column(db.String(250), nullable=False)
+    issue_city = db.Column(db.String(250), nullable=False)
+    sell_date = db.Column(db.String(250), nullable=False)
+    issuer_tax_no = db.Column(db.Integer, nullable=False)
+    recipient_tax_no = db.Column(db.Integer, nullable=False)
+    position = db.Column(db.String(250), nullable=False)
+    amount = db.Column(db.Float, nullable=False)
+    unit = db.Column(db.String(250), nullable=False)
+    price_net = db.Column(db.Float, nullable=False)
+    tax_rate = db.Column(db.Float, nullable=False)
+    sum_net = db.Column(db.Float, nullable=False)
+    sum_gross = db.Column(db.Float, nullable=False)
+
     def __init__(
         self,
         invoice_type,
+        invoice_no,
+        issue_date,
+        issue_city,
+        sell_date,
         issuer_tax_no,
         recipient_tax_no,
-        positions,
-        prices_net,
-        tax_rates,
+        position,
+        amount,
+        unit,
+        price_net,
+        tax_rate,
+        sum_net,
+        sum_gross,
     ):
-        if invoice_type in config["INVOICE_TYPES"]:
-            self.invoice_type = invoice_type
-        else:
-            raise ValueError("Wrong invoice type")
+        self.invoice_type = invoice_type
+        self.invoice_no = invoice_no
+        self.issue_date = issue_date
+        self.issue_city = issue_city
+        self.sell_date = sell_date
         self.issuer_tax_no = issuer_tax_no
         self.recipient_tax_no = recipient_tax_no
-        self.positions = positions
-        self.prices_net = prices_net
-        self.tax_rates = tax_rates
-        self.prices_gross = [
-            calculate_gross(i, j) for i, j in zip(self.prices_net, self.tax_rates)
-        ]
-        self.sum_net = calculate_sum(self.prices_net)
-        self.sum_gross = calculate_sum(self.prices_gross)
-        self.sum_tax = self.sum_gross - self.sum_net
+        self.position = position
+        self.amount = amount
+        self.unit = unit
+        self.price_net = price_net
+        self.tax_rate = tax_rate
+        self.sum_net = sum_net
+        self.sum_gross = sum_gross
+
 
     def show_invoice(self):
         string1 = f"""
@@ -54,7 +80,9 @@ class InvoiceCreator:
         """
         string2 = ""
         # string2 = f"""
-        # {[(i, j, k, l) for i, j, k, l in zip(self.positions, self.prices_net, self.tax_rates, self.prices_gross)]}
+
+        # {[(i, j, k, l) for i, j, k, l in zip(self.position, self.price_net, self.tax_rate, self.price_gross)]}
+
         # """
         string3 = f"""
         Net sum: {self.sum_net}
@@ -66,10 +94,12 @@ class InvoiceCreator:
 
     def save_to_pdf(self):
         """Saves invoice as a pdf file"""
-        # tax_rates_to_print = [str(int(i * 100), "%") for i in self.tax_rates]
-        tax_rates_to_print = [format_percentages(i) for i in self.tax_rates]
-        prices_net_to_print = [format_number(i) for i in self.prices_net]
-        prices_gross_to_print = [format_number(i) for i in self.prices_gross]
+
+        # tax_rate_to_print = [str(int(i * 100), "%") for i in self.tax_rate]
+        tax_rate_to_print = [format_percentages(i) for i in self.tax_rate]
+        price_net_to_print = [format_number(i) for i in self.price_net]
+        price_gross_to_print = [format_number(i) for i in self.price_gross]
+
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page()
 
@@ -83,7 +113,9 @@ class InvoiceCreator:
         pdf.cell(
             200, 10, txt=f"Recipient tax no.: {self.recipient_tax_no}", ln=2, align="l"
         )
-        # Positions of an invoice
+
+        # position of an invoice
+
         pdf.set_font("Times", "B", 12)
         for size, elem in zip(
             [100, 30, 30, 30], ["Position", "Net amount", "Tax rate", "Gross amount"]
@@ -91,14 +123,16 @@ class InvoiceCreator:
             pdf.cell(size, 8, txt=elem, ln=0, border=1)
         pdf.cell(10, 8, txt="", ln=1)
         pdf.set_font("Times", "", 12)
-        for position in range(len(self.positions)):
+
+        for position in range(len(self.position)):
             for size, elem in zip(
                 [100, 30, 30, 30],
                 [
-                    self.positions,
-                    prices_net_to_print,
-                    tax_rates_to_print,
-                    prices_gross_to_print,
+                    self.position,
+                    price_net_to_print,
+                    tax_rate_to_print,
+                    price_gross_to_print,
+
                 ],
             ):
                 pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)
@@ -132,3 +166,12 @@ def format_percentages(number):
 
 def format_number(number):
     return "{:.2f}".format(number) + f" {CURRENCY}"
+
+
+def get_new_invoice_number():
+    return datetime.datetime.now().strftime(f"%Y/%m/1")  # TODO: invoices database
+
+
+def ceidg_api():
+    pass
+
