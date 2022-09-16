@@ -67,7 +67,6 @@ class Invoice(db.Model):
         self.sum_net = sum_net
         self.sum_gross = sum_gross
 
-
     def show_invoice(self):
         string1 = f"""
         {'='*60}
@@ -132,7 +131,6 @@ class Invoice(db.Model):
                     price_net_to_print,
                     tax_rate_to_print,
                     price_gross_to_print,
-
                 ],
             ):
                 pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)
@@ -174,4 +172,3 @@ def get_new_invoice_number():
 
 def ceidg_api():
     pass
-
