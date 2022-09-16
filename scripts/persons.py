@@ -35,3 +35,20 @@ class Contractor(db.Model, UserMixin):
 {self.name} {self.surname}
 {self.tax_no}
 """
+
+
+class Issuer(db.Model, UserMixin):
+    __tablename__ = "issuers"
+    name = db.Column(db.String(250), nullable=False)
+    address = db.Column(db.String(250), nullable=False)
+    tax_no = db.Column(db.String(250), primary_key=True)
+    bank_account = db.Column(db.String(250), nullable=False)
+
+    def __init__(self) -> None:
+        self.name = "Adam&Co."
+        self.address = "Default address"
+        self.tax_no = "123456789"
+        self.bank_account = "00000000000000000000000000"
+
+    def __repr__(self) -> str:
+        return f"{self.name}\n\n{self.address}\n{self.tax_no}\nBank account: {self.bank_account}"

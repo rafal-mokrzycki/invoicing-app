@@ -20,7 +20,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
 from scripts.invoice import Invoice, get_new_invoice_number
-from scripts.persons import User
+from scripts.persons import Issuer, User
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -122,40 +122,53 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/new-invoice")
+@app.route("/new-invoice", methods=["GET", "POST"])
 @login_required
 def new_invoice():
     today = datetime.datetime.now()
     if request.method == "POST":
-        invoice_type = request.form["invoice_type"]
-        issuer_tax_no = request.form["issuer_tax_no"]
-        recipient_tax_no = request.form["recipient_tax_no"]
-        position = request.form["position"]
-        amount = request.form["amount"]
-        unit = request.form["unit"]
-        # price_net = request.form["price_net"]
-        price_net = np.round(amount * unit, 2)
-        tax_rate = request.form["tax_rate"]
         new_invoice = Invoice(
-            invoice_type=invoice_type,
-            issuer_tax_no=issuer_tax_no,
-            recipient_tax_no=recipient_tax_no,
-            position=position,
-            amount=amount,
-            unit=unit,
-            price_net=price_net,
-            tax_rate=tax_rate,
+            # invoice_type=request.args.get("invoice_type"),
+            invoice_type="regular",
+            invoice_no=get_new_invoice_number(),
+            issue_date=today.strftime("%d/%m/%Y"),
+            issue_city=request.form.get("issue_city"),
+            sell_date=today.strftime("%d/%m/%Y"),
+            issuer_tax_no=request.form.get("issuer_tax_no"),
+            recipient_tax_no=request.form.get("recipient_tax_no"),
+            position=request.form.get("position"),
+            amount=request.form.get("amount"),
+            unit=request.form.get("unit"),
+            price_net=request.form.get("price_net"),
+            tax_rate=request.form.get("tax_rate"),
+            sum_net=request.form.get("sum_net"),
+            sum_gross=request.form.get("sum_gross"),
         )
+        print("=================")
+        print("invoice_type :", new_invoice.invoice_type)
+        print("invoice_no :", new_invoice.invoice_no)
+        print("issue_date :", new_invoice.issue_date)
+        print("issue_city :", new_invoice.issue_city)
+        print("sell_date :", new_invoice.sell_date)
+        print("issuer_tax_no :", new_invoice.issuer_tax_no)
+        print("recipient_tax_no :", new_invoice.recipient_tax_no)
+        print("position :", new_invoice.position)
+        print("amount :", new_invoice.amount)
+        print("unit :", new_invoice.unit)
+        print("price_net :", new_invoice.price_net)
+        print("tax_rate :", new_invoice.tax_rate)
+        print("sum_net :", new_invoice.sum_net)
+        print("sum_gross :", new_invoice.sum_gross)
+        print("=================")
+
         db.session.add(new_invoice)
         db.session.commit()
-        return redirect(url_for("home"))
+        return redirect(url_for("user"))
     return render_template(
         "new_invoice.html",
-        invoice_number=get_new_invoice_number(),
+        invoice_no=get_new_invoice_number(),
         issue_date=today.strftime("%Y-%m-%d"),
-        sum_net=Invoice.price_net * Invoice.amount,
-        # sum_gross=Invoice.price_net * Invoice.tax_rate + Invoice.price_net,
-        sum_gross=None,
+        sell_date=today.strftime("%Y-%m-%d"),
         # According to the Polish tax law it is allowed to issue an invoice 60 days before
         # or 90 days after the sell date.
         min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),
