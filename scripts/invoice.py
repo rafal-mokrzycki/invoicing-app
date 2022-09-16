@@ -67,6 +67,7 @@ class Invoice(db.Model):
         self.sum_net = sum_net
         self.sum_gross = sum_gross
 
+
     def show_invoice(self):
         string1 = f"""
         {'='*60}
@@ -79,7 +80,9 @@ class Invoice(db.Model):
         """
         string2 = ""
         # string2 = f"""
+
         # {[(i, j, k, l) for i, j, k, l in zip(self.position, self.price_net, self.tax_rate, self.price_gross)]}
+
         # """
         string3 = f"""
         Net sum: {self.sum_net}
@@ -91,10 +94,12 @@ class Invoice(db.Model):
 
     def save_to_pdf(self):
         """Saves invoice as a pdf file"""
+
         # tax_rate_to_print = [str(int(i * 100), "%") for i in self.tax_rate]
         tax_rate_to_print = [format_percentages(i) for i in self.tax_rate]
         price_net_to_print = [format_number(i) for i in self.price_net]
         price_gross_to_print = [format_number(i) for i in self.price_gross]
+
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page()
 
@@ -108,7 +113,9 @@ class Invoice(db.Model):
         pdf.cell(
             200, 10, txt=f"Recipient tax no.: {self.recipient_tax_no}", ln=2, align="l"
         )
+
         # position of an invoice
+
         pdf.set_font("Times", "B", 12)
         for size, elem in zip(
             [100, 30, 30, 30], ["Position", "Net amount", "Tax rate", "Gross amount"]
@@ -116,6 +123,7 @@ class Invoice(db.Model):
             pdf.cell(size, 8, txt=elem, ln=0, border=1)
         pdf.cell(10, 8, txt="", ln=1)
         pdf.set_font("Times", "", 12)
+
         for position in range(len(self.position)):
             for size, elem in zip(
                 [100, 30, 30, 30],
@@ -124,6 +132,7 @@ class Invoice(db.Model):
                     price_net_to_print,
                     tax_rate_to_print,
                     price_gross_to_print,
+
                 ],
             ):
                 pdf.cell(size, 10, txt=str(elem[position]), ln=0, border=1)
@@ -171,3 +180,4 @@ def get_new_invoice_number():
 
 def ceidg_api():
     pass
+
