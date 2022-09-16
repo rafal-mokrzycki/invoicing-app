@@ -105,5 +105,6 @@ class Database:
 
 
 if __name__ == "__main__":
-    db = Database()
-    db.create_table("invoices", drop_if_exists=True)
+    pass
+    # db = Database()
+    # db.create_table("invoices", drop_if_exists=True)

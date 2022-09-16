@@ -2479,7 +2479,9 @@ section {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  width: 100%;
   font-size: 12px;
+  padding: 8px 8px;
 }
 
 

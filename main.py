@@ -144,23 +144,6 @@ def new_invoice():
             sum_net=request.form.get("sum_net"),
             sum_gross=request.form.get("sum_gross"),
         )
-        print("=================")
-        print("invoice_type :", new_invoice.invoice_type)
-        print("invoice_no :", new_invoice.invoice_no)
-        print("issue_date :", new_invoice.issue_date)
-        print("issue_city :", new_invoice.issue_city)
-        print("sell_date :", new_invoice.sell_date)
-        print("issuer_tax_no :", new_invoice.issuer_tax_no)
-        print("recipient_tax_no :", new_invoice.recipient_tax_no)
-        print("position :", new_invoice.position)
-        print("amount :", new_invoice.amount)
-        print("unit :", new_invoice.unit)
-        print("price_net :", new_invoice.price_net)
-        print("tax_rate :", new_invoice.tax_rate)
-        print("sum_net :", new_invoice.sum_net)
-        print("sum_gross :", new_invoice.sum_gross)
-        print("=================")
-
         db.session.add(new_invoice)
         db.session.commit()
         return redirect(url_for("user"))

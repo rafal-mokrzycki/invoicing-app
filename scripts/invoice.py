@@ -22,19 +22,26 @@ class Invoice(db.Model):
     __tablename__ = "invoices"
     invoice_no = db.Column(db.String(250), primary_key=True)
     invoice_type = db.Column(db.String(250), nullable=False)
+    issue_date = db.Column(db.String(250), nullable=False)
+    issue_city = db.Column(db.String(250), nullable=False)
+    sell_date = db.Column(db.String(250), nullable=False)
     issuer_tax_no = db.Column(db.Integer, nullable=False)
     recipient_tax_no = db.Column(db.Integer, nullable=False)
     position = db.Column(db.String(250), nullable=False)
-    amount = db.Column(db.Integer, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
     unit = db.Column(db.String(250), nullable=False)
-    price_net = db.Column(db.Integer, nullable=False)
-    tax_rate = db.Column(db.Integer, nullable=False)
-    sum_net = db.Column(db.Integer, nullable=False)
-    sum_gross = db.Column(db.Integer, nullable=False)
+    price_net = db.Column(db.Float, nullable=False)
+    tax_rate = db.Column(db.Float, nullable=False)
+    sum_net = db.Column(db.Float, nullable=False)
+    sum_gross = db.Column(db.Float, nullable=False)
 
     def __init__(
         self,
         invoice_type,
+        invoice_no,
+        issue_date,
+        issue_city,
+        sell_date,
         issuer_tax_no,
         recipient_tax_no,
         position,
@@ -45,10 +52,11 @@ class Invoice(db.Model):
         sum_net,
         sum_gross,
     ):
-        if invoice_type in config["INVOICE_TYPES"]:
-            self.invoice_type = invoice_type
-        else:
-            raise ValueError("Wrong invoice type")
+        self.invoice_type = invoice_type
+        self.invoice_no = invoice_no
+        self.issue_date = issue_date
+        self.issue_city = issue_city
+        self.sell_date = sell_date
         self.issuer_tax_no = issuer_tax_no
         self.recipient_tax_no = recipient_tax_no
         self.position = position
@@ -58,12 +66,6 @@ class Invoice(db.Model):
         self.tax_rate = tax_rate
         self.sum_net = sum_net
         self.sum_gross = sum_gross
-        # self.price_gross = [
-        #     calculate_gross(i, j) for i, j in zip(self.price_net, self.tax_rate)
-        # ]
-        # self.sum_net = calculate_sum(self.price_net)
-        # self.sum_gross = calculate_sum(self.price_gross)
-        # self.sum_tax = self.sum_gross - self.sum_net
 
     def show_invoice(self):
         string1 = f"""
