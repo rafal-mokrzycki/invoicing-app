@@ -9,6 +9,9 @@
     <link href="static/assets/img/favicon.png" rel="icon">
     <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -89,9 +92,10 @@
                             name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off" min="{{ min_date }}"
                             max="{{ max_date }}">
                     </div>
+                </div>
 
-                    <!-- issuer -->
-
+                <!-- issuer -->
+                <div class="row">
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="issuer">Issuer</label>
                         <p><input class="issuer_tax_no" name="issuer_tax_no" type="text"
@@ -112,67 +116,80 @@
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
                                 value="{{ request.form.recipient_tax_no }}"></input>
                     </div>
-
-                    <!-- invoice position - texts -->
-                    <div class="row invoice-positions">
-                        <div class="feature-box col-lg-6 ">Invoice position</div>
-                        <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
-                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
-                        <div class="col-sm-1 row3 ">Amount</div>
-                        <div class="col-sm-1 row3">Unit</div>
-                        <div class="col-sm-1 more_discount2 row1">Net price</div>
-                        <div class="col-sm-1 more row_tax ">VAT %</div>
-                        <div class="col-sm-1 row1 ">Net sum</div>
-                        <div class="col-sm-1 row1">Gross sum</div>
-
-                        <!-- invoice position - values -->
-
-                        <div class="feature-box col-lg-6 "><input type="text" name="position" value="{{
-                        request.form.position }}"></div>
-                        <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
-                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0 value="{{
-                        request.form.amount }}"></div>
-                        <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
-                        request.form.unit }}">
-                                <option value="item" selected>item</option>
-                                <option value="h">h</option>
-                                <option value="days">days</option>
-                                <option value="months">months</option>
-                                <option value="km">km</option>
-                                <option value="m2">m2</option>
-                                <option value="kg">kg</option>
-                            </select></div>
-                        <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{
-                        request.form.price_net }}"></div>
-                        <div class="col-sm-1 more row_tax "><select type="number" id="tax_rate" name="tax_rate"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{
-                        request.form.tax_rate }}">
-                                <option type="number" value="0.0">0%</option>
-                                <option type="number" value="0.05">5%</option>
-                                <option type="number" value="0.08">8%</option>
-                                <option type="number" value="0.23" selected>23%</option>
-                            </select></div>
-                        <div class="col-sm-1 row1 "><input type="number" name="sum_net" id="sum_net" value="{{
-                        sum_net }}" readonly></div>
-                        <div class="col-sm-1 row1"><input type="number" name="sum_gross" id="sum_gross" value="{{
-                        sum_gross }}" readonly></div>
-                    </div>
-                    <div class="issue-box col-lg-12 ">
-                        <input class="btn btn-default" type="submit" value="Issue">
-                    </div>
-
-
                 </div>
-            </form>
-            {% if error %}
-            <p class="error"><strong>Error:</strong> {{ error }}
-                {% endif %}
+
+                <!-- invoice position - texts -->
+                <div class="row invoice-positions-texts" id="invoice-positions-texts">
+                    <div class="feature-box col-lg-4 ">Invoice position</div>
+                    <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
+                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
+                    <div class="col-sm-1 row3 ">Amount</div>
+                    <div class="col-sm-1 row3">Unit</div>
+                    <div class="col-sm-1 more_discount2 row1">Net price</div>
+                    <div class="col-sm-1 more row_tax ">VAT %</div>
+                    <div class="col-sm-2 row1 ">Net sum</div>
+                    <div class="col-sm-2 row1">Gross sum</div>
+                </div>
+
+                <!-- invoice position - values -->
+                <div class="row invoice-positions-values" id="invoice-positions-values">
+
+                    <div class="feature-box col-lg-4 "><input type="text" name="position" value="{{
+                        request.form.position }}"></div>
+                    <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
+                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
+                    <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0 value="{{
+                        request.form.amount }}"
+                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                    </div>
+                    <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
+                        request.form.unit }}">
+                            <option value="item" selected>item</option>
+                            <option value="h">h</option>
+                            <option value="days">days</option>
+                            <option value="months">months</option>
+                            <option value="km">km</option>
+                            <option value="m2">m2</option>
+                            <option value="kg">kg</option>
+                        </select></div>
+                    <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net" min=0
+                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
+                            value="{{
+                        request.form.price_net }}"></div>
+                    <div class="col-sm-1 more row_tax "><select type="number" id="tax_rate" name="tax_rate"
+                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
+                            value="{{
+                        request.form.tax_rate }}">
+                            <option type="number" value="0.0">exempt</option>
+                            <option type="number" value="0.0">0%</option>
+                            <option type="number" value="0.05">5%</option>
+                            <option type="number" value="0.08">8%</option>
+                            <option type="number" value="0.23" selected>23%</option>
+                        </select></div>
+                    <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net" value="{{
+                        sum_net }}" readonly></div>
+                    <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross" value="{{
+                        sum_gross }}" readonly></div>
+
+                    <!-- issue buton -->
+                    <div class="add_buttons ">
+                        <a id="add_next_position" href="#" onclick="addNextFn();set_autocomplete();return false;"
+                            accesskey="M" title="New position" class="button-add-next-position btn success">
+                            <i class="bi bi-plus-circle-dotted"> </i><span>New position</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="issue-box col-lg-12 ">
+                    <input class="btn btn-default" type="submit" value="Issue">
+                </div>
+
+
         </div>
+        </form>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
+            </div>
     </section>
     <!-- ======= Footer ======= -->
     <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."static/assets/php/"; include($IPATH."footernav.html") ?>
@@ -214,6 +231,15 @@
             // var multiplication = amount * price_net + (amount * price_net * tax_rate);
             var multiplication = amount * price_net + (amount * price_net * tax_rate);
             document.getElementById('sum_gross').value = multiplication;
+        }
+    </script>
+    <script>
+        function addNextFn() {
+            const para = document.createElement("p");
+            const node = document.createTextNode("This is new.");
+            para.appendChild(node);
+            const element = document.getElementById("invoice-positions-values");
+            element.appendChild(para);
         }
     </script>
 </body>

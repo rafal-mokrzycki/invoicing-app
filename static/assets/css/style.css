@@ -266,12 +266,14 @@ section {
 }
 
 .navbar .new-invoice,
-.navbar .new-invoice:focus {
-  background: #012970;
-  padding: 8px 20px;
-  margin-left: 30px;
-  border-radius: 4px;
-  color: #fff;
+
+.navbar .new-invoice:focus,
+{
+background: #012970;
+padding: 8px 20px;
+margin-left: 30px;
+border-radius: 4px;
+color: #fff;
 }
 
 .navbar .new-invoice:hover,
@@ -2474,8 +2476,8 @@ section {
   margin-top: 10%;
 }
 
-.invoice-positions input,
-.invoice-positions select {
+.invoice-positions-values input,
+.invoice-positions-values select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -2484,7 +2486,23 @@ section {
   padding: 8px 8px;
 }
 
+.button-add-next-position,
+.button-add-next-position:focus {
+  background: #012970;
+  padding: 8px 20px;
+  border-radius: 4px;
+  color: #fff;
+}
 
+.button-add-next-position:hover,
+.button-add-next-position:focus:hover {
+  color: #fff;
+  background: #003185;
+}
+
+.bi-plus-circle-dotted {
+  margin-right: 7px;
+}
 
 /* Style inputs */
 input,
