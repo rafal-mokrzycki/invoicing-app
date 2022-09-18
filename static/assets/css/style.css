@@ -2504,6 +2504,26 @@ color: #fff;
   margin-right: 7px;
 }
 
+.btn-delete-position {
+  background: red;
+  border: red;
+  border-radius: 4px;
+  margin: 8px -10px;
+  display: inline-block;
+
+}
+
+.btn-delete-position:hover {
+  background: rgb(255, 65, 65);
+  border: rgb(255, 65, 65);
+
+}
+
+.bi-x {
+  color: white;
+}
+
+
 /* Style inputs */
 input,
 select {
