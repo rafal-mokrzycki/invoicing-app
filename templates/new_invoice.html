@@ -57,7 +57,7 @@
 
     <section id="new-invoice" class="new-invoice d-flex align-items-center">
         <div class="container">
-            <form class="new-invoice-form" action="" method="post">
+            <form class="new-invoice-form" id="new-invoice-form" action="" method="post">
                 <div class="row">
 
                     <!-- main data -->
@@ -132,64 +132,61 @@
                 </div>
 
                 <!-- invoice position - values -->
-                <div class="row invoice-positions-values" id="invoice-positions-values">
-
-                    <div class="feature-box col-lg-4 "><input type="text" name="position" value="{{
+                <div class="invoice-positions-values" id="invoice-positions-values">
+                    <div class="row invoice-position-1" id="invoice-position-1">
+                        <div class="feature-box col-lg-4 "><input type="text" name="position" value="{{
                         request.form.position }}"></div>
-                    <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
-                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
-                    <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0 value="{{
+                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0 value="{{
                         request.form.amount }}"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
-                    </div>
-                    <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
+                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                        </div>
+                        <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
                         request.form.unit }}">
-                            <option value="item" selected>item</option>
-                            <option value="h">h</option>
-                            <option value="days">days</option>
-                            <option value="months">months</option>
-                            <option value="km">km</option>
-                            <option value="m2">m2</option>
-                            <option value="kg">kg</option>
-                        </select></div>
-                    <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net" min=0
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                            value="{{
+                                <option value="item" selected>item</option>
+                                <option value="h">h</option>
+                                <option value="days">days</option>
+                                <option value="months">months</option>
+                                <option value="km">km</option>
+                                <option value="m2">m2</option>
+                                <option value="kg">kg</option>
+                            </select></div>
+                        <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
+                                min=0
+                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
+                                value="{{
                         request.form.price_net }}"></div>
-                    <div class="col-sm-1 more row_tax "><select type="number" id="tax_rate" name="tax_rate"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                            value="{{
+                        <div class="col-sm-1 more row_tax "><select type="number" id="tax_rate" name="tax_rate"
+                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
+                                value="{{
                         request.form.tax_rate }}">
-                            <option type="number" value="0.0">exempt</option>
-                            <option type="number" value="0.0">0%</option>
-                            <option type="number" value="0.05">5%</option>
-                            <option type="number" value="0.08">8%</option>
-                            <option type="number" value="0.23" selected>23%</option>
-                        </select></div>
-                    <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net" value="{{
+                                <option type="number" value="0.0">exempt</option>
+                                <option type="number" value="0.0">0%</option>
+                                <option type="number" value="0.05">5%</option>
+                                <option type="number" value="0.08">8%</option>
+                                <option type="number" value="0.23" selected>23%</option>
+                            </select></div>
+                        <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net" value="{{
                         sum_net }}" readonly></div>
-                    <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross" value="{{
+                        <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross" value="{{
                         sum_gross }}" readonly></div>
 
-                    <!-- issue buton -->
-                    <div class="add_buttons ">
-                        <a id="add_next_position" href="#" onclick="addNextFn();set_autocomplete();return false;"
-                            accesskey="M" title="New position" class="button-add-next-position btn success">
-                            <i class="bi bi-plus-circle-dotted"> </i><span>New position</span>
-                        </a>
                     </div>
+                </div>
+                <!-- issue buton -->
+                <div class="add_buttons ">
+                    <a id="add_next_position" href="#" onclick="addNextFn();set_autocomplete();return false;"
+                        accesskey="M" title="New position" class="button-add-next-position btn success">
+                        <i class="bi bi-plus-circle-dotted"></i><span>New position</span>
+                    </a>
                 </div>
                 <div class="issue-box col-lg-12 ">
                     <input class="btn btn-default" type="submit" value="Issue">
                 </div>
-
-
+            </form>
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+                {% endif %}
         </div>
-        </form>
-        {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-            {% endif %}
-            </div>
     </section>
     <!-- ======= Footer ======= -->
     <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."static/assets/php/"; include($IPATH."footernav.html") ?>
@@ -235,11 +232,11 @@
     </script>
     <script>
         function addNextFn() {
-            const para = document.createElement("p");
-            const node = document.createTextNode("This is new.");
-            para.appendChild(node);
-            const element = document.getElementById("invoice-positions-values");
-            element.appendChild(para);
+            let parent_element = document.getElementById("invoice-positions-values");
+            let example_position = document.getElementById("invoice-position-1");
+            let new_position = example_position.cloneNode(true);
+            new_position.id = "invoice-position-2";
+            parent_element.appendChild(new_position);
         }
     </script>
 </body>
