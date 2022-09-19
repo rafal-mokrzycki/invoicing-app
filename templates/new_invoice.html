@@ -29,6 +29,11 @@
 
     <!-- Template Main CSS File -->
     <link href="static/assets/css/style.css" rel="stylesheet">
+
+    <!-- PyScript implementation -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
 </head>
 <!-- ======== HEADER ======== -->
 
@@ -69,16 +74,18 @@
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
                         <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
-                            autocomplete="off">
+                            onchange="getInvoiceNumber()" autocomplete="off">
                             <option value="regular" selected>Regular</option>
                             <option value="proforma">Proforma</option>
                             <option value="advanced payment">Advanced payment</option>
                         </select>
                     </div>
+
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_no">Invoice number</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value="{{ invoice_no }}"
-                            name="invoice[sell_date]" id="invoice_no" autocomplete="off" readonly>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text"
+                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no" autocomplete="off"
+                            onclick="getInvoiceNumber()" readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_issue_date">Issue date</label>
@@ -256,6 +263,37 @@
 
     <!-- Custom JavaScript Functions -->
     <script>
+
+        // https://ourcodeworld.com/articles/read/286/how-to-execute-a-python-script-and-retrieve-output-data-and-errors-in-node-js
+        function getInvoiceNumber() {
+            // var myPythonScriptPath = 'C:/Users/rafal/Documents/python/invoicing_app/scripts/parser.py';
+
+            // // Use python shell
+            // var PythonShell = require('python-shell');
+            // var pyshell = new PythonShell(myPythonScriptPath);
+
+            // pyshell.on('message', function (message) {
+            //     // received a message sent from the Python script (a simple "print" statement)
+            //     console.log(message);
+            // });
+
+            // // end the input stream and allow the process to exit
+            // pyshell.end(function (err) {
+            //     if (err) {
+            //         throw err;
+            //     };
+
+            //     console.log('finished');
+            // });
+
+            // var invoice_type = document.getElementById("invoice_type");
+            var invoice_no = document.getElementById("invoice_no");
+
+            // invoice_no.value = setInvoiceNumber()
+            invoice_no.value = 'asd'
+
+        }
+
         function sumNetFunction() {
             // Capture position number
 
@@ -266,8 +304,6 @@
             var multiplication = amount * price_net;
             document.getElementById('sum_net').value = multiplication;
         }
-    </script>
-    <script>
         function sumGrossFunction() {
             // Capture the entered values of two input boxes
             var amount = document.getElementById('amount').value;
@@ -277,8 +313,6 @@
             var multiplication = amount * price_net + (amount * price_net * tax_rate);
             document.getElementById('sum_gross').value = multiplication;
         }
-    </script>
-    <script>
         function addNextFn() {
             var parent_element = document.getElementById("invoice-positions-values");
             var example_position = document.getElementById("invoice-position-0");
@@ -286,8 +320,6 @@
             new_position.id = "invoice-position-2";
             parent_element.appendChild(new_position);
         }
-    </script>
-    <script>
         function deletePosition() {
         }
     </script>
