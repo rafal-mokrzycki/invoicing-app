@@ -20,7 +20,8 @@ CURRENCY = config["CURRENCY"]
 
 class Invoice(db.Model):
     __tablename__ = "invoices"
-    invoice_no = db.Column(db.String(250), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    invoice_no = db.Column(db.String(250), nullable=False)
     invoice_type = db.Column(db.String(250), nullable=False)
     issue_date = db.Column(db.String(250), nullable=False)
     issue_city = db.Column(db.String(250), nullable=False)
@@ -37,6 +38,7 @@ class Invoice(db.Model):
 
     def __init__(
         self,
+        id,
         invoice_type,
         invoice_no,
         issue_date,
@@ -52,6 +54,7 @@ class Invoice(db.Model):
         sum_net,
         sum_gross,
     ):
+        self.id = id
         self.invoice_type = invoice_type
         self.invoice_no = invoice_no
         self.issue_date = issue_date
@@ -168,6 +171,10 @@ def format_number(number):
 
 def get_new_invoice_number():
     return datetime.datetime.now().strftime(f"%Y/%m/1")  # TODO: invoices database
+
+
+def get_number_of_invoices_in_db():
+    return db.session.query(Invoice).count()
 
 
 def ceidg_api():

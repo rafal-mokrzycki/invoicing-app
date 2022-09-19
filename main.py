@@ -19,7 +19,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
-from scripts.invoice import Invoice, get_new_invoice_number
+from scripts.invoice import Invoice, get_new_invoice_number, get_number_of_invoices_in_db
 from scripts.persons import Issuer, User
 
 app = Flask(__name__)
@@ -125,10 +125,14 @@ def logout():
 @app.route("/new-invoice", methods=["GET", "POST"])
 @login_required
 def new_invoice():
+    print("NEW INVOICE")
     today = datetime.datetime.now()
+    print("TODAY")
     if request.method == "POST":
+        print("IF")
         new_invoice = Invoice(
             # invoice_type=request.args.get("invoice_type"),
+            id=get_number_of_invoices_in_db(),
             invoice_type="regular",
             invoice_no=get_new_invoice_number(),
             issue_date=today.strftime("%d/%m/%Y"),
@@ -145,8 +149,10 @@ def new_invoice():
             sum_gross=request.form.get("sum_gross"),
         )
         db.session.add(new_invoice)
+        print("ADDED")
         db.session.commit()
-        return redirect(url_for("user"))
+        print("COMMITTED")
+        return redirect(url_for("user"), logged_in=current_user.is_authenticated)
     return render_template(
         "new_invoice.html",
         invoice_no=get_new_invoice_number(),
@@ -156,6 +162,7 @@ def new_invoice():
         # or 90 days after the sell date.
         min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),
         max_date=(today + datetime.timedelta(days=60)).strftime("%Y-%m-%d"),
+        logged_in=current_user.is_authenticated,
     )
 
 

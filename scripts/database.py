@@ -58,6 +58,7 @@ class Database:
         elif table_name == "invoices":
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
+                id INTEGER PRIMARY KEY,
                 invoice_type varchar(250) NOT NULL,
                 invoice_no varchar(250) NOT NULL,
                 issue_date varchar(250) NOT NULL,
@@ -71,8 +72,7 @@ class Database:
                 price_net REAL NOT NULL,
                 tax_rate REAL NOT NULL,
                 sum_net REAL NOT NULL,
-                sum_gross REAL NOT NULL,
-                PRIMARY KEY (invoice_type, invoice_no))"""
+                sum_gross REAL NOT NULL)"""
         elif table_name == "issuers":
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<meta charset="UTF-8">
 
 <head>
     <title>New invoice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
     <!-- Favicons -->
     <link href="static/assets/img/favicon.png" rel="icon">
@@ -58,15 +59,17 @@
 
     <section id="new-invoice" class="new-invoice d-flex align-items-center">
         <div class="container">
-            <form class="new-invoice-form" id="new-invoice-form" action="" method="post">
+            <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
+            <form class="invoice-form">
                 <div class="row">
+
 
                     <!-- main data -->
 
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
-                        <select class="form-control  datepicker f3 hasDatepicker" type="text" name="invoice_type"
-                            id="invoice_type" autocomplete="off">
+                        <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
+                            autocomplete="off">
                             <option value="regular" selected>Regular</option>
                             <option value="proforma">Proforma</option>
                             <option value="advanced payment">Advanced payment</option>
@@ -100,7 +103,7 @@
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="issuer">Issuer</label>
                         <p><input class="issuer_tax_no" name="issuer_tax_no" type="text"
-                                value="{{ request.form.issuer_tax_no }}"></input>
+                                value="{{ request.form.issuer_tax_no }}">
                         </p>
 
                     </div>
@@ -115,7 +118,7 @@
                         <p>{{ bank_account }}</p> -->
 
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ request.form.recipient_tax_no }}"></input>
+                                value="{{ request.form.recipient_tax_no }}">
                     </div>
                 </div>
 
@@ -133,8 +136,8 @@
                 </div>
 
                 <!-- invoice position - values -->
-                <div class="invoice-positions-values" id="invoice-positions-values">
-                    <div class="invoice-positions-hidden" id="invoice-positions-hidden" hidden>
+                <div class=" invoice-positions-values" id="invoice-positions-values">
+                    <!-- <div class="invoice-positions-hidden" id="invoice-positions-hidden" hidden>
                         <div class="row invoice-position-0" id="invoice-position-0">
                             <div class="feature-box col-lg-3 "><input type="text" name="position" id="position" value="{{
                         request.form.position }}"></div>
@@ -174,16 +177,15 @@
                             <div class="col-sm-1 row1"><a class="btn btn-delete-position" onclick="deletePosition()"><i
                                         class="bi bi-x"></i></a></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row invoice-position-1" id="invoice-position-1">
-                        <div class="feature-box col-lg-3 "><input type="text" data-row="_1_" name="position" id="position" value="{{
-                                        request.form.position }}"></div>
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0 value="{{
-                                        request.form.amount }}"
+                        <div class="feature-box col-lg-3 "><input type="text" name="position" id="position"
+                                value="{{ request.form.position }}"></div>
+                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0
+                                value="{{ request.form.amount }}"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
                         </div>
-                        <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
-                                        request.form.unit }}">
+                        <div class="col-sm-1 row3"><select id="unit" name="unit" value="{{ request.form.unit }}">
                                 <option value="item" selected>item</option>
                                 <option value="h">h</option>
                                 <option value="days">days</option>
@@ -195,43 +197,43 @@
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
                                 min=0
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{
-                                        request.form.price_net }}"></div>
-                        <div class="col-sm-1 more row_tax "><select type="number" id="tax_rate" name="tax_rate"
+                                value="{{ request.form.price_net }}"></div>
+                        <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{
-                                        request.form.tax_rate }}">
-                                <option type="number" value="0.0">exempt</option>
-                                <option type="number" value="0.0">0%</option>
-                                <option type="number" value="0.05">5%</option>
-                                <option type="number" value="0.08">8%</option>
-                                <option type="number" value="0.23" selected>23%</option>
+                                value="{{ request.form.tax_rate }}">
+                                <option value="0.0">exempt</option>
+                                <option value="0.0">0%</option>
+                                <option value="0.05">5%</option>
+                                <option value="0.08">8%</option>
+                                <option value="0.23" selected>23%</option>
                             </select></div>
-                        <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net" value="{{
-                                        sum_net }}" readonly></div>
-                        <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross" value="{{
-                                        sum_gross }}" readonly></div>
+                        <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net"
+                                value="{{ sum_net }}" readonly></div>
+                        <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross"
+                                value="{{ sum_gross }}" readonly></div>
                         <div class="col-sm-1 row1"><a class="btn btn-delete-position" onclick="deletePosition()"><i
                                     class="bi bi-x"></i></a>
-
-
                         </div>
                     </div>
                 </div>
-
                 <!-- issue buton -->
                 <div class="add_buttons ">
                     <a id="add_next_position" href="#" onclick="addNextFn()" accesskey="M" title="New position"
                         class="button-add-next-position btn success">
-                        <i class="bi bi-plus-circle-dotted"></i><span>===\==</span>
+                        <i class="bi bi-plus-circle-dotted"></i><span>New position</span>
                     </a>
                 </div>
                 <div class="issue-box col-lg-12 ">
                     <input class="btn btn-default" type="submit" value="Issue">
+                </div>
             </form>
-            {% if error %}
-            <p class="error"><strong>Error:</strong> {{ error }}
-                {% endif %}
+        </div>
+
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+            {% endif %}
+        </p>
+
     </section>
     <!-- ======= Footer ======= -->
     <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."static/assets/php/"; include($IPATH."footernav.html") ?>
@@ -256,8 +258,7 @@
     <script>
         function sumNetFunction() {
             // Capture position number
-            /?'
-            :'
+
             // Capture the entered values of two input boxes
             var amount = document.getElementById('amount').value;
             var price_net = document.getElementById('price_net').value;
@@ -284,7 +285,6 @@
             var new_position = example_position.cloneNode(true);
             new_position.id = "invoice-position-2";
             parent_element.appendChild(new_position);
-
         }
     </script>
     <script>
