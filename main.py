@@ -152,7 +152,7 @@ def new_invoice():
         print("ADDED")
         db.session.commit()
         print("COMMITTED")
-        return redirect(url_for("user"), logged_in=current_user.is_authenticated)
+        return redirect(url_for("user"))
     return render_template(
         "new_invoice.html",
         invoice_no=get_new_invoice_number(),
