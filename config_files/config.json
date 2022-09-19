@@ -18,6 +18,6 @@
         "invoices"
     ],
     "SECRET_KEY": "secret-key-goes-here",
-    "SQLALCHEMY_DATABASE_URI": "sqlite:///database.db",
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///C:/Users/rafal/Documents/python/invoicing_app/database.db",
     "SQLALCHEMY_TRACK_MODIFICATIONS": false
 }
