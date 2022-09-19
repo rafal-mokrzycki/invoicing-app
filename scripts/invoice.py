@@ -9,6 +9,7 @@ from config_files.config import config
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from fpdf import FPDF
+from sqlalchemy import func
 
 app = Flask(__name__)
 app.config.update(config)
@@ -23,9 +24,9 @@ class Invoice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     invoice_no = db.Column(db.String(250), nullable=False)
     invoice_type = db.Column(db.String(250), nullable=False)
-    issue_date = db.Column(db.String(250), nullable=False)
+    issue_date = db.Column(db.DateTime, nullable=False)
     issue_city = db.Column(db.String(250), nullable=False)
-    sell_date = db.Column(db.String(250), nullable=False)
+    sell_date = db.Column(db.DateTime, nullable=False)
     issuer_tax_no = db.Column(db.Integer, nullable=False)
     recipient_tax_no = db.Column(db.Integer, nullable=False)
     position = db.Column(db.String(250), nullable=False)
@@ -169,12 +170,8 @@ def format_number(number):
     return "{:.2f}".format(number) + f" {CURRENCY}"
 
 
-def get_new_invoice_number():
-    return datetime.datetime.now().strftime(f"%Y/%m/1")  # TODO: invoices database
-
-
 def get_number_of_invoices_in_db():
-    return db.session.query(Invoice).count()
+    return db.session.query(Invoice).count() + 1
 
 
 def ceidg_api():

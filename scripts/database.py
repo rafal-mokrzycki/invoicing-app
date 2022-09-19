@@ -61,9 +61,9 @@ class Database:
                 id INTEGER PRIMARY KEY,
                 invoice_type varchar(250) NOT NULL,
                 invoice_no varchar(250) NOT NULL,
-                issue_date varchar(250) NOT NULL,
+                issue_date DATE NOT NULL,
                 issue_city varchar(250) NOT NULL,
-                sell_date varchar(250) NOT NULL,
+                sell_date DATE NOT NULL,
                 issuer_tax_no INTEGER NOT NULL,
                 recipient_tax_no INTEGER  NOT NULL,
                 position varchar(250) NOT NULL,
@@ -106,5 +106,5 @@ class Database:
 
 if __name__ == "__main__":
     pass
-    # db = Database()
-    # db.create_table("invoices", drop_if_exists=True)
+    db = Database()
+    db.create_table("invoices", drop_if_exists=True)
