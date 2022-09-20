@@ -47,5 +47,12 @@ def parse_invoice_number(invoice_type):
     return f"{current_year}/{current_month}/{invoice_number + 1}"
 
 
+def func():
+    return "YEY"
+
+
 if __name__ == "__main__":
-    parse_invoice_number(invoice_type=None)
+    # parse_invoice_number(invoice_type=None)
+    func()
+
+#########################################################################################
