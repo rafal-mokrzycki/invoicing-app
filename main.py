@@ -160,5 +160,11 @@ def new_invoice():
     )
 
 
+@app.route("/your-invoices", methods=["GET", "POST"])
+@login_required
+def your_invoices():
+    return render_template("your_invoices.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
