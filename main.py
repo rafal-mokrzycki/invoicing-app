@@ -150,10 +150,11 @@ def new_invoice():
         return redirect(url_for("user"))
     return render_template(
         "new_invoice.html",
-        issue_date=datetime.datetime.date(datetime.datetime.now()),
-        sell_date=datetime.datetime.date(datetime.datetime.now()),
+        # issue_date=datetime.datetime.date(datetime.datetime.now()),
+        # sell_date=datetime.datetime.date(datetime.datetime.now()),
         # According to the Polish tax law it is allowed to issue an invoice 60 days before
         # or 90 days after the sell date.
+        today=today.strftime("%Y-%m-%d"),
         min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),
         max_date=(today + datetime.timedelta(days=60)).strftime("%Y-%m-%d"),
         logged_in=current_user.is_authenticated,
