@@ -7,9 +7,9 @@ import datetime
 import numpy as np
 from config_files.config import config
 from flask import Flask
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from fpdf import FPDF
-from sqlalchemy import func
 
 app = Flask(__name__)
 app.config.update(config)
@@ -19,57 +19,57 @@ db = SQLAlchemy(app)
 CURRENCY = config["CURRENCY"]
 
 
-class Invoice(db.Model):
+class Invoice(db.Model, UserMixin):
     __tablename__ = "invoices"
     id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Float, nullable=False)
     invoice_no = db.Column(db.String(250), nullable=False)
     invoice_type = db.Column(db.String(250), nullable=False)
-    issue_date = db.Column(db.DateTime, nullable=False)
     issue_city = db.Column(db.String(250), nullable=False)
-    sell_date = db.Column(db.DateTime, nullable=False)
+    issue_date = db.Column(db.DateTime, nullable=False)
     issuer_tax_no = db.Column(db.Integer, nullable=False)
-    recipient_tax_no = db.Column(db.Integer, nullable=False)
     position = db.Column(db.String(250), nullable=False)
-    amount = db.Column(db.Float, nullable=False)
-    unit = db.Column(db.String(250), nullable=False)
     price_net = db.Column(db.Float, nullable=False)
-    tax_rate = db.Column(db.Float, nullable=False)
-    sum_net = db.Column(db.Float, nullable=False)
+    recipient_tax_no = db.Column(db.Integer, nullable=False)
+    sell_date = db.Column(db.DateTime, nullable=False)
     sum_gross = db.Column(db.Float, nullable=False)
+    sum_net = db.Column(db.Float, nullable=False)
+    tax_rate = db.Column(db.Float, nullable=False)
+    unit = db.Column(db.String(250), nullable=False)
 
     def __init__(
         self,
         id,
-        invoice_type,
-        invoice_no,
-        issue_date,
-        issue_city,
-        sell_date,
-        issuer_tax_no,
-        recipient_tax_no,
-        position,
         amount,
-        unit,
+        invoice_no,
+        invoice_type,
+        issue_city,
+        issue_date,
+        issuer_tax_no,
+        position,
         price_net,
-        tax_rate,
-        sum_net,
+        recipient_tax_no,
+        sell_date,
         sum_gross,
+        sum_net,
+        tax_rate,
+        unit,
     ):
         self.id = id
-        self.invoice_type = invoice_type
         self.invoice_no = invoice_no
-        self.issue_date = issue_date
+        self.invoice_type = invoice_type
         self.issue_city = issue_city
-        self.sell_date = sell_date
+        self.issue_date = issue_date
         self.issuer_tax_no = issuer_tax_no
-        self.recipient_tax_no = recipient_tax_no
         self.position = position
-        self.amount = amount
-        self.unit = unit
         self.price_net = price_net
-        self.tax_rate = tax_rate
-        self.sum_net = sum_net
+        self.recipient_tax_no = recipient_tax_no
+        self.sell_date = sell_date
         self.sum_gross = sum_gross
+        self.sum_net = sum_net
+        self.tax_rate = tax_rate
+        self.unit = unit
+        self.amount = amount
 
     def show_invoice(self):
         string1 = f"""

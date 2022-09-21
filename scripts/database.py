@@ -1,11 +1,19 @@
+#!/usr/bin/env python
 import sqlite3
 import sys
 import traceback
 
 import repackage
 
-repackage.up()
+repackage.up(1)
 from config_files.config import config
+from flask import Flask
+from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config.update(config)
+db = SQLAlchemy(app)
 
 
 class Database:
@@ -41,45 +49,48 @@ class Database:
         :return:
         """
         connection = conn or self.create_connection()
-        if table_name == "accounts":
-            create_table_sql = f"""
-            CREATE TABLE IF NOT EXISTS {table_name} (
-                email varchar(250) PRIMARY KEY,
-                surname varchar(250) NOT NULL,
-                name varchar(250) NOT NULL,
-                phone_no varchar(250) NOT NULL,
-                password varchar(250) NOT NULL)"""
-        elif table_name == "contractors":
-            create_table_sql = f"""
-            CREATE TABLE IF NOT EXISTS {table_name} (
-                name varchar(250) NOT NULL,
-                surname varchar(250) NOT NULL,
-                tax_no varchar(250) PRIMARY KEY)"""
-        elif table_name == "invoices":
+        # create table ACCOUNTS
+        if table_name == config["TABLE_NAMES"][0]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
                 id INTEGER PRIMARY KEY,
-                invoice_type varchar(250) NOT NULL,
-                invoice_no varchar(250) NOT NULL,
-                issue_date DATE NOT NULL,
-                issue_city varchar(250) NOT NULL,
-                sell_date DATE NOT NULL,
-                issuer_tax_no INTEGER NOT NULL,
-                recipient_tax_no INTEGER  NOT NULL,
-                position varchar(250) NOT NULL,
-                amount REAL NOT NULL,
-                unit varchar(250) NOT NULL,
-                price_net REAL NOT NULL,
-                tax_rate REAL NOT NULL,
-                sum_net REAL NOT NULL,
-                sum_gross REAL NOT NULL)"""
-        elif table_name == "issuers":
+                email varchar(250) NOT NULL,
+                surname varchar(250) NOT NULL,
+                name varchar(250) NOT NULL,
+                phone_no varchar(250) NOT NULL,
+                password varchar(250) NOT NULL,
+                tax_no varchar(250),
+                bank_account varchar(250),
+                address varchar(250))"""
+        # create table CONTRACTORS
+        elif table_name == config["TABLE_NAMES"][1]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
+                id INTEGER PRIMARY KEY,
                 name varchar(250) NOT NULL,
-                address varchar(250) NOT NULL,
-                bank_account varchar(250) NOT NULL,
-                tax_no varchar(250) PRIMARY KEY)"""
+                surname varchar(250) NOT NULL,
+                tax_no varchar(250) NOT NULL)"""
+        # create table INVOICES
+        elif table_name == config["TABLE_NAMES"][2]:
+            create_table_sql = f"""
+            CREATE TABLE IF NOT EXISTS {table_name} (
+                id INTEGER PRIMARY KEY,
+                amount REAL NOT NULL,
+                invoice_no varchar(250) NOT NULL,
+                invoice_type varchar(250) NOT NULL,
+                issue_city varchar(250) NOT NULL,
+                issue_date DATE NOT NULL,
+                issuer_tax_no INTEGER NOT NULL,
+                position varchar(250) NOT NULL,
+                price_net REAL NOT NULL,
+                recipient_tax_no INTEGER NOT NULL,
+                sell_date DATE NOT NULL,
+                sum_gross REAL NOT NULL,
+                sum_net REAL NOT NULL,
+                tax_rate REAL NOT NULL,
+                unit varchar(250) NOT NULL)"""
+        else:
+            raise NameError
         try:
             cursor = connection.cursor()
             if drop_if_exists:
@@ -104,7 +115,49 @@ class Database:
         pass
 
 
+class User(db.Model, UserMixin):
+    __tablename__ = config["TABLE_NAMES"][0]
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(250), nullable=False)
+    name = db.Column(db.String(250), nullable=False)
+    surname = db.Column(db.String(250), nullable=False)
+    phone_no = db.Column(db.Integer, nullable=False)
+    password = db.Column(db.String(250), nullable=False)
+    address = db.Column(db.String(250), nullable=True)
+    tax_no = db.Column(db.String(250), nullable=True)
+    bank_account = db.Column(db.String(250), nullable=True)
+
+
+class Contractor(db.Model, UserMixin):
+    __tablename__ = config["TABLE_NAMES"][1]
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False)
+    surname = db.Column(db.String(250), nullable=False)
+    tax_no = db.Column(db.String(250), nullable=False)
+
+
+# class Invoice(db.Model):
+#     __tablename__ = config["TABLE_NAMES"][2]
+#     id = db.Column(db.Integer, primary_key=True)
+#     amount = db.Column(db.Float, nullable=False)
+#     invoice_no = db.Column(db.String(250), nullable=False)
+#     invoice_type = db.Column(db.String(250), nullable=False)
+#     issue_city = db.Column(db.String(250), nullable=False)
+#     issue_date = db.Column(db.DateTime, nullable=False)
+#     issuer_tax_no = db.Column(db.Integer, nullable=False)
+#     position = db.Column(db.String(250), nullable=False)
+#     price_net = db.Column(db.Float, nullable=False)
+#     recipient_tax_no = db.Column(db.Integer, nullable=False)
+#     sell_date = db.Column(db.DateTime, nullable=False)
+#     sum_gross = db.Column(db.Float, nullable=False)
+#     sum_net = db.Column(db.Float, nullable=False)
+#     tax_rate = db.Column(db.Float, nullable=False)
+#     unit = db.Column(db.String(250), nullable=False)
+
+
 if __name__ == "__main__":
     pass
     db = Database()
-    db.create_table("invoices", drop_if_exists=True)
+    db.create_table("invoices")
+    db.create_table("accounts")
+    db.create_table("contractors")

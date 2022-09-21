@@ -19,9 +19,8 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
+from scripts.database import Contractor, Database, User
 from scripts.invoice import Invoice, get_number_of_invoices_in_db
-from scripts.parsers import parse_json_with_invoices_counted
-from scripts.persons import Issuer, User
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -132,9 +131,11 @@ def new_invoice():
             id=get_number_of_invoices_in_db(),
             invoice_type=request.form.get("invoice_type"),
             invoice_no=request.form.get("invoice_no"),
-            issue_date=request.form.get("issue_date"),
+            issue_date=today.date(),
             issue_city=request.form.get("issue_city"),
-            sell_date=request.form.get("sell_date"),
+            sell_date=datetime.datetime.strptime(
+                request.form.get("sell_date"), "%Y-%m-%d"
+            ).date(),
             issuer_tax_no=request.form.get("issuer_tax_no"),
             recipient_tax_no=request.form.get("recipient_tax_no"),
             position=request.form.get("position"),
@@ -150,11 +151,9 @@ def new_invoice():
         return redirect(url_for("user"))
     return render_template(
         "new_invoice.html",
-        # issue_date=datetime.datetime.date(datetime.datetime.now()),
-        # sell_date=datetime.datetime.date(datetime.datetime.now()),
         # According to the Polish tax law it is allowed to issue an invoice 60 days before
         # or 90 days after the sell date.
-        today=today.strftime("%Y-%m-%d"),
+        today=today.date(),
         min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),
         max_date=(today + datetime.timedelta(days=60)).strftime("%Y-%m-%d"),
         logged_in=current_user.is_authenticated,
