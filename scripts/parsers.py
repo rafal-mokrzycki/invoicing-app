@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+"""
+Parsers
+"""
 import calendar
 import datetime
+import json
 
 import repackage
 from flask import Flask
@@ -8,6 +13,7 @@ from sqlalchemy import func
 
 repackage.up()
 from config_files.config import config
+
 from scripts.invoice import Invoice
 
 app = Flask(__name__)
@@ -20,15 +26,15 @@ def parse_invoice_number(invoice_type):
     Takes invoice type andbased on the current year and month, number of invoices in DB
     and pattern YYYY/MM/number_of_invoice parses invoice number.
     """
-    currentDate = datetime.date.today()
+    current_date = datetime.date.today()
     last_day_of_previous_month = datetime.date(
-        currentDate.year,
-        currentDate.month - 1,
-        calendar.monthrange(currentDate.year, currentDate.month - 1)[1],
+        current_date.year,
+        current_date.month - 1,
+        calendar.monthrange(current_date.year, current_date.month - 1)[1],
     )
     first_day_of_next_month = datetime.date(
-        currentDate.year,
-        currentDate.month + 1,
+        current_date.year,
+        current_date.month + 1,
         1,
     )
     current_year = datetime.datetime.now().strftime("%Y")
@@ -47,12 +53,34 @@ def parse_invoice_number(invoice_type):
     return f"{current_year}/{current_month}/{invoice_number + 1}"
 
 
-def func():
-    return "YEY"
+def parse_json_with_invoices_counted():
+    """
+    Takes invoice type andbased on the current year and month, number of invoices in DB
+    and return json with invoices counted by groups for a given month.
+    """
+    current_date = datetime.date.today()
+    last_day_of_previous_month = datetime.date(
+        current_date.year,
+        current_date.month - 1,
+        calendar.monthrange(current_date.year, current_date.month - 1)[1],
+    )
+    first_day_of_next_month = datetime.date(
+        current_date.year,
+        current_date.month + 1,
+        1,
+    )
+    query = (
+        db.session.query(Invoice.invoice_type, func.count(Invoice.invoice_type))
+        .group_by(Invoice.invoice_type)
+        .filter(Invoice.issue_date > last_day_of_previous_month)
+        .filter(Invoice.issue_date < first_day_of_next_month)
+        # .all()
+    )
+
+    with open("invoices_counted.json", "w") as f:
+        f.write(json.dumps(dict(query)))
 
 
 if __name__ == "__main__":
     # parse_invoice_number(invoice_type=None)
-    func()
-
-#########################################################################################
+    print(parse_json_with_invoices_counted())

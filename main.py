@@ -20,6 +20,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
 from scripts.invoice import Invoice, get_number_of_invoices_in_db
+from scripts.parsers import parse_json_with_invoices_counted
 from scripts.persons import Issuer, User
 
 app = Flask(__name__)
@@ -128,7 +129,6 @@ def new_invoice():
     today = datetime.datetime.now()
     if request.method == "POST":
         new_invoice = Invoice(
-            # invoice_type=request.args.get("invoice_type"),
             id=get_number_of_invoices_in_db(),
             invoice_type=request.form.get("invoice_type"),
             invoice_no=request.form.get("invoice_no"),
@@ -154,6 +154,7 @@ def new_invoice():
         # invoice_no=get_new_invoice_number("regular"),
         # issue_date=today.strftime("%Y-%m-%d"),
         # sell_date=today.strftime("%Y-%m-%d"),
+        json_with_invoices=parse_json_with_invoices_counted(),
         issue_date=datetime.datetime.date(datetime.datetime.now()),
         sell_date=datetime.datetime.date(datetime.datetime.now()),
         # According to the Polish tax law it is allowed to issue an invoice 60 days before

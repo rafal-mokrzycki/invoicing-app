@@ -65,29 +65,37 @@
         <div class="container">
             <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
             <form class="invoice-form" action="" method="post">
+
                 <div class="row">
 
 
                     <!-- main data -->
-                    <py-script id="regular_invoice" hidden>
-                        2+3
-                    </py-script>
+
+                    <!-- Custom JS File -->
+
+
+                    <!-- <div class="col-sm-4 expense_hidden22" id="python_hidden" value="">
+                        <input id="python_hidden" value="{{ request.form.x }}">
+                    </div>
+                    <div class="col-sm-4 expense_hidden22">
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" id="to_change"
+                            name="to_change" onclick="getInvoiceNumber()">
+                    </div> -->
+                    <!-- <script type="text/javascript" src="invoices_counted.json"></script> -->
 
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
                         <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
-                            onchange="goPython()">
+                            onchange="getInvoiceNumber()">
                             <option value="regular" selected>Regular</option>
                             <option value="proforma">Proforma</option>
                             <option value="advanced payment">Advanced payment</option>
                         </select>
                     </div>
-
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_no">Invoice number</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no" onclick="goPython()"
-                            readonly>
+                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no" readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_issue_date">Issue date</label>
@@ -107,8 +115,9 @@
                     </div>
                 </div>
 
-                <!-- issuer -->
                 <div class="row">
+
+                    <!-- issuer -->
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="issuer">Issuer</label>
                         <p><input class="issuer_tax_no" name="issuer_tax_no" type="text"
@@ -118,14 +127,8 @@
                     </div>
 
                     <!-- recipient -->
-
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="recipient">Recipient</label>
-                        <!-- <p>{{ tax_no }}</p>
-                        <p>{{ name }}</p>
-                        <p>{{ address }}</p>
-                        <p>{{ bank_account }}</p> -->
-
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
                                 value="{{ request.form.recipient_tax_no }}">
                     </div>
@@ -134,8 +137,6 @@
                 <!-- invoice position - texts -->
                 <div class="row invoice-positions-texts" id="invoice-positions-texts">
                     <div class="feature-box col-lg-3 ">Invoice position</div>
-                    <!-- <div class="col-sm-1 more more_d row1 hidden" style="display: none;">PKWiU&nbsp;</div>
-                    <div class="col-sm-1 more_discount1 row4 hidden" style="display: none;">Rabat</div> -->
                     <div class="col-sm-1 row3 ">Amount</div>
                     <div class="col-sm-1 row3">Unit</div>
                     <div class="col-sm-1 more_discount2 row1">Net price</div>
@@ -263,38 +264,8 @@
     <!-- Template Main JS File -->
     <script src="static/assets/js/main.js"></script>
 
+
     <!-- Custom JavaScript Functions -->
-    <script>
-        function setInvoiceNumber() {
-            var invoice_type = document.getElementById("invoice_type");
-            var invoice_no = document.getElementById("invoice_no");
-            var regular_invoice = document.getElementById("regular_invoice");
-
-            let string = new Date().getFullYear().toString() + '/' + new Date().getMonth().toString() + '/';
-            if (invoice_type.value == 'regular') {
-                result = string + regular_invoice
-            } else if (invoice_type.value == 'proforma') {
-                result = string + "Y"
-            } else if (invoice_type.value == 'advanced payment') {
-                result = string + "Z"
-            } else {
-                throw 'Parameter is not a number!';
-            }
-            invoice_no.value = result
-
-        }
-    </script>
-
-    <script>
-        function goPython() {
-            $.ajax({
-                url: "C:/Users/rafal/Documents/python/invoicing_app/parser.py",
-                context: document.getElementById("invoice_no")
-            }).done(function () {
-                alert('finished python script');;
-            });
-        }
-    </script>
     <script>
         function sumNetFunction() {
             // Capture position number
@@ -307,7 +278,6 @@
             document.getElementById('sum_net').value = multiplication;
         }    </script>
     <script>
-
         function sumGrossFunction() {
             // Capture the entered values of two input boxes
             var amount = document.getElementById('amount').value;
