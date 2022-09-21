@@ -150,11 +150,6 @@ def new_invoice():
         return redirect(url_for("user"))
     return render_template(
         "new_invoice.html",
-        # invoice_no=get_new_invoice_number(request.form.get("invoice_type")),
-        # invoice_no=get_new_invoice_number("regular"),
-        # issue_date=today.strftime("%Y-%m-%d"),
-        # sell_date=today.strftime("%Y-%m-%d"),
-        json_with_invoices=parse_json_with_invoices_counted(),
         issue_date=datetime.datetime.date(datetime.datetime.now()),
         sell_date=datetime.datetime.date(datetime.datetime.now()),
         # According to the Polish tax law it is allowed to issue an invoice 60 days before
