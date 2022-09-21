@@ -67,26 +67,9 @@
             <form class="invoice-form" action="" method="post">
 
                 <div class="row">
-
-
-                    <!-- main data -->
-
-                    <!-- Custom JS File -->
-
-
-                    <!-- <div class="col-sm-4 expense_hidden22" id="python_hidden" value="">
-                        <input id="python_hidden" value="{{ request.form.x }}">
-                    </div>
-                    <div class="col-sm-4 expense_hidden22">
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" id="to_change"
-                            name="to_change" onclick="getInvoiceNumber()">
-                    </div> -->
-                    <!-- <script type="text/javascript" src="invoices_counted.json"></script> -->
-
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
-                        <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
-                            onchange="getInvoiceNumber()">
+                        <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type">
                             <option value="regular" selected>Regular</option>
                             <option value="proforma">Proforma</option>
                             <option value="advanced payment">Advanced payment</option>
@@ -95,12 +78,13 @@
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_no">Invoice number</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no" readonly>
+                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no"
+                            placeholder="YYYY/MM/number">
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_issue_date">Issue date</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="date" value="{{ issue_date }}"
-                            name="invoice[sell_date]" id="invoice_issue_date" autocomplete="off" readonly>
+                            name="invoice_issue_date" id="invoice_issue_date" autocomplete="off" readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="issue_city">City of issue</label>
@@ -110,7 +94,7 @@
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_sell_date">Sell date</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="date" value="{{ sell_date }}"
-                            name="invoice[sell_date]" id="invoice_sell_date" autocomplete="off" min="{{ min_date }}"
+                            name="invoice_sell_date" id="invoice_sell_date" autocomplete="off" min="{{ min_date }}"
                             max="{{ max_date }}">
                     </div>
                 </div>
@@ -147,47 +131,6 @@
 
                 <!-- invoice position - values -->
                 <div class=" invoice-positions-values" id="invoice-positions-values">
-                    <!-- <div class="invoice-positions-hidden" id="invoice-positions-hidden" hidden>
-                        <div class="row invoice-position-0" id="invoice-position-0">
-                            <div class="feature-box col-lg-3 "><input type="text" name="position" id="position" value="{{
-                        request.form.position }}"></div>
-                            <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0 value="{{
-                        request.form.amount }}"
-                                    onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
-                            </div>
-                            <div class="col-sm-1 row3"><select type="text" name="unit" value="{{
-                        request.form.unit }}">
-                                    <option value="item" selected>item</option>
-                                    <option value="h">h</option>
-                                    <option value="days">days</option>
-                                    <option value="months">months</option>
-                                    <option value="km">km</option>
-                                    <option value="m2">m2</option>
-                                    <option value="kg">kg</option>
-                                </select></div>
-                            <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net"
-                                    name="price_net" min=0
-                                    onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                    value="{{
-                        request.form.price_net }}"></div>
-                            <div class="col-sm-1 more row_tax "><select type="number" id="tax_rate" name="tax_rate"
-                                    onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                    value="{{
-                        request.form.tax_rate }}">
-                                    <option type="number" value="0.0">exempt</option>
-                                    <option type="number" value="0.0">0%</option>
-                                    <option type="number" value="0.05">5%</option>
-                                    <option type="number" value="0.08">8%</option>
-                                    <option type="number" value="0.23" selected>23%</option>
-                                </select></div>
-                            <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net" value="{{
-                        sum_net }}" readonly></div>
-                            <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross" value="{{
-                        sum_gross }}" readonly></div>
-                            <div class="col-sm-1 row1"><a class="btn btn-delete-position" onclick="deletePosition()"><i
-                                        class="bi bi-x"></i></a></div>
-                        </div>
-                    </div> -->
                     <div class="row invoice-position-1" id="invoice-position-1">
                         <div class="feature-box col-lg-3 "><input type="text" name="position" id="position"
                                 value="{{ request.form.position }}"></div>
@@ -263,7 +206,6 @@
 
     <!-- Template Main JS File -->
     <script src="static/assets/js/main.js"></script>
-
 
     <!-- Custom JavaScript Functions -->
     <script>

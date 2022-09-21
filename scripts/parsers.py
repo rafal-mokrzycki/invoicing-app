@@ -82,5 +82,4 @@ def parse_json_with_invoices_counted():
 
 
 if __name__ == "__main__":
-    # parse_invoice_number(invoice_type=None)
-    print(parse_json_with_invoices_counted())
+    pass
