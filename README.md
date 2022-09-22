@@ -34,8 +34,9 @@ The aim of the project is to provide a tool that enables issuing, storing, print
 | Tech                                                    | Description                              |
 | ------------------------------------------------------- | ---------------------------------------- |
 | [Python](https://www.python.org/)                           | XYZ   |
-| [X](X)                           | XYZ   |
-| [X](X)                           | XYZ   |
+| [Flask](https://flask.palletsprojects.com/en/2.2.x/)                           | XYZ   |
+| [Sqlite](https://www.sqlite.org/index.html)                           | XYZ   |
+| [SQLalchemy](https://www.sqlalchemy.org/) ||
 
 
 ## Screenshots 📺
