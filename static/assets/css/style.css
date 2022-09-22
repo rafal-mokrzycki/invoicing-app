@@ -227,7 +227,9 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 10px 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* padding: 10px 0 10px 30px; */
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -252,9 +254,10 @@ section {
 
 .navbar .login-logout,
 .navbar .login-logout:focus {
-  background: #4154f1;
+  background: #4d5ef2;
   padding: 8px 20px;
-  margin-left: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
   border-radius: 4px;
   color: #fff;
 }
@@ -262,18 +265,16 @@ section {
 .navbar .login-logout:hover,
 .navbar .login-logout:focus:hover {
   color: #fff;
-  background: #4154f1;
+  background: #4d5ef2;
 }
 
 .navbar .new-invoice,
-
-.navbar .new-invoice:focus,
-{
-background: #012970;
-padding: 8px 20px;
-margin-left: 30px;
-border-radius: 4px;
-color: #fff;
+.navbar .new-invoice:focus {
+  background: #012970;
+  padding: 8px 20px;
+  margin-left: 30px;
+  border-radius: 4px;
+  color: #fff;
 }
 
 .navbar .new-invoice:hover,
@@ -2438,9 +2439,31 @@ color: #fff;
 }
 
 .invoices .table-header {
-  color: #013289
+  color: #013289;
+  padding-left: 10px;
 }
 
+.edit,
+.edit:focus,
+.print,
+.print:focus,
+.send,
+.send:focus {
+  display: inline-block;
+  background: #4f8e41;
+  padding: 8px 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+/*
+.navbar .login-logout:hover,
+.navbar .login-logout:focus:hover {
+  color: #fff;
+  background: #4d5ef2;
+} */
 
 
 /* Login page */

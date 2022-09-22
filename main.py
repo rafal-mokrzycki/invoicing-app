@@ -160,7 +160,7 @@ def new_invoice():
     )
 
 
-@app.route("/your-invoices", methods=["GET", "POST"])
+@app.route("/your_invoices", methods=["GET", "POST"])
 @login_required
 def your_invoices():
     return render_template("your_invoices.html")

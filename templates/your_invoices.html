@@ -40,7 +40,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="new-invoice scrollto" href="/new-invoice">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="#">Your invoices</a></li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('your_invoices') }}">Your invoices</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                     <li><a class="login-logout scrollto" href="{{ url_for('logout') }}">Logout</a></li>
@@ -95,13 +95,11 @@
                                 <a href="#" class="table-header"
                                     onclick="$('#order').val('product_cache'); ; $('#form1').submit(); return false;">Product</a>
                             </th>
-                            <th class="options">
-                                Status <a class="help_sign" title2="Dowiedz się więcej na stronie pomocy →"
-                                    id="sugester_hl_oa1dUbIUDkL3lBXEqp"
-                                    onclick="return sugester_help_link('sugester_hl_oa1dUbIUDkL3lBXEqp', 'invoice-status', 'pl')"
-                                    href="https://pomoc.fakturownia.pl/helplink/invoice-status">?</a>
+                            <th>
+                                <a class="table-header">
+                                    Actions</a>
                             </th>
-                            <th></th>
+                            <!-- <th></th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -130,65 +128,22 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
 
-                            <td class="inv_status">
+                            <td>
                                 <div>
-                                    <div class="btn-group">
-                                        <span data-toggle="dropdown"
-                                            class="status_span_174063933 colored_select badge dropdown-toggle status-paid "
-                                            style="background-position: -0px 0;" data-original-title="" title="">
-                                            <i id="status_sent_174063933" style="display:none;" title="Wysłano dnia "
-                                                class="icon-envelope-alt">&nbsp;</i>
-                                            <span class="status_name_174063933">
-                                                Opłacona
-                                            </span>
-                                            <span class="caret"></span>
-                                        </span>
-                                        <ul id="status_174063933"
-                                            class="dropdown-menu pull-right hidden-print invoice_status_paid"
-                                            role="menu">
-                                            <li>
-                                                <a class="status_change_issued" href="#"
-                                                    onclick="change_invoice_status('174063933', 'issued', 'issued', 'Wystawiona');; return false;">Wystawiona</a>
-                                            </li>
-                                            <li>
-                                                <a class="status_change_paid" href="#"
-                                                    onclick="change_invoice_status('174063933', 'paid', 'paid', 'Opłacona');; return false;">Opłacona</a>
-                                            </li>
-                                            <li>
-                                                <a class="status_change_partial" href="#"
-                                                    onclick="$('#myModal').modal();$('#partial_payment_invoice_id').val(174063933);$('#partial_payment_price').val(4000.0);$('#partial_payment_price').focus();; return false;">Częściowo
-                                                    opł.</a>
-                                            </li>
-                                            <li>
-                                                <a class="status_change_sent" href="#"
-                                                    onclick="change_invoice_status('174063933', 'sent', 'sent', 'Wysłana');; return false;">Wysłana</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <nav id="navbar" class="navbar">
+                                        <div id="navbar" class="navbar">
+                                            <button class="login-logout edit">
+                                                <a>Edit</a>
+                                            </button>
+                                            <button class="login-logout print">
+                                                <a>Print</a> </button>
+                                            <button class="login-logout send">
+                                                <a>Send</a> </button>
+                                        </div>
+                                    </nav>
                                 </div> <!-- colored_select -->
-                            </td>
-                            <td class="hidden-print">
-                                <div class="btn-group pull-right dropdown">
-                                    <button data-toggle="dropdown" class="btn glow dropdown-toggle">
-                                        <i class="icon-cog"></i> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li></li>
-                                        <li><a title="Zobacz" class="cms_show" href="/invoices/174063933">Zobacz</a>
-                                        </li>
-                                        <li><a title="Edytuj" class="cms_edit" onclick=""
-                                                href="/invoices/174063933/edit">Edytuj</a></li>
-                                        <li><a href="/invoices/174063933.pdf">Drukuj</a> </li>
-                                        <li><a href="/invoices/174063933?form_action=send">Wyślij</a> </li>
-                                        <li><a href="/invoices/new?from=174063933">Wystaw podobną</a></li>
-                                        <li>
-                                            <a data-confirm="Uwaga! Usunięcie dokumentu jest procesem nieodwracalnym! Czy na pewno usunąć fakturę 2022/09/1? "
-                                                class="cms_delete " data-remote="true" rel="nofollow"
-                                                data-method="delete" href="/invoices/174063933">Usuń</a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </td>
                         </tr>
                     </tbody>
