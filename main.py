@@ -22,7 +22,12 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
 from scripts.database import Contractor, Database, User
-from scripts.invoice import Invoice, get_number_of_invoices_in_db
+from scripts.invoice import (
+    Invoice,
+    format_number,
+    format_percentages,
+    get_number_of_invoices_in_db,
+)
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -209,7 +214,23 @@ def show_pdf(id):
     path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
     invoice = Invoice.query.get_or_404(id)
-    rendered = f"""{invoice.id} {invoice.issue_date}"""
+    rendered = render_template(
+        "pdf_template.html",
+        amount=invoice.amount,
+        invoice_no=invoice.invoice_no,
+        invoice_type=invoice.invoice_type.upper(),
+        issue_city=invoice.issue_city,
+        issue_date=invoice.issue_date,
+        issuer_tax_no=invoice.issuer_tax_no,
+        position=invoice.position,
+        price_net=format_number(invoice.price_net),
+        recipient_tax_no=invoice.recipient_tax_no,
+        sell_date=invoice.sell_date,
+        sum_gross=format_number(invoice.sum_gross),
+        sum_net=format_number(invoice.sum_net),
+        tax_string=format_percentages(invoice.tax_rate),
+        unit=invoice.unit,
+    )
     pdf = pdfkit.from_string(rendered, False, configuration=config)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
