@@ -1,6 +1,6 @@
 - [ ] User panel (with buttons to see contractors, invoices, edit personal and contact data, maybe plot incomes)
 - [ ] New invoice + Edit invoice - add functions calculating net and gross sum to every field
-- [ ] Whole script - change 'position' into 'item'
+- [x] Whole script - change 'position' into 'item'
 - [ ] New invoice - Add invoice item(s)
 - [ ] New invoice - Add 'global' caculations for net and gross values for invoice with more than one item
 - [ ] Your invoices - fix edit invoice button

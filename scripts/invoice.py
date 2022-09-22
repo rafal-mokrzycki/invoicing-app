@@ -26,7 +26,7 @@ class Invoice(db.Model, UserMixin):
     issue_city = db.Column(db.String(250), nullable=False)
     issue_date = db.Column(db.Date, nullable=False)
     issuer_tax_no = db.Column(db.Integer, nullable=False)
-    position = db.Column(db.String(250), nullable=False)
+    item = db.Column(db.String(250), nullable=False)
     price_net = db.Column(db.Float, nullable=False)
     recipient_tax_no = db.Column(db.Integer, nullable=False)
     sell_date = db.Column(db.Date, nullable=False)
@@ -44,7 +44,7 @@ class Invoice(db.Model, UserMixin):
         issue_city,
         issue_date,
         issuer_tax_no,
-        position,
+        item,
         price_net,
         recipient_tax_no,
         sell_date,
@@ -59,7 +59,7 @@ class Invoice(db.Model, UserMixin):
         self.issue_city = issue_city
         self.issue_date = issue_date
         self.issuer_tax_no = issuer_tax_no
-        self.position = position
+        self.item = item
         self.price_net = price_net
         self.recipient_tax_no = recipient_tax_no
         self.sell_date = sell_date

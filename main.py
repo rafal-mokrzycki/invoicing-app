@@ -145,7 +145,7 @@ def new_invoice():
             ).date(),
             issuer_tax_no=request.form.get("issuer_tax_no"),
             recipient_tax_no=request.form.get("recipient_tax_no"),
-            position=request.form.get("position"),
+            item=request.form.get("posiitem
             amount=request.form.get("amount"),
             unit=request.form.get("unit"),
             price_net=request.form.get("price_net"),
@@ -193,7 +193,7 @@ def edit(id):
         ).date()
         invoice.issuer_tax_no = request.form.get("issuer_tax_no")
         invoice.recipient_tax_no = request.form.get("recipient_tax_no")
-        invoice.position = request.form.get("position")
+        invoice.item = request.form.get("posiitem
         invoice.amount = request.form.get("amount")
         invoice.unit = request.form.get("unit")
         invoice.price_net = request.form.get("price_net")
@@ -222,7 +222,7 @@ def show_pdf(id):
         issue_city=invoice.issue_city,
         issue_date=invoice.issue_date,
         issuer_tax_no=invoice.issuer_tax_no,
-        position=invoice.position,
+        item=invoice.posiitem
         price_net=format_number(invoice.price_net),
         recipient_tax_no=invoice.recipient_tax_no,
         sell_date=invoice.sell_date,

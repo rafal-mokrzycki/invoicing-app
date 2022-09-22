@@ -2565,8 +2565,8 @@ section {
   margin-top: 10%;
 }
 
-.invoice-positions-values input,
-.invoice-positions-values select {
+.invoice-items-values input,
+.invoice-items-values select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -2575,16 +2575,16 @@ section {
   padding: 8px 8px;
 }
 
-.button-add-next-position,
-.button-add-next-position:focus {
+.button-add-next-item,
+.button-add-next-item:focus {
   background: #012970;
   padding: 8px 20px;
   border-radius: 4px;
   color: #fff;
 }
 
-.button-add-next-position:hover,
-.button-add-next-position:focus:hover {
+.button-add-next-item:hover,
+.button-add-next-item:focus:hover {
   color: #fff;
   background: #003185;
 }
@@ -2593,7 +2593,7 @@ section {
   margin-right: 7px;
 }
 
-.btn-delete-position {
+.btn-delete-item {
   background: red;
   border: red;
   border-radius: 4px;
@@ -2602,7 +2602,7 @@ section {
 
 }
 
-.btn-delete-position:hover {
+.btn-delete-item:hover {
   background: rgb(255, 65, 65);
   border: rgb(255, 65, 65);
 

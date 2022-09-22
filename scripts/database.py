@@ -81,7 +81,7 @@ class Database:
                 issue_city varchar(250) NOT NULL,
                 issue_date DATE NOT NULL,
                 issuer_tax_no INTEGER NOT NULL,
-                position varchar(250) NOT NULL,
+                item varchar(250) NOT NULL,
                 price_net REAL NOT NULL,
                 recipient_tax_no INTEGER NOT NULL,
                 sell_date DATE NOT NULL,
@@ -145,7 +145,7 @@ class Contractor(db.Model, UserMixin):
 #     issue_city = db.Column(db.String(250), nullable=False)
 #     issue_date = db.Column(db.DateTime, nullable=False)
 #     issuer_tax_no = db.Column(db.Integer, nullable=False)
-#     position = db.Column(db.String(250), nullable=False)
+#     item = db.Column(db.String(250), nullable=False)
 #     price_net = db.Column(db.Float, nullable=False)
 #     recipient_tax_no = db.Column(db.Integer, nullable=False)
 #     sell_date = db.Column(db.DateTime, nullable=False)
