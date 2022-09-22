@@ -122,7 +122,7 @@ def logout():
     return redirect(url_for("home"))
 
 
-@app.route("/new-invoice", methods=["GET", "POST"])
+@app.route("/new_invoice", methods=["GET", "POST"])
 @login_required
 def new_invoice():
     today = datetime.datetime.now()
@@ -169,6 +169,19 @@ def your_invoices():
         invoices = Invoice.query.order_by(Invoice.issue_date).all()
         return render_template("your_invoices.html", invoices=invoices)
     return render_template("your_invoices.html")
+
+
+@app.route("/your_invoices/<int:id>", methods=["GET", "POST"])
+@login_required
+def edit(id):
+    invoice = Invoice.query.get_or_404(id)
+    if request.method == "POST":
+        try:
+            db.session.commit()
+            return render_template("your_invoices.html")
+        except:
+            pass
+    return render_template("edit_invoice.html", invoice=invoice)
 
 
 if __name__ == "__main__":

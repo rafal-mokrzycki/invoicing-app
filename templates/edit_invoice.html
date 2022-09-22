@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 
 <head>
-    <title>New invoice</title>
+    <title>Edit invoice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
@@ -64,7 +64,7 @@
     <section id="new-invoice" class="new-invoice d-flex align-items-center">
         <div class="container">
             <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
-            <form class="invoice-form" action="" method="post">
+            <form class="invoice-form" action="/your_invoices/{{ invoice.id }}" method="post">
 
                 <div class="row">
                     <div class="col-sm-4 expense_hidden22 ">
@@ -79,23 +79,23 @@
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="invoice_no">Invoice number</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no"
+                            value="{{ invoice.invoice_no }}" name="invoice_no" id="invoice_no"
                             placeholder="YYYY/MM/number">
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="issue_date">Issue date</label>
                         <input class="form-control-plaintext  datepicker f3 hasDatepicker" type="date"
-                            value="{{ today }}" name="issue_date" id="issue_date" issue_date readonly>
+                            value="{{ invoice.issue_date }}" name="issue_date" id="issue_date" issue_date readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="issue_city">City of issue</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.issue_city }}" name="issue_city" id="issue_city" issue_date>
+                            value="{{ invoice.issue_city }}" name="issue_city" id="issue_city" issue_date>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="sell_date">Sell date</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="date"
-                            value="{{ request.form.sell_date }}" name="sell_date" id="sell_date">
+                            value="{{ invoice.sell_date }}" name="sell_date" id="sell_date">
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="issuer">Issuer</label>
                         <p><input class="issuer_tax_no" name="issuer_tax_no" type="text" placeholder="XX9999999999"
-                                value="{{ request.form.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}">
+                                value="{{ invoice.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}">
                         </p>
 
                     </div>
@@ -114,7 +114,7 @@
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="recipient">Recipient</label>
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ request.form.recipient_tax_no }}">
+                                value="{{ invoice.recipient_tax_no }}">
                     </div>
                 </div>
 
@@ -133,12 +133,12 @@
                 <div class=" invoice-positions-values" id="invoice-positions-values">
                     <div class="row invoice-position-1" id="invoice-position-1">
                         <div class="feature-box col-lg-3 "><input type="text" name="position" id="position"
-                                value="{{ request.form.position }}"></div>
+                                value="{{ invoice.position }}"></div>
                         <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0
-                                value="{{ request.form.amount }}"
+                                value="{{ invoice.amount }}"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
                         </div>
-                        <div class="col-sm-1 row3"><select id="unit" name="unit" value="{{ request.form.unit }}">
+                        <div class="col-sm-1 row3"><select id="unit" name="unit" value="{{ invoice.unit }}">
                                 <option value="item" selected>item</option>
                                 <option value="h">h</option>
                                 <option value="days">days</option>
@@ -150,10 +150,10 @@
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
                                 min=0
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{ request.form.price_net }}"></div>
+                                value="{{ invoice.price_net }}"></div>
                         <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{ request.form.tax_rate }}">
+                                value="{{ invoice.tax_rate }}">
                                 <option value="0.0">exempt</option>
                                 <option value="0.0">0%</option>
                                 <option value="0.05">5%</option>
@@ -177,7 +177,7 @@
                     </a>
                 </div>
                 <div class="issue-box col-lg-12 ">
-                    <input class="btn btn-default" type="submit" value="Issue">
+                    <input class="btn btn-default" type="submit" value="Save">
                 </div>
             </form>
         </div>

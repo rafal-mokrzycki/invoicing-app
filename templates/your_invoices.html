@@ -39,7 +39,7 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="new-invoice scrollto" href="/new-invoice">New invoice</a></li>
+                    <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
                     <li><a class="nav-link scrollto" href="{{ url_for('your_invoices') }}">Your invoices</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
@@ -134,7 +134,7 @@
 
                             <td class="invoice-action-buttons">
                                 <button class="col-lg-12 invoice-action edit">
-                                    <a href="{{ url_for('your_invoices') }}" target="_blank">Edit</a>
+                                    <a href="your_invoices/{{ invoice.id }}" target="_blank">Edit</a>
                                 </button>
                                 <button class="col-lg-12 invoice-action print">
                                     <a href="{{ url_for('home') }}" target="_blank">Print</a> </button>
