@@ -150,6 +150,9 @@ class Invoice(db.Model, UserMixin):
             f"{self.invoice_type.replace(' ','_')}_invoice_{datetime.datetime.now().strftime('%Y%m%d')}.pdf"
         )
 
+    def __repr__(self):
+        return "<Invoice %r>" % self.id
+
 
 def calculate_gross(amount, tax_rate):
     if tax_rate in config["TAX_RATES"]:

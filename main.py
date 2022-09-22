@@ -165,6 +165,9 @@ def new_invoice():
 def your_invoices():
     if request.method == "POST":
         pass
+    else:
+        invoices = Invoice.query.order_by(Invoice.issue_date).all()
+        return render_template("your_invoices.html", invoices=invoices)
     return render_template("your_invoices.html")
 
 

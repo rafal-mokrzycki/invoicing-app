@@ -103,6 +103,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for invoice in invoices %}
                         <tr id="trline174063933">
 
                             <input type="hidden" id="attachment174063933" value="0">
@@ -122,17 +123,18 @@
                                     class="hidden-print">
                             </td>
 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td hidden>{{ invoice.id }}</td>
+                            <td>{{ invoice.invoice_no }}</td>
+                            <td>{{ invoice.sum_net }}</td>
+                            <td>{{ invoice.sum_gross }}</td>
+                            <td>{{ invoice.recipient_tax_no }}</td>
+                            <td>{{ invoice.issue_date }}</td>
+                            <td>{{ invoice.sell_date }}</td>
+                            <td>{{ invoice.position }}</td>
 
                             <td class="invoice-action-buttons">
                                 <button class="col-lg-12 invoice-action edit">
-                                    <a href="{{ url_for('home') }}" target="_blank">Edit</a>
+                                    <a href="{{ url_for('your_invoices') }}" target="_blank">Edit</a>
                                 </button>
                                 <button class="col-lg-12 invoice-action print">
                                     <a href="{{ url_for('home') }}" target="_blank">Print</a> </button>
@@ -140,6 +142,7 @@
                                     <a href="{{ url_for('home') }}" target="_blank">Send</a> </button>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div> <!-- table-responsive -->
