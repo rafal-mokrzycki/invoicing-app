@@ -3,11 +3,11 @@
 <head>
     <title>User panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
     <!-- Favicons -->
-    <link href="static/assets/img/favicon.png" rel="icon">
-    <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="/static/assets/img/favicon.png" rel="icon">
+    <link href="/static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -15,15 +15,15 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="static/assets/css/style.css" rel="stylesheet">
+    <link href="/static/assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -33,13 +33,13 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="/home" class="logo d-flex align-items-center">
-                <img src="static/assets/img/logo.png" alt="">
+                <img src="/static/assets/img/logo.png" alt="">
                 <span>FlexStart</span>
             </a>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="new-invoice scrollto" href="/new-invoice">New invoice</a></li>
+                    <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
                     <li><a class="nav-link scrollto" href="{{ url_for('your_invoices') }}">Your invoices</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
@@ -54,7 +54,7 @@
 
 
     <!-- ======= Footer ======= -->
-    <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."static/assets/php/"; include($IPATH."footernav.html") ?>
+    <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."/static/assets/php/"; include($IPATH."footernav.html") ?>
     <!-- End Footer -->
 
 </body>
