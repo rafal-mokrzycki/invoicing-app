@@ -2441,7 +2441,23 @@ section {
 .invoices .table-header {
   font-family: "Nunito", sans-serif;
   font-weight: 700;
+  color: #013289;
+}
 
+.invoices .table-cell {
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  color: #000;
+  padding-left: 10px;
+  padding-top: 3.5%;
+}
+
+.invoices .table-cell-search {
+  padding-top: 3.5%;
+
+}
+
+.bi-search {
   color: #013289;
   padding-left: 10px;
 }
@@ -2499,12 +2515,7 @@ section {
 
 }
 
-/*
-.navbar .login-logout:hover,
-.navbar .login-logout:focus:hover {
-  color: #fff;
-  background: #4d5ef2;
-} */
+
 
 
 /* Login page */

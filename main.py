@@ -7,7 +7,9 @@ import datetime
 import time
 
 import numpy as np
-from flask import Flask, flash, redirect, render_template, request, url_for
+import pdfkit
+import sqlalchemy
+from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
     current_user,
@@ -176,12 +178,45 @@ def your_invoices():
 def edit(id):
     invoice = Invoice.query.get_or_404(id)
     if request.method == "POST":
+        invoice.id = invoice.id
+        invoice.invoice_type = request.form.get("invoice_type")
+        invoice.invoice_no = request.form.get("invoice_no")
+        invoice.issue_date = request.form.get("issue_date")
+        invoice.issue_city = request.form.get("issue_city")
+        invoice.sell_date = datetime.datetime.strptime(
+            request.form.get("sell_date"), "%Y-%m-%d"
+        ).date()
+        invoice.issuer_tax_no = request.form.get("issuer_tax_no")
+        invoice.recipient_tax_no = request.form.get("recipient_tax_no")
+        invoice.position = request.form.get("position")
+        invoice.amount = request.form.get("amount")
+        invoice.unit = request.form.get("unit")
+        invoice.price_net = request.form.get("price_net")
+        invoice.tax_rate = request.form.get("tax_rate")
+        invoice.sum_net = request.form.get("sum_net")
+        invoice.sum_gross = request.form.get("sum_gross")
         try:
             db.session.commit()
             return render_template("your_invoices.html")
         except:
-            pass
+            return "HELLO"
     return render_template("edit_invoice.html", invoice=invoice)
+
+
+@app.route("/your_invoices/show/<int:id>", methods=["GET", "POST"])
+@login_required
+def show_pdf(id):
+    path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    invoice = Invoice.query.get_or_404(id)
+    rendered = f"""{invoice.id} {invoice.issue_date}"""
+    pdf = pdfkit.from_string(rendered, False, configuration=config)
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers[
+        "Content-Disposition"
+    ] = f"inline; filename=Invoice_no_{invoice.invoice_no}.pdf"
+    return response
 
 
 if __name__ == "__main__":
