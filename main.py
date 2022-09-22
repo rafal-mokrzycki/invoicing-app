@@ -171,7 +171,7 @@ def your_invoices():
     return render_template("your_invoices.html")
 
 
-@app.route("/your_invoices/<int:id>", methods=["GET", "POST"])
+@app.route("/your_invoices/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit(id):
     invoice = Invoice.query.get_or_404(id)
