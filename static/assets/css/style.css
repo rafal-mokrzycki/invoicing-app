@@ -2439,23 +2439,46 @@ section {
 }
 
 .invoices .table-header {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+
   color: #013289;
   padding-left: 10px;
 }
 
-.edit,
-.edit:focus,
-.print,
-.print:focus,
-.send,
-.send:focus {
-  display: inline-block;
-  background: #4f8e41;
-  padding: 8px 20px;
-  margin-left: 10px;
+.invoice-action-buttons {
   margin-right: 10px;
+}
+
+.invoice-edit {
+  padding: 0px;
+  margin: 5px 5px 5px 5px;
   border-radius: 4px;
+  width: 70%;
+  height: 50%;
   color: #fff;
+  text-align: center;
+  border-color: transparent;
+  display: block;
+}
+
+.invoice-edit a {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: .8em;
+  /* margin: -10px 20px 10px 20px */
+}
+
+.edit {
+  background-color: #4d5ef2;
+}
+
+.print {
+  background-color: #008E67;
+}
+
+.send {
+  background-color: #CA3F00;
 }
 
 /*
