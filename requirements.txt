@@ -1,0 +1,15 @@
+flask
+flask_login
+flask_sqlalchemy
+werkzeug
+calendar
+datetime
+json
+numpy
+pdfkit
+repackage
+sqlalchemy
+sqlite3
+sys
+time
+traceback

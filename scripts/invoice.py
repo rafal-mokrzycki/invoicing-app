@@ -2,14 +2,12 @@
 """
 Utilities to create a new ivoice
 """
-import datetime
 
 import numpy as np
 from config_files.config import config
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from fpdf import FPDF
 
 app = Flask(__name__)
 app.config.update(config)
