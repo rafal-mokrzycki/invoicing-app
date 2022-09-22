@@ -2450,7 +2450,7 @@ section {
   margin-right: 10px;
 }
 
-.invoice-edit {
+.invoice-action {
   padding: 0px;
   margin: 5px 5px 5px 5px;
   border-radius: 4px;
@@ -2460,25 +2460,43 @@ section {
   text-align: center;
   border-color: transparent;
   display: block;
+  transition: 0.3s;
 }
 
-.invoice-edit a {
+.invoice-action a {
   font-family: "Nunito", sans-serif;
   font-weight: 700;
   font-size: .8em;
+  color: #fff;
   /* margin: -10px 20px 10px 20px */
 }
 
-.edit {
+.edit,
+.edit:focus {
   background-color: #4d5ef2;
 }
 
-.print {
+.print,
+.print:focus {
   background-color: #008E67;
 }
 
-.send {
+.send,
+.send:focus {
   background-color: #CA3F00;
+}
+
+.edit:hover {
+  background-color: #5969f3;
+}
+
+.print:hover {
+  background-color: #00a176;
+}
+
+.send:hover {
+  background-color: #db4601;
+
 }
 
 /*
