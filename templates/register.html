@@ -26,23 +26,12 @@
                         required>
                 </div>
                 <div class="feature-box col-lg-12 ">
-                    <input type="password" placeholder="Password" name="password" value="{{ request.form.password }}"
-                        required>
+                    <input type="password" placeholder="Password" name="password" id="password"
+                        value="{{ request.form.password }}" onchange="validatePassword()" required>
                 </div>
-                <!-- <div class="feature-box col-lg-12 ">
-                        <input list="choose-plan" id="choose-plan" name="choose-plan" placeholder="Choose plan"
-                            value="{{ request.form.plan }}" />
-
-                        <datalist id="choose-plan">
-                            <option value="free-plan">
-                            <option value="starter-plan">
-                            <option value="business-plan">
-                            <option value="ultimate-plan">
-                        </datalist>
-                    </div> -->
                 <div class="feature-box col-lg-12 ">
-                    <input type="password" placeholder="Confirm password" name="password"
-                        value="{{ request.form.password }}" required>
+                    <input type="password" placeholder="Confirm password" id="confirm_password" name="confirm_password"
+                        onkeyup="validatePassword()" required>
                 </div>
                 <div class="checkbox col-lg-12 ">
                     <input type="checkbox" id="terms-and-conditions" value="{{ request.form.password }}" required>I
@@ -72,4 +61,16 @@
     {% include "footer.html" %}
     <!-- End Footer -->
 </section>
+<script>
+    function validatePassword() {
+        var password = document.getElementById("password");
+        var confirm_password = document.getElementById("confirm_password");
+
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+</script>
 {% endblock %}
