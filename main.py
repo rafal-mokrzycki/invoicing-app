@@ -240,5 +240,12 @@ def show_pdf(id):
     return response
 
 
+@app.route("/user_data")
+# @login_required
+def user_data():
+    # logout_user()
+    return render_template("user_data.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
