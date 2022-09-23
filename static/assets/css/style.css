@@ -2430,33 +2430,58 @@ section {
   color: #012970;
 }
 
-/* YourDesktop */
 
 /*--------------------------------------------------------------
-# Pricing
+# YourDesktop
 --------------------------------------------------------------*/
-.pricing .box-your-desktop {
-  padding: 40px 20px;
-  background: #fff;
-  text-align: center;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
+.pricing .btn-user-tile {
+  /* background-color: #003185; */
+  border: none;
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  margin: 30px 30px 30px 30px;
+  height: 250px;
+  width: 250px;
   transition: 0.3s;
 }
 
-.pricing .box-your-desktop:hover {
-  transform: scale(1.1);
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+.pricing .btn-user-tile:hover {
+  margin: 25px 25px 25px 25px;
+  height: 260px;
+  width: 260px;
 }
 
-/*
-.pricing h3 {
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 15px;
-} */
+.company-data,
+.company-data:focus {
+  background-color: #012970;
+}
+
+.your-invoices,
+.your-invoices:focus {
+  background-color: #00a176;
+}
+
+.your-income,
+.your-income:focus {
+  background-color: #4d5ef2;
+}
+
+.company-data:hover {
+  background-color: #013388;
+}
+
+.your-invoices:hover {
+  background-color: #01b081;
+}
+
+.your-income:hover {
+  background-color: #5d6df7;
+}
+
+.pricing .your-desktop-buttons {
+  margin-top: 8%;
+}
 
 /*--------------------------------------------------------------
 # Table Section
