@@ -202,9 +202,9 @@ def edit(id):
         invoice.sum_gross = request.form.get("sum_gross")
         try:
             db.session.commit()
-            return render_template("your_invoices.html")
+            return redirect(url_for("your_invoices"))
         except:
-            return "HELLO"
+            pass
     return render_template("edit_invoice.html", invoice=invoice)
 
 
@@ -240,11 +240,54 @@ def show_pdf(id):
     return response
 
 
-@app.route("/user_data")
-# @login_required
+@app.route("/user_data", methods=["GET", "POST"])
+@login_required
 def user_data():
-    # logout_user()
-    return render_template("user_data.html")
+    user = User.query.get_or_404(current_user.id)
+    if request.method == "POST":
+        user.id = user.id
+        user.email = user.email
+        user.name = user.name
+        user.surname = user.surname
+        user.phone_no = user.phone_no
+        user.password = user.password
+        user.company_name = user.company_name
+        user.street = user.street
+        user.house_no = user.house_no
+        user.flat_no = user.flat_no
+        user.zip_code = user.zip_code
+        user.city = user.city
+        user.tax_no = user.tax_no
+        user.bank_account = user.bank_account
+        return redirect(url_for("user_data_edit"))
+    return render_template("user_data.html", user=user)
+
+
+@app.route("/user_data_edit", methods=["GET", "POST"])
+@login_required
+def user_data_edit():
+    user = User.query.get_or_404(current_user.id)
+    if request.method == "POST":
+        user.id = user.id
+        user.email = user.email
+        user.name = user.name
+        user.surname = user.surname
+        user.phone_no = request.form.get("phone_no")
+        user.password = request.form.get("password")
+        user.company_name = request.form.get("company_name")
+        user.street = request.form.get("street")
+        user.house_no = request.form.get("house_no")
+        user.flat_no = request.form.get("flat_no")
+        user.zip_code = request.form.get("zip_code")
+        user.city = request.form.get("city")
+        user.tax_no = request.form.get("tax_no")
+        user.bank_account = request.form.get("bank_account")
+        try:
+            db.session.commit()
+            return redirect(url_for("user"))
+        except:
+            pass
+    return render_template("user_data_edit.html", user=user, is_edit=True)
 
 
 if __name__ == "__main__":

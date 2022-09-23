@@ -2484,6 +2484,25 @@ section {
 }
 
 /*--------------------------------------------------------------
+# User Data
+--------------------------------------------------------------*/
+
+.user-data-form {
+  color: #012970;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  text-align: left;
+  /* margin-left: 10%;
+  margin-right: 10%; */
+  display: block;
+
+}
+
+.user-data-form .unchangable {
+  background-color: rgb(233, 232, 232);
+}
+
+/*--------------------------------------------------------------
 # Table Section
 --------------------------------------------------------------*/
 .invoices {
@@ -2575,7 +2594,8 @@ section {
 
 #login h1,
 #register h1,
-#new-invoice h1 {
+#new-invoice h1,
+#user-data h1 {
   margin: 0;
   font-size: 48px;
   font-weight: 700;

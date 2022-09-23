@@ -61,7 +61,12 @@ class Database:
                 password varchar(250) NOT NULL,
                 tax_no varchar(250),
                 bank_account varchar(250),
-                address varchar(250))"""
+                company_name varchar(250),
+                street varchar(250),
+                house_no varchar(250),
+                flat_no varchar(250),
+                zip_code varchar(250),
+                city varchar(250))"""
         # create table CONTRACTORS
         elif table_name == config["TABLE_NAMES"][1]:
             create_table_sql = f"""
@@ -123,7 +128,12 @@ class User(db.Model, UserMixin):
     surname = db.Column(db.String(250), nullable=False)
     phone_no = db.Column(db.Integer, nullable=False)
     password = db.Column(db.String(250), nullable=False)
-    address = db.Column(db.String(250), nullable=True)
+    company_name = db.Column(db.String(250), nullable=True)
+    street = db.Column(db.String(250), nullable=True)
+    house_no = db.Column(db.String(250), nullable=True)
+    flat_no = db.Column(db.String(250), nullable=True)
+    zip_code = db.Column(db.String(250), nullable=True)
+    city = db.Column(db.String(250), nullable=True)
     tax_no = db.Column(db.String(250), nullable=True)
     bank_account = db.Column(db.String(250), nullable=True)
 
@@ -136,28 +146,9 @@ class Contractor(db.Model, UserMixin):
     tax_no = db.Column(db.String(250), nullable=False)
 
 
-# class Invoice(db.Model):
-#     __tablename__ = config["TABLE_NAMES"][2]
-#     id = db.Column(db.Integer, primary_key=True)
-#     amount = db.Column(db.Float, nullable=False)
-#     invoice_no = db.Column(db.String(250), nullable=False)
-#     invoice_type = db.Column(db.String(250), nullable=False)
-#     issue_city = db.Column(db.String(250), nullable=False)
-#     issue_date = db.Column(db.DateTime, nullable=False)
-#     issuer_tax_no = db.Column(db.Integer, nullable=False)
-#     item = db.Column(db.String(250), nullable=False)
-#     price_net = db.Column(db.Float, nullable=False)
-#     recipient_tax_no = db.Column(db.Integer, nullable=False)
-#     sell_date = db.Column(db.DateTime, nullable=False)
-#     sum_gross = db.Column(db.Float, nullable=False)
-#     sum_net = db.Column(db.Float, nullable=False)
-#     tax_rate = db.Column(db.Float, nullable=False)
-#     unit = db.Column(db.String(250), nullable=False)
-
-
 if __name__ == "__main__":
     pass
-    # db = Database()
+    db = Database()
     # db.create_table("invoices", drop_if_exists=True)
-    # db.create_table("accounts")
-    # db.create_table("contractors")
+    db.create_table("accounts", drop_if_exists=True)
+    # db.create_table("contractors", drop_if_exists=True)
