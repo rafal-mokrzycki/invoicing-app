@@ -1,4 +1,4 @@
-- [ ] User panel (with buttons to see contractors, invoices, edit personal and contact data, maybe plot incomes)
+- [x] User panel (with buttons to see contractors, invoices, edit personal and contact data, maybe plot incomes)
 - [ ] New invoice + Edit invoice - add functions calculating net and gross sum to every field
 - [x] Whole script - change 'position' into 'item'
 - [ ] New invoice - Add invoice item(s)
@@ -8,7 +8,7 @@
 - [ ] Show invoice - fix line under issuer and recipient
 - [ ] Show invoice - add nicer horizontal division
 - [ ] Show invoice - add iteration through invoice positons
-- [ ] Home - make user logout button everyone with blue background
+- [x] Home - make user logout button everyone with blue background
 - [ ] All - add correct footer (not PHP)
 - [ ] Refine CSS
-- [ ] requirements.txt - add versions of modules added
+- [x] requirements.txt - add versions of modules added
