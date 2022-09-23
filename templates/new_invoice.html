@@ -135,11 +135,11 @@
                     <div class="col-sm-2 row1">Gross sum</div>
                 </div>
 
-                <!-- invoice position - values -->
-                <div class=" invoice-positions-values" id="invoice-positions-values">
-                    <div class="row invoice-position-1" id="invoice-position-1">
-                        <div class="feature-box col-lg-3 "><input type="text" name="position" id="position"
-                                value="{{ request.form.position }}"
+                <!-- invoice item - values -->
+                <div class=" invoice-items-values" id="invoice-items-values">
+                    <div class="row invoice-item-1" id="invoice-item-1">
+                        <div class="feature-box col-lg-3 "><input type="text" name="item" id="item"
+                                value="{{ request.form.item }}"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
                         </div>
                         <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0
