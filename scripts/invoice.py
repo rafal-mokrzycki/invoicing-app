@@ -6,8 +6,9 @@ Utilities to create a new ivoice
 import numpy as np
 from config_files.config import config
 from flask import Flask
-from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+
+from scripts.database import Invoice
 
 app = Flask(__name__)
 app.config.update(config)
@@ -17,24 +18,7 @@ db = SQLAlchemy(app)
 CURRENCY = config["CURRENCY"]
 
 
-class Invoice(db.Model, UserMixin):
-    __tablename__ = "invoices"
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Float, nullable=False)
-    invoice_no = db.Column(db.String(250), nullable=False)
-    invoice_type = db.Column(db.String(250), nullable=False)
-    issue_city = db.Column(db.String(250), nullable=False)
-    issue_date = db.Column(db.Date, nullable=False)
-    issuer_tax_no = db.Column(db.Integer, nullable=False)
-    item = db.Column(db.String(250), nullable=False)
-    price_net = db.Column(db.Float, nullable=False)
-    recipient_tax_no = db.Column(db.Integer, nullable=False)
-    sell_date = db.Column(db.Date, nullable=False)
-    sum_gross = db.Column(db.Float, nullable=False)
-    sum_net = db.Column(db.Float, nullable=False)
-    tax_rate = db.Column(db.Float, nullable=False)
-    unit = db.Column(db.String(250), nullable=False)
-
+class InvoiceForm(Invoice):
     def __init__(
         self,
         id,
@@ -53,6 +37,7 @@ class Invoice(db.Model, UserMixin):
         tax_rate,
         unit,
     ):
+        super().__init__()
         self.id = id
         self.invoice_no = invoice_no
         self.invoice_type = invoice_type
@@ -93,7 +78,7 @@ def format_number(number):
 
 
 def get_number_of_invoices_in_db():
-    return db.session.query(Invoice).count() + 1
+    return db.session.query(InvoiceForm).count() + 1
 
 
 def ceidg_api():

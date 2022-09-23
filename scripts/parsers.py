@@ -14,7 +14,7 @@ from sqlalchemy import func
 repackage.up()
 from config_files.config import config
 
-from scripts.invoice import Invoice
+from scripts.invoice import InvoiceForm
 
 app = Flask(__name__)
 app.config.update(config)
@@ -40,10 +40,10 @@ def parse_invoice_number(invoice_type):
     current_year = datetime.datetime.now().strftime("%Y")
     current_month = datetime.datetime.now().strftime("%m")
     query = (
-        db.session.query(Invoice.invoice_type, func.count(Invoice.invoice_type))
-        .group_by(Invoice.invoice_type)
-        .filter(Invoice.issue_date > last_day_of_previous_month)
-        .filter(Invoice.issue_date < first_day_of_next_month)
+        db.session.query(InvoiceForm.invoice_type, func.count(InvoiceForm.invoice_type))
+        .group_by(InvoiceForm.invoice_type)
+        .filter(InvoiceForm.issue_date > last_day_of_previous_month)
+        .filter(InvoiceForm.issue_date < first_day_of_next_month)
         .all()
     )
     try:
@@ -70,10 +70,10 @@ def parse_json_with_invoices_counted():
         1,
     )
     query = (
-        db.session.query(Invoice.invoice_type, func.count(Invoice.invoice_type))
-        .group_by(Invoice.invoice_type)
-        .filter(Invoice.issue_date > last_day_of_previous_month)
-        .filter(Invoice.issue_date < first_day_of_next_month)
+        db.session.query(InvoiceForm.invoice_type, func.count(InvoiceForm.invoice_type))
+        .group_by(InvoiceForm.invoice_type)
+        .filter(InvoiceForm.issue_date > last_day_of_previous_month)
+        .filter(InvoiceForm.issue_date < first_day_of_next_month)
         # .all()
     )
 

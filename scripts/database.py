@@ -72,9 +72,18 @@ class Database:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
                 id INTEGER PRIMARY KEY,
-                name varchar(250) NOT NULL,
-                surname varchar(250) NOT NULL,
-                tax_no varchar(250) NOT NULL)"""
+                email varchar(250),
+                surname varchar(250),
+                name varchar(250) ,
+                phone_no varchar(250),
+                tax_no varchar(250) NOT NULL,
+                bank_account varchar(250),
+                company_name varchar(250) NOT NULL,
+                street varchar(250),
+                house_no varchar(250),
+                flat_no varchar(250),
+                zip_code varchar(250),
+                city varchar(250))"""
         # create table INVOICES
         elif table_name == config["TABLE_NAMES"][2]:
             create_table_sql = f"""
@@ -118,6 +127,25 @@ class Database:
 
     def __delete_record__(self, db_file, table_name, key):
         pass
+
+
+class Invoice(db.Model, UserMixin):
+    __tablename__ = "invoices"
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Float, nullable=False)
+    invoice_no = db.Column(db.String(250), nullable=False)
+    invoice_type = db.Column(db.String(250), nullable=False)
+    issue_city = db.Column(db.String(250), nullable=False)
+    issue_date = db.Column(db.Date, nullable=False)
+    issuer_tax_no = db.Column(db.Integer, nullable=False)
+    item = db.Column(db.String(250), nullable=False)
+    price_net = db.Column(db.Float, nullable=False)
+    recipient_tax_no = db.Column(db.Integer, nullable=False)
+    sell_date = db.Column(db.Date, nullable=False)
+    sum_gross = db.Column(db.Float, nullable=False)
+    sum_net = db.Column(db.Float, nullable=False)
+    tax_rate = db.Column(db.Float, nullable=False)
+    unit = db.Column(db.String(250), nullable=False)
 
 
 class User(db.Model, UserMixin):

@@ -6,9 +6,7 @@ To run type: flask --app hello run
 import datetime
 import time
 
-import numpy as np
 import pdfkit
-import sqlalchemy
 from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
@@ -17,13 +15,14 @@ from flask_login import (
     login_user,
     logout_user,
 )
+from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
-from scripts.database import Contractor, Database, User
+from scripts.database import User
 from scripts.invoice import (
-    Invoice,
+    InvoiceForm,
     format_number,
     format_percentages,
     get_number_of_invoices_in_db,
@@ -134,7 +133,7 @@ def logout():
 def new_invoice():
     today = datetime.datetime.now()
     if request.method == "POST":
-        new_invoice = Invoice(
+        new_invoice = InvoiceForm(
             id=get_number_of_invoices_in_db(),
             invoice_type=request.form.get("invoice_type"),
             invoice_no=request.form.get("invoice_no"),
@@ -173,7 +172,7 @@ def your_invoices():
     if request.method == "POST":
         pass
     else:
-        invoices = Invoice.query.order_by(Invoice.issue_date).all()
+        invoices = InvoiceForm.query.order_by(InvoiceForm.issue_date).all()
         return render_template("your_invoices.html", invoices=invoices)
     return render_template("your_invoices.html")
 
@@ -181,7 +180,7 @@ def your_invoices():
 @app.route("/your_invoices/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit(id):
-    invoice = Invoice.query.get_or_404(id)
+    invoice = InvoiceForm.query.get_or_404(id)
     if request.method == "POST":
         invoice.id = invoice.id
         invoice.invoice_type = request.form.get("invoice_type")
@@ -213,7 +212,7 @@ def edit(id):
 def show_pdf(id):
     path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-    invoice = Invoice.query.get_or_404(id)
+    invoice = InvoiceForm.query.get_or_404(id)
     rendered = render_template(
         "pdf_template.html",
         amount=invoice.amount,
@@ -288,6 +287,24 @@ def user_data_edit():
         except:
             pass
     return render_template("user_data_edit.html", user=user, is_edit=True)
+
+
+@app.route("/")
+@login_required
+def send_email(id):
+    mail = Mail(app)
+    invoice = InvoiceForm.query.get_or_404(id)
+    # recipient = InvoiceForm.query.get_or_404(recipient)
+    with mail.connect() as conn:
+        message = f"""Dear {recipient.name}\n\nAttached we are sending invoice no. {invoice.invoice_no}.\n\n
+In case of any doubts please contact us under contact@example.com.\n\nYour FlexStart team"""
+        subject = f"Invoice no. {invoice.invoice_no}"
+        with app.open_resource(f"Invoice_no_{invoice.invoice_no}.pdf") as fp:
+            message.attach(
+                f"Invoice_no_{invoice.invoice_no}.pdf", "application/pdf", fp.read()
+            )
+
+        conn.send(message)
 
 
 if __name__ == "__main__":
