@@ -1,5 +1,5 @@
 - [x] User panel (with buttons to see contractors, invoices, edit personal and contact data, maybe plot incomes)
-- [ ] New invoice + Edit invoice - add functions calculating net and gross sum to every field
+- [x] New invoice + Edit invoice - add functions calculating net and gross sum to every field
 - [x] Whole script - change 'position' into 'item'
 - [ ] New invoice - Add invoice item(s)
 - [ ] New invoice - Add 'global' caculations for net and gross values for invoice with more than one item
@@ -9,6 +9,7 @@
 - [ ] Show invoice - add nicer horizontal division
 - [ ] Show invoice - add iteration through invoice positons
 - [x] Home - make user logout button everyone with blue background
-- [ ] All - add correct footer (not PHP)
+- [x] All - add correct footer (not PHP)
 - [ ] Refine CSS
 - [x] requirements.txt - add versions of modules added
+- [ ] Contact form - change tech into Python + HTML + JavaScript
