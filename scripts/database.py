@@ -157,7 +157,7 @@ class Contractor(db.Model, UserMixin):
 
 if __name__ == "__main__":
     pass
-    db = Database()
-    db.create_table("invoices")
-    db.create_table("accounts")
-    db.create_table("contractors")
+    # db = Database()
+    # db.create_table("invoices", drop_if_exists=True)
+    # db.create_table("accounts")
+    # db.create_table("contractors")

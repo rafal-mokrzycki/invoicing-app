@@ -52,25 +52,18 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-                    </li>
                     {% if current_user.is_authenticated: %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('user') }}">User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
-                    </li>
+                    <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('your_invoices') }}">YourDesktop</a></li>
+                    <li><a class="nav-link scrollto" href="/home#pricing" target="_blank">Pricing</a></li>
+                    <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
+                    <li><a class="login-logout scrollto" href="{{ url_for('logout') }}">Logout</a></li>
+
                     {% else: %}
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('register') }}">Register</a>
-                    </li>
+                    <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('register') }}">Register</a></li>
+                    <li><a class="login-logout scrollto" href="{{ url_for('login') }}">Login</a></li>
                     {% endif %}
 
                 </ul>
