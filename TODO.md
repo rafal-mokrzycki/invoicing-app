@@ -3,7 +3,7 @@
 - [x] Whole script - change 'position' into 'item'
 - [ ] New invoice - Add invoice item(s)
 - [ ] New invoice - Add 'global' caculations for net and gross values for invoice with more than one item
-- [ ] Your invoices - fix edit invoice button
+- [x] Your invoices - fix edit invoice button
 - [ ] Your invoices - add email sending functionality to send button
 - [ ] Show invoice - fix line under issuer and recipient
 - [ ] Show invoice - add nicer horizontal division
