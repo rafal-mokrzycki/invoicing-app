@@ -5,11 +5,12 @@
 - [ ] New invoice - Add 'global' caculations for net and gross values for invoice with more than one item
 - [x] Your invoices - fix edit invoice button
 - [ ] Your invoices - add email sending functionality to send button
-- [ ] Show invoice - fix line under issuer and recipient
-- [ ] Show invoice - add nicer horizontal division
+- [x] Show invoice - fix line under issuer and recipient
+- [x] Show invoice - add nicer horizontal division
 - [ ] Show invoice - add iteration through invoice positons
 - [x] Home - make user logout button everyone with blue background
 - [x] All - add correct footer (not PHP)
 - [ ] Refine CSS
 - [x] requirements.txt - add versions of modules added
 - [ ] Contact form - change tech into Python + HTML + JavaScript
+- [ ] Relations in DB - fix

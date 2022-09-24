@@ -10,10 +10,14 @@ from config_files.config import config
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, ForeignKey, Integer, Table
+from sqlalchemy.orm import declarative_base, relationship
 
 app = Flask(__name__)
 app.config.update(config)
 db = SQLAlchemy(app)
+
+Base = declarative_base()
 
 
 class Database:
@@ -74,11 +78,11 @@ class Database:
                 id INTEGER PRIMARY KEY,
                 email varchar(250),
                 surname varchar(250),
-                name varchar(250) ,
+                name varchar(250),
                 phone_no varchar(250),
-                tax_no varchar(250) NOT NULL,
+                tax_no varchar(250),
                 bank_account varchar(250),
-                company_name varchar(250) NOT NULL,
+                company_name varchar(250),
                 street varchar(250),
                 house_no varchar(250),
                 flat_no varchar(250),
@@ -102,7 +106,9 @@ class Database:
                 sum_gross REAL NOT NULL,
                 sum_net REAL NOT NULL,
                 tax_rate REAL NOT NULL,
-                unit varchar(250) NOT NULL)"""
+                unit varchar(250) NOT NULL,
+                issuer_id REAL,
+                recipient_id REAL)"""
         else:
             raise NameError
         try:
@@ -129,7 +135,7 @@ class Database:
         pass
 
 
-class Invoice(db.Model, UserMixin):
+class Invoice(db.Model, UserMixin, Base):
     __tablename__ = "invoices"
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Float, nullable=False)
@@ -146,9 +152,11 @@ class Invoice(db.Model, UserMixin):
     sum_net = db.Column(db.Float, nullable=False)
     tax_rate = db.Column(db.Float, nullable=False)
     unit = db.Column(db.String(250), nullable=False)
+    issuer_id = Column(Integer, ForeignKey("accounts.id"))
+    recipient_id = Column(Integer, ForeignKey("contractors.id"))
 
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin, Base):
     __tablename__ = config["TABLE_NAMES"][0]
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), nullable=False)
@@ -164,19 +172,30 @@ class User(db.Model, UserMixin):
     city = db.Column(db.String(250), nullable=True)
     tax_no = db.Column(db.String(250), nullable=True)
     bank_account = db.Column(db.String(250), nullable=True)
+    # invoice_id = db.Column(db.Integer, ForeignKey("invoice.id"))
 
 
-class Contractor(db.Model, UserMixin):
+class Contractor(db.Model, UserMixin, Base):
     __tablename__ = config["TABLE_NAMES"][1]
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(250), nullable=False)
-    surname = db.Column(db.String(250), nullable=False)
-    tax_no = db.Column(db.String(250), nullable=False)
+    email = db.Column(db.String(250), nullable=True)
+    name = db.Column(db.String(250), nullable=True)
+    surname = db.Column(db.String(250), nullable=True)
+    phone_no = db.Column(db.Integer, nullable=True)
+    company_name = db.Column(db.String(250), nullable=True)
+    street = db.Column(db.String(250), nullable=True)
+    house_no = db.Column(db.String(250), nullable=True)
+    flat_no = db.Column(db.String(250), nullable=True)
+    zip_code = db.Column(db.String(250), nullable=True)
+    city = db.Column(db.String(250), nullable=True)
+    tax_no = db.Column(db.String(250), nullable=True)
+    bank_account = db.Column(db.String(250), nullable=True)
+    # invoice_id = db.Column(db.Integer, ForeignKey("invoice.id"))
 
 
 if __name__ == "__main__":
     pass
     db = Database()
-    # db.create_table("invoices", drop_if_exists=True)
-    db.create_table("accounts", drop_if_exists=True)
+    db.create_table("invoices", drop_if_exists=True)
+    # db.create_table("accounts", drop_if_exists=True)
     # db.create_table("contractors", drop_if_exists=True)

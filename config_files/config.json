@@ -25,5 +25,6 @@
     "MAIL_USERNAME": "97e041d5e367c7",
     "MAIL_PASSWORD": "cfaf5b99f8bafb",
     "MAIL_USE_TLS": true,
-    "MAIL_USE_SSL": false
+    "MAIL_USE_SSL": false,
+    "PATH_TO_DOWNLOAD_FOLDER": "C:/Users/rafal/Downloads"
 }

@@ -4,10 +4,26 @@ To run type: flask --app hello run
 """
 
 import datetime
+import os
+import smtplib
 import time
+from email import encoders
+from email.message import EmailMessage
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import pdfkit
-from flask import Flask, flash, make_response, redirect, render_template, request, url_for
+from flask import (
+    Flask,
+    Response,
+    flash,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import (
     LoginManager,
     current_user,
@@ -15,12 +31,12 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from flask_mail import Mail
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import config
-from scripts.database import User
+from scripts.database import Contractor, User
 from scripts.invoice import (
     InvoiceForm,
     format_number,
@@ -209,7 +225,7 @@ def edit(id):
 
 @app.route("/your_invoices/show/<int:id>", methods=["GET", "POST"])
 @login_required
-def show_pdf(id):
+def show_pdf(id, download=False):
     path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
     invoice = InvoiceForm.query.get_or_404(id)
@@ -233,9 +249,14 @@ def show_pdf(id):
     pdf = pdfkit.from_string(rendered, False, configuration=config)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
-    response.headers[
-        "Content-Disposition"
-    ] = f"inline; filename=Invoice_no_{invoice.invoice_no}.pdf"
+    if download:
+        response.headers[
+            "Content-Disposition"
+        ] = f"attachment; filename=Invoice_no_{invoice.invoice_no}.pdf"
+    else:
+        response.headers[
+            "Content-Disposition"
+        ] = f"inline; filename=Invoice_no_{invoice.invoice_no}.pdf"
     return response
 
 
@@ -289,22 +310,64 @@ def user_data_edit():
     return render_template("user_data_edit.html", user=user, is_edit=True)
 
 
-@app.route("/")
+@app.route("/your_invoices/send_email/<int:id>", methods=["GET", "POST"])
 @login_required
-def send_email(id):
-    mail = Mail(app)
+def send_invoice_as_attachment(id):
     invoice = InvoiceForm.query.get_or_404(id)
-    # recipient = InvoiceForm.query.get_or_404(recipient)
-    with mail.connect() as conn:
-        message = f"""Dear {recipient.name}\n\nAttached we are sending invoice no. {invoice.invoice_no}.\n\n
-In case of any doubts please contact us under contact@example.com.\n\nYour FlexStart team"""
-        subject = f"Invoice no. {invoice.invoice_no}"
-        with app.open_resource(f"Invoice_no_{invoice.invoice_no}.pdf") as fp:
-            message.attach(
-                f"Invoice_no_{invoice.invoice_no}.pdf", "application/pdf", fp.read()
-            )
+    user = User.query.filter(invoice.issuer_id == User.id).first()
+    recipient = Contractor.query.filter(invoice.recipient_id == Contractor.id).first()
+    if request.method == "POST":
+        send_email(
+            id=invoice.id,
+            sender_address=request.form.get("issuer_email") or user.email,
+            sender_pass=config["MAIL_PASSWORD"],
+            receiver_address=request.form.get("recipient_email"),
+            subject=request.form.get("subject"),
+            body=request.form.get("email_body"),
+            filename=f"{config['PATH_TO_DOWNLOAD_FOLDER']}/Invoice_no_{invoice.invoice_no}.pdf",
+        )
+        return redirect(url_for("your_invoices"))
+    return render_template(
+        "send_email.html", invoice=invoice, user=user, recipient=recipient
+    )
 
-        conn.send(message)
+
+def send_email(
+    id,
+    sender_address,
+    sender_pass,
+    receiver_address,
+    subject,
+    body,
+    filename,
+):
+    # Setup the MIME
+    message = MIMEMultipart()
+    message["From"] = sender_address
+    message["To"] = receiver_address
+    # The subject line
+    message["Subject"] = subject
+    # The body and the attachments for the mail
+    message.attach(MIMEText(body, "plain"))
+    # os search filename in downloads and remove
+    if os.path.exists(f"{config['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
+        os.remove()
+    show_pdf(id=id, download=True)
+    attach_file = open(filename, "rb")  # Open the file as binary mode
+    payload = MIMEBase("application", "octate-stream")
+    payload.set_payload((attach_file).read())
+    encoders.encode_base64(payload)  # encode the attachment
+    # add payload header with filename
+    payload.add_header("Content-Decomposition", "attachment", filename=filename)
+    message.attach(payload)
+    # Create SMTP session for sending the mail
+    session = smtplib.SMTP(config["MAIL_SERVER"], config["MAIL_PORT"])
+    # use gmail with port
+    session.starttls()  # enable security
+    session.login(sender_address, sender_pass)  # login with mail_id and password
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()
 
 
 if __name__ == "__main__":

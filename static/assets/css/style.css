@@ -2487,7 +2487,8 @@ section {
 # User Data
 --------------------------------------------------------------*/
 
-.user-data-form {
+.user-data-form,
+.send-email-form {
   color: #012970;
   font-family: "Nunito", sans-serif;
   font-weight: 700;
@@ -2595,7 +2596,8 @@ section {
 #login h1,
 #register h1,
 #new-invoice h1,
-#user-data h1 {
+#user-data h1,
+#send-email h1 {
   margin: 0;
   font-size: 48px;
   font-weight: 700;
@@ -2688,7 +2690,8 @@ section {
 
 /* Style inputs */
 input,
-select {
+select,
+.send-email-form textarea {
   width: 100%;
   padding: 8px 20px;
   margin: 8px 0;
