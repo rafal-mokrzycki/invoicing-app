@@ -2,28 +2,17 @@
 """
 To run type: flask --app hello run
 """
-
 import datetime
 import os
 import smtplib
 import time
 from email import encoders
-from email.message import EmailMessage
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import pdfkit
-from flask import (
-    Flask,
-    Response,
-    flash,
-    make_response,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
     current_user,
@@ -31,7 +20,6 @@ from flask_login import (
     login_user,
     logout_user,
 )
-from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -103,7 +91,13 @@ def register():
             password=hash_and_salted_password,
             surname=request.form.get("surname"),
             phone_no=request.form.get("phone_no"),
+            plan=request.form.get("plan"),
+            # terms=request.form.get("terms") or False,
+            # newsletter=request.form.get("newsletter") or False,
+            terms=bool(request.form.get("terms")),
+            newsletter=bool(request.form.get("newsletter")),
         )
+        print(new_user.terms)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)

@@ -7,9 +7,12 @@ import datetime
 import json
 
 import repackage
+from config_files.config import config
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
+
+from scripts.invoice import InvoiceForm
 
 repackage.up()
 from config_files.config import config
@@ -74,12 +77,7 @@ def parse_json_with_invoices_counted():
         .group_by(InvoiceForm.invoice_type)
         .filter(InvoiceForm.issue_date > last_day_of_previous_month)
         .filter(InvoiceForm.issue_date < first_day_of_next_month)
-        # .all()
     )
 
     with open("invoices_counted.json", "w") as f:
         f.write(json.dumps(dict(query)))
-
-
-if __name__ == "__main__":
-    pass

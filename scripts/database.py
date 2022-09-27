@@ -70,7 +70,11 @@ class Database:
                 house_no varchar(250),
                 flat_no varchar(250),
                 zip_code varchar(250),
-                city varchar(250))"""
+                city varchar(250),
+                plan varchar(250) NOT NULL,
+                terms INTEGER NOT NULL,
+                newsletter INTEGER NOT NULL
+                )"""
         # create table CONTRACTORS
         elif table_name == config["TABLE_NAMES"][1]:
             create_table_sql = f"""
@@ -172,7 +176,9 @@ class User(db.Model, UserMixin, Base):
     city = db.Column(db.String(250), nullable=True)
     tax_no = db.Column(db.String(250), nullable=True)
     bank_account = db.Column(db.String(250), nullable=True)
-    # invoice_id = db.Column(db.Integer, ForeignKey("invoice.id"))
+    plan = db.Column(db.String(250), nullable=False)
+    terms = db.Column(db.Boolean, nullable=False)
+    newsletter = db.Column(db.Boolean, nullable=False)
 
 
 class Contractor(db.Model, UserMixin, Base):
@@ -196,6 +202,6 @@ class Contractor(db.Model, UserMixin, Base):
 if __name__ == "__main__":
     pass
     db = Database()
-    db.create_table("invoices", drop_if_exists=True)
-    # db.create_table("accounts", drop_if_exists=True)
+    # db.create_table("invoices", drop_if_exists=True)
+    db.create_table("accounts", drop_if_exists=True)
     # db.create_table("contractors", drop_if_exists=True)

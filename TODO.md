@@ -4,7 +4,7 @@
 - [ ] New invoice - Add invoice item(s)
 - [ ] New invoice - Add 'global' caculations for net and gross values for invoice with more than one item
 - [x] Your invoices - fix edit invoice button
-- [ ] Your invoices - add email sending functionality to send button
+- [x] Your invoices - add email sending functionality to send button
 - [x] Show invoice - fix line under issuer and recipient
 - [x] Show invoice - add nicer horizontal division
 - [ ] Show invoice - add iteration through invoice positons
@@ -14,3 +14,6 @@
 - [x] requirements.txt - add versions of modules added
 - [ ] Contact form - change tech into Python + HTML + JavaScript
 - [ ] Relations in DB - fix
+- [ ] Mobile version of the website
+- [ ] Register - fix checkbox input that is always false
+- [ ] New invoice - add workaround to count new invoice number
