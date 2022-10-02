@@ -65,24 +65,31 @@
         <div class="container">
             <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
             <form class="invoice-form" action="" method="post">
-
                 <div class="row">
+                    <div hidden>
+                        <input class="form-control  datepicker f3 hasDatepicker" name="year_month" id="year_month"
+                            type="text" value="{{ year_month }}">
+                        <input id="regular" type="text" value="{{ invoice_number_on_type['regular'] }}">
+                        <input id="proforma" type="text" value="{{ invoice_number_on_type['proforma'] }}">
+                        <input id="advanced_payment" type="text"
+                            value="{{ invoice_number_on_type['advanced_payment'] }}">
+                    </div>
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
                         <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
-                            type="text"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                            type="text" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                            returnValue() ">
                             <option value="regular" selected>Regular</option>
                             <option value="proforma">Proforma</option>
-                            <option value="advanced payment">Advanced payment</option>
+                            <option value="advanced_payment">Advanced payment</option>
                         </select>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
-                        <label for="invoice_no">Invoice number</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.invoice_no }}" name="invoice_no" id="invoice_no"
-                            placeholder="YYYY/MM/number"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                        <label for="invoice_no">Invoice number </label>
+                        <input class="form-control  datepicker f3 hasDatepicker" name="invoice_no" id="invoice_no"
+                            type="text" value="{{ request.form.invoice_no }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                            returnValue() ">
+
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="issue_date">Issue date</label>
@@ -92,14 +99,14 @@
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="issue_city">City of issue</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.issue_city }}" name="issue_city" id="issue_city"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                            value="{{ request.form.issue_city }}" name="issue_city" id="issue_city" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                            returnValue() ">
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="sell_date">Sell date</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="date"
-                            value="{{ request.form.sell_date }}" name="sell_date" id="sell_date"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                            value="{{ request.form.sell_date }}" name="sell_date" id="sell_date" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                            returnValue() ">
                     </div>
                 </div>
 
@@ -109,8 +116,8 @@
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="issuer">Issuer</label>
                         <p><input class="issuer_tax_no" name="issuer_tax_no" type="text" placeholder="XX9999999999"
-                                value="{{ request.form.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                value="{{ request.form.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() ">
                         </p>
 
                     </div>
@@ -119,8 +126,8 @@
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="recipient">Recipient</label>
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ request.form.recipient_tax_no }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                value="{{ request.form.recipient_tax_no }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() ">
                     </div>
                 </div>
 
@@ -139,15 +146,16 @@
                 <div class=" invoice-items-values" id="invoice-items-values">
                     <div class="row invoice-item-1" id="invoice-item-1">
                         <div class="feature-box col-lg-3 "><input type="text" name="item" id="item"
-                                value="{{ request.form.item }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                value="{{ request.form.item }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() ">
                         </div>
                         <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0
-                                value="{{ request.form.amount }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                value="{{ request.form.amount }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() ">
                         </div>
                         <div class="col-sm-1 row3"><select id="unit" name="unit" value="{{ request.form.unit }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() ">
                                 <option value="item" selected>item</option>
                                 <option value="h">h</option>
                                 <option value="days">days</option>
@@ -157,12 +165,10 @@
                                 <option value="kg">kg</option>
                             </select></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{ request.form.price_net }}"></div>
-                        <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{ request.form.tax_rate }}">
+                                min=0 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() " value="{{ request.form.price_net }}"></div>
+                        <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() " value="{{ request.form.tax_rate }}">
                                 <option value="0.0">exempt</option>
                                 <option value="0.0">0%</option>
                                 <option value="0.05">5%</option>
@@ -173,7 +179,7 @@
                                 value="{{ sum_net }}" readonly></div>
                         <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross"
                                 value="{{ sum_gross }}" readonly></div>
-                        <div class="col-sm-1 row1"><a class="btn btn-delete-position" onclick="deletePosition()"><i
+                        <div class="col-sm-1 row1"><a class="btn btn-delete-item" onclick="deletePosition()"><i
                                     class="bi bi-x"></i></a>
                         </div>
                     </div>
@@ -181,7 +187,7 @@
                 <!-- issue buton -->
                 <div class="add_buttons ">
                     <a id="add_next_position" href="#" onclick="addNextFn()" accesskey="M" title="New position"
-                        class="button-add-next-position btn success">
+                        class="button-add-next-item btn success">
                         <i class="bi bi-plus-circle-dotted"></i><span>New position</span>
                     </a>
                 </div>
@@ -239,6 +245,14 @@
             // Multiply them and display
             var multiplication = amount * price_net + (amount * price_net * tax_rate);
             document.getElementById('sum_gross').value = multiplication;
+        }
+    </script>
+    <script>
+        function returnValue() {
+            var year_month = document.getElementById("year_month").value;
+            var invoice_type = document.getElementById("invoice_type").value;
+            var number = document.getElementById(invoice_type).value;
+            document.getElementById('invoice_no').value = year_month.concat('', number);
         }
     </script>
     <script>
