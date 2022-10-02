@@ -4,7 +4,6 @@ Parsers
 """
 import calendar
 import datetime
-import json
 
 import repackage
 
@@ -55,11 +54,17 @@ def parse_invoice_number(invoice_type):
     return f"{current_year}/{current_month}/{invoice_number + 1}"
 
 
-def parse_json_with_invoices_counted(write_json=True):
+def parse_dict_with_invoices_counted():
     """
     Takes invoice type andbased on the current year and month, number of invoices in DB
     and return json with invoices counted by groups for a given month.
     """
+    empty_dict = {
+        [i for i in config["INVOICE_TYPES"]][i]: [
+            1 for _ in range(len(config["INVOICE_TYPES"]))
+        ][i]
+        for i in range(len([i for i in config["INVOICE_TYPES"]]))
+    }
     current_date = datetime.date.today()
     last_day_of_previous_month = datetime.date(
         current_date.year,
@@ -77,14 +82,22 @@ def parse_json_with_invoices_counted(write_json=True):
         .filter(InvoiceForm.issue_date > last_day_of_previous_month)
         .filter(InvoiceForm.issue_date < first_day_of_next_month)
     )
-    if write_json:
-        with open("invoices_counted.json", "w") as f:
-            f.write(json.dumps(dict(query)))
-    elif len(dict(query)) < 3:
-        return {"regular": "13", "proforma": "21", "advanced_payment": "2"}
-    else:
-        return json.dumps(dict(query))
+    return append_dict(empty_dict, dict(query))
 
 
-invoice_number_on_type = parse_json_with_invoices_counted(False)
-print(invoice_number_on_type["regular"])
+def append_dict(dict1, dict2):
+    """
+    Appends one dictionary to another one keeping keys from both and returning
+    a sum of their values.
+    """
+    result = {}
+    for i in set(list(dict1.keys()) + list(dict2.keys())):
+        if i not in dict1:
+            result[i] = dict2[i]
+        elif i not in dict2:
+            result[i] = dict1[i]
+        else:
+            result[i] = dict1[i] + dict2[i]
+    for key in result:
+        result[key] = str(result[key])
+    return result

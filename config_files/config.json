@@ -8,7 +8,7 @@
     "INVOICE_TYPES": [
         "regular",
         "proforma",
-        "advanced payment"
+        "advanced_payment"
     ],
     "CURRENCY": "PLN",
     "DATABASE": "database.db",
