@@ -16,4 +16,5 @@
 - [ ] Relations in DB - fix
 - [ ] Mobile version of the website
 - [ ] Register - fix checkbox input that is always false
-- [ ] New invoice - add a workaround to count new invoice number
+- [x] New invoice - add a workaround to count new invoice number
+- [x] index.html - change texts
