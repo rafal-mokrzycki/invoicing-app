@@ -234,7 +234,7 @@
             var price_net = document.getElementById('price_net').value;
             // Multiply them and display
             var multiplication = amount * price_net;
-            document.getElementById('sum_net').value = multiplication;
+            document.getElementById('sum_net').value = multiplication.toFixed(2);
         }    </script>
     <script>
         function sumGrossFunction() {
@@ -244,7 +244,7 @@
             var tax_rate = document.getElementById('tax_rate').value;
             // Multiply them and display
             var multiplication = amount * price_net + (amount * price_net * tax_rate);
-            document.getElementById('sum_gross').value = multiplication;
+            document.getElementById('sum_gross').value = multiplication.toFixed(2);
         }
     </script>
     <script>
