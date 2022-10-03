@@ -19,5 +19,5 @@
 - [x] New invoice - add a workaround to count new invoice number
 - [x] index.html - change texts
 - [ ] New invoice - add currency change
-- [x] Divide config.json into credentials and settings
+- [ ] Divide config.json into credentials and settings
 - [ ] Fix user data edition (send data to DB)
