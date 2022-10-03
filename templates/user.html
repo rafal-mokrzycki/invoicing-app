@@ -1,59 +1,86 @@
-<html>
+{% extends "base.html" %}
+{% block content %}
 
-<head>
-    <title>User panel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
 
-    <!-- Favicons -->
-    <link href="static/assets/img/favicon.png" rel="icon">
-    <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- ======= Pricing Section ======= -->
+<section id="pricing" class="pricing">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <div class="container" data-aos="fade-up">
 
-    <!-- Vendor CSS Files -->
-    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!-- <header class="section-header">
+            <h2>Pricing</h2>
+            <p>Check our Pricing</p>
+        </header> -->
 
-    <!-- Template Main CSS File -->
-    <link href="static/assets/css/style.css" rel="stylesheet">
-</head>
+        <!-- <div class="row gy-4" data-aos="fade-left">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"> -->
+        <div class="row your-desktop-buttons">
+            <div class="btn-group btn-group-lg col-sm-4" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-user-tile company-data" onclick="location.href = '/user_data';">
+                    <a>Company Data</a>
+                </button>
+            </div>
+            <div class=" btn-group btn-group-lg col-sm-4" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-user-tile your-invoices"
+                    onclick="location.href = '/your_invoices';">
+                    <a>Your Invoices</a></button>
+            </div>
+            <div class="btn-group btn-group-lg col-sm-4" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-user-tile your-income">
+                    <a>Your Income</a></button>
+                <!-- </div>
+            </div>
+        </div> -->
+                <!-- <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                <div class="box-your-desktop">
+                    <h3 style="color: #07d5c0;">Your Invoices</h3>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
 
-<body>
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+                <div href="https://www.youtube.com" class="box-your-desktop btn-buy">
+                    <h3 style="color: #65c600;">Your Income</h3>
+                    <a href="#" class="btn-buy">Buy Now</a>
+                </div>
+            </div>
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+                <div class="box-your-desktop">
+                    <h3>Company Data</h3>
+                    <a href="https://www.youtube.com" class="btn-buy">Buy Now</a>
+                </div>
+            </div> -->
 
-            <a href="/home" class="logo d-flex align-items-center">
-                <img src="static/assets/img/logo.png" alt="">
-                <span>FlexStart</span>
-            </a>
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="new-invoice scrollto" href="/new-invoice">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="#">Your invoices</a></li>
-                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                    <li><a class="login-logout scrollto" href="{{ url_for('logout') }}">Logout</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
+            </div>
         </div>
-    </header><!-- End Header -->
-    <!-- ======= Footer ======= -->
-    <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."static/assets/php/"; include($IPATH."footernav.html") ?>
-    <!-- End Footer -->
+    </div>
 
+</section><!-- End Pricing Section -->
+<section id="contact" class="contact">
+    <!-- ======= Footer ======= -->
+    {% include "footer.html" %}
+    <!-- End Footer -->
+</section>
 </body>
 
 </html>
+<!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/static/assets/vendor/aos/aos.js"></script>
+<script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/static/assets/js/main.js"></script>
+
+{% endblock %}

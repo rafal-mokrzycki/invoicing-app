@@ -227,7 +227,9 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 10px 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* padding: 10px 0 10px 30px; */
   font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -252,9 +254,10 @@ section {
 
 .navbar .login-logout,
 .navbar .login-logout:focus {
-  background: #4154f1;
+  background: #4d5ef2;
   padding: 8px 20px;
-  margin-left: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
   border-radius: 4px;
   color: #fff;
 }
@@ -262,7 +265,7 @@ section {
 .navbar .login-logout:hover,
 .navbar .login-logout:focus:hover {
   color: #fff;
-  background: #4154f1;
+  background: #4d5ef2;
 }
 
 .navbar .new-invoice,
@@ -2427,11 +2430,174 @@ section {
   color: #012970;
 }
 
+
+/*--------------------------------------------------------------
+# YourDesktop
+--------------------------------------------------------------*/
+.pricing .btn-user-tile {
+  /* background-color: #003185; */
+  border: none;
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  margin: 30px 30px 30px 30px;
+  height: 250px;
+  width: 250px;
+  transition: 0.3s;
+}
+
+.pricing .btn-user-tile:hover {
+  margin: 25px 25px 25px 25px;
+  height: 260px;
+  width: 260px;
+}
+
+.company-data,
+.company-data:focus {
+  background-color: #012970;
+}
+
+.your-invoices,
+.your-invoices:focus {
+  background-color: #00a176;
+}
+
+.your-income,
+.your-income:focus {
+  background-color: #4d5ef2;
+}
+
+.company-data:hover {
+  background-color: #013388;
+}
+
+.your-invoices:hover {
+  background-color: #01b081;
+}
+
+.your-income:hover {
+  background-color: #5d6df7;
+}
+
+.pricing .your-desktop-buttons {
+  margin-top: 8%;
+}
+
+/*--------------------------------------------------------------
+# User Data
+--------------------------------------------------------------*/
+
+.user-data-form,
+.send-email-form {
+  color: #012970;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  text-align: left;
+  /* margin-left: 10%;
+  margin-right: 10%; */
+  display: block;
+
+}
+
+.user-data-form .unchangable {
+  background-color: rgb(233, 232, 232);
+}
+
+/*--------------------------------------------------------------
+# Table Section
+--------------------------------------------------------------*/
+.invoices {
+  margin: 5%;
+  color: rgb(42, 41, 41);
+}
+
+.invoices .table-header {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #013289;
+}
+
+.invoices .table-cell {
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  color: #000;
+  padding-left: 10px;
+  padding-top: 3.5%;
+}
+
+.invoices .table-cell-search {
+  padding-top: 3.5%;
+
+}
+
+.bi-search {
+  color: #013289;
+  padding-left: 10px;
+}
+
+.invoice-action-buttons {
+  margin-right: 10px;
+}
+
+.invoice-action {
+  padding: 0px;
+  margin: 5px 5px 5px 5px;
+  border-radius: 4px;
+  width: 70%;
+  height: 50%;
+  color: #fff;
+  text-align: center;
+  border-color: transparent;
+  display: block;
+  transition: 0.3s;
+}
+
+.invoice-action a {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: .8em;
+  color: #fff;
+  /* margin: -10px 20px 10px 20px */
+}
+
+.edit,
+.edit:focus {
+  background-color: #4d5ef2;
+}
+
+.print,
+.print:focus {
+  background-color: #008E67;
+}
+
+.send,
+.send:focus {
+  background-color: #CA3F00;
+}
+
+.edit:hover {
+  background-color: #5969f3;
+}
+
+.print:hover {
+  background-color: #00a176;
+}
+
+.send:hover {
+  background-color: #db4601;
+
+}
+
+
+
+
 /* Login page */
 
 #login h1,
 #register h1,
-#new-invoice h1 {
+#new-invoice h1,
+#user-data h1,
+#send-email h1 {
   margin: 0;
   font-size: 48px;
   font-weight: 700;
@@ -2468,14 +2634,18 @@ section {
   margin-right: 30%;
 }
 
+.register-form .choose-plan {
+  padding: 15px 0 0 20px;
+}
+
 /* Invoice page */
 
 .new-invoice-form {
   margin-top: 10%;
 }
 
-.invoice-positions input,
-.invoice-positions select {
+.invoice-items-values input,
+.invoice-items-values select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -2484,11 +2654,48 @@ section {
   padding: 8px 8px;
 }
 
+.button-add-next-item,
+.button-add-next-item:focus {
+  background: #012970;
+  padding: 8px 20px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.button-add-next-item:hover,
+.button-add-next-item:focus:hover {
+  color: #fff;
+  background: #003185;
+}
+
+.bi-plus-circle-dotted {
+  margin-right: 7px;
+}
+
+.btn-delete-item {
+  background: red;
+  border: red;
+  border-radius: 4px;
+  margin: 8px -10px;
+  display: inline-block;
+
+}
+
+.btn-delete-item:hover {
+  background: rgb(255, 65, 65);
+  border: rgb(255, 65, 65);
+
+}
+
+.bi-x {
+  color: white;
+}
 
 
 /* Style inputs */
 input,
-select {
+select,
+.send-email-form textarea {
   width: 100%;
   padding: 8px 20px;
   margin: 8px 0;

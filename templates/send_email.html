@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!-- ======= Pricing Section ======= -->
+<section id="send-email" class="send-emails d-flex align-items-center">
+
+    <div class="container" data-aos="fade-up">
+        <br>
+        <h1>Send your invoice</h1>
+        <br>
+
+        <form class="send-email-form " action="" method="post">
+            <div class="row">
+                <div class="feature-box col-lg-12 ">
+                    <label for="issuer_email">Your email:</label>
+                    <input type="email" name="issuer_email" id="issuer_email" value="{{user.email}}" required>
+                </div>
+                <div class="feature-box col-lg-12 ">
+                    <label for="recipient_email">Customer email:</label>
+                    <input type="email" name="recipient_email" id="recipient_email"
+                        value="{{ request.form.recipient_email }}" required>
+                </div>
+                <div class="feature-box col-lg-12 ">
+                    <label for="subject">Subject:</label>
+                    <input type="text" name="subject" id="subject" value="{{ request.form.body }}" required>
+                </div>
+
+                <div class="feature-box col-lg-12 ">
+                    <label for="email_body">Body:</label>
+                    <textarea class="email_body" name="email_body" id="email_body" rows="8">Dear {{recipient.name}}
+
+Attached I am sending the invoice no. {{invoice.invoice_no}}.
+
+--
+{{user.name}} {{user.surname}}
+from FlexStart team
+</textarea><a href="{{ url_for('show_pdf', id=invoice.id) }}" target=”_blank”>Check the invoice</a>
+                </div>
+                <div class="feature-box col-lg-6 ">
+                    <input class="btn btn-default" type="submit" value="Send email"> or <a
+                        href="{{ url_for('your_invoices') }}">Cancel</a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</section><!-- End Pricing Section -->
+<section id="contact" class="contact">
+    <!-- ======= Footer ======= -->
+    {% include "footer.html" %}
+    <!-- End Footer -->
+</section>
+</body>
+
+</html>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+<!-- Vendor JS Files -->
+<script src="/static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/static/assets/vendor/aos/aos.js"></script>
+<script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/static/assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/static/assets/js/main.js"></script>
+
+{% endblock %}

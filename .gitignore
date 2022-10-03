@@ -129,12 +129,9 @@ dmypy.json
 .pyre/
 
 # tmp
-test.py
-test2.py
-test3.py
+test*.py
 *.pdf
 
 # sql & databases
 database.db
 schema.sql
-

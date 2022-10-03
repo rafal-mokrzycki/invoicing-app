@@ -8,7 +8,7 @@
     "INVOICE_TYPES": [
         "regular",
         "proforma",
-        "advanced payment"
+        "advanced_payment"
     ],
     "CURRENCY": "PLN",
     "DATABASE": "database.db",
@@ -18,6 +18,13 @@
         "invoices"
     ],
     "SECRET_KEY": "secret-key-goes-here",
-    "SQLALCHEMY_DATABASE_URI": "sqlite:///database.db",
-    "SQLALCHEMY_TRACK_MODIFICATIONS": false
-
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///C:/Users/rafal/Documents/python/invoicing_app/database.db",
+    "SQLALCHEMY_TRACK_MODIFICATIONS": false,
+    "MAIL_SERVER": "smtp.mailtrap.io",
+    "MAIL_PORT": 2525,
+    "MAIL_USERNAME": "97e041d5e367c7",
+    "MAIL_PASSWORD": "cfaf5b99f8bafb",
+    "MAIL_USE_TLS": true,
+    "MAIL_USE_SSL": false,
+    "PATH_TO_DOWNLOAD_FOLDER": "C:/Users/rafal/Downloads"
+}
