@@ -4,18 +4,18 @@ Utilities to create a new ivoice
 """
 
 import numpy as np
-from config_files.config import credentials, settings
+from config_files.config import config
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from scripts.database import Invoice
 
 app = Flask(__name__)
-app.config.update(credentials)
+app.config.update(config)
 db = SQLAlchemy(app)
 
 
-CURRENCY = settings["CURRENCY"]
+CURRENCY = config["CURRENCY"]
 
 
 class InvoiceForm(Invoice):
@@ -59,7 +59,7 @@ class InvoiceForm(Invoice):
 
 
 def calculate_gross(amount, tax_rate):
-    if tax_rate in settings["TAX_RATES"]:
+    if tax_rate in config["TAX_RATES"]:
         return float(amount + amount * tax_rate)
     else:
         raise ValueError("Wrong tax rate")

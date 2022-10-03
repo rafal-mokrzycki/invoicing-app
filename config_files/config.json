@@ -1,4 +1,22 @@
 {
+    "TAX_RATES": [
+        0.0,
+        0.05,
+        0.08,
+        0.23
+    ],
+    "INVOICE_TYPES": [
+        "regular",
+        "proforma",
+        "advanced_payment"
+    ],
+    "CURRENCY": "PLN",
+    "DATABASE": "database.db",
+    "TABLE_NAMES": [
+        "accounts",
+        "contractors",
+        "invoices"
+    ],
     "SECRET_KEY": "secret-key-goes-here",
     "SQLALCHEMY_DATABASE_URI": "sqlite:///C:/Users/rafal/Documents/python/invoicing_app/database.db",
     "SQLALCHEMY_TRACK_MODIFICATIONS": false,
