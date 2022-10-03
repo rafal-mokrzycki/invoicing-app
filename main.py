@@ -193,6 +193,7 @@ def your_invoices():
 @app.route("/your_invoices/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit(id):
+    """Method enables editiong existing invoices"""
     invoice = InvoiceForm.query.get_or_404(id)
     if request.method == "POST":
         invoice.id = invoice.id
