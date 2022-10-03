@@ -43,15 +43,13 @@
                     </select>
                 </div>
                 <div class="checkbox col-lg-12 ">
-                    <input type="checkbox" id="terms" name="terms" value="{{ request.form.terms }}"
-                        required>I
+                    <input type="checkbox" id="terms" name="terms" checked="{{ request.form.terms }}" required>I
                     accept the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a> and the <a
                         href="/privacy-policy" target="_blank">Privacy Policy</a>
                 </div>
                 <div class="checkbox col-lg-12 ">
-                    <input type="checkbox" id="newsletter" name="newsletter" value="{{ request.form.newsletter }}">I
-                    wish to subscribe
-                    to the newsletter
+                    <input type="checkbox" id="newsletter" name="newsletter" checked="{{ request.form.newsletter }}">I
+                    wish to subscribe to the newsletter
                 </div>
                 <div class="feature-box col-lg-12 ">
                     <input class="btn btn-default" type="submit" value="Register">
