@@ -18,3 +18,4 @@
 - [ ] Register - fix checkbox input that is always false
 - [x] New invoice - add a workaround to count new invoice number
 - [x] index.html - change texts
+= [ ] New invoice - add currency change

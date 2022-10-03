@@ -55,7 +55,7 @@
                     {% if current_user.is_authenticated: %}
                     <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
                     <li><a class="nav-link scrollto" href="{{ url_for('user') }}">YourDesktop</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('home') }}" target="_blank">Pricing</a>
+                    <li><a class="nav-link scrollto" href="{{ url_for('home') }}">Pricing</a>
                     </li>
                     <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
                     <li><a class="login-logout scrollto" href="{{ url_for('logout') }}">Logout</a></li>
