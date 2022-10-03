@@ -165,8 +165,10 @@
                                 <option value="kg">kg</option>
                             </select></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " value="{{ request.form.price_net }}" required></div>
+                                min=0 placeholder="0.00" pattern="^\d+(?:\.\d{1,2})?$"
+                                onblur="this.parentNode.style.backgroundColor =/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'"
+                                onchange=" sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ; returnValue() "
+                                value=" {{ request.form.price_net }}" required></div>
                         <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " value="{{ request.form.tax_rate }}" required>
                                 <option value="0.0">exempt</option>
