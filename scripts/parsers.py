@@ -12,7 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 
 repackage.up()
-from config_files.config import credentials, load_config_file, settings
+from config_files.config import credentials, settings
 
 from scripts.invoice import InvoiceForm
 
@@ -107,5 +107,9 @@ def parse_currencies(filename='currencies.csv', columns=['Currency Code']):
     """
     Reads the CSV file with currency symbols and parses them to UI
     """
-    filepath=repackage.add(f'../config_files/{filename}')
-    return pd.read_csv(filepath, names=columns)
+    filepath = repackage.add(f'../config_files/{filename}')
+    df = pd.read_csv(filepath)
+    if len(columns) == 1:
+        return df[columns[0]].values
+    return df[columns].values
+print(parse_currencies())

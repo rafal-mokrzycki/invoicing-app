@@ -169,13 +169,15 @@
                                 onblur="this.parentNode.style.backgroundColor =/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'"
                                 onchange=" sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ; returnValue() "
                                 value=" {{ request.form.price_net }}" required></div>
-                        <div class="col-sm-1 row3"><select id="currency" name="currency"
-                                value="{{ request.form.currency }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                        <div class="col-sm-1 row3">
+                            <select id="currency" name="currency" value="{{ request.form.currency }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                     returnValue() " required>
+                                <option value="PLN" SELECTED>PLN</option>"
                                 {% for currency in currencies %}
-                                <option value="{{currency}}" SELECTED>{{currencies}}</option>"
+                                <option value="{{currency}}">{{currency}}</option>"
                                 {% endfor %}
-                            </select></div>
+                            </select>
+                        </div>
                         <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " value="{{ request.form.tax_rate }}" required>
                                 <option value="0.0">exempt</option>
