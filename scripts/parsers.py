@@ -109,7 +109,12 @@ def parse_currencies(filename='currencies.csv', columns=['Currency Code']):
     """
     filepath = repackage.add(f'../config_files/{filename}')
     df = pd.read_csv(filepath)
+    df1 = df[df['Currency Code'].isin(['PLN','EUR','USD','GBP','JPY'])]
+    df2 = df[~df1]
     if len(columns) == 1:
-        return df[columns[0]].values
-    return df[columns].values
+        result = [df1[columns[0]].values, df2[columns[0]].values]
+    result = [df1[columns].values, df2[columns].values]
+    return result
+
+
 print(parse_currencies())
