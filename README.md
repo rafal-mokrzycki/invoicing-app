@@ -31,12 +31,13 @@ The aim of the project is to provide a tool that enables issuing, storing, print
 
 ## Tech/framework used 🔧
 
-| Tech | Description |
-| - | - |
-| [Python](https://www.python.org/) | 3.8.10 |
-| [Flask](https://flask.palletsprojects.com/en/2.2.x/) | 2.2.2 |
-| [Sqlite](https://www.sqlite.org/index.html) | 3.39.4 |
-| [SQLalchemy](https://www.sqlalchemy.org/) | 1.4.41 |
+| Tech | Version | Role in the project |
+| - | - | - |
+| [Flask](https://flask.palletsprojects.com/en/2.2.x/) | 2.2.2 | Main framework of the project |
+| [Bootstrap](https://getbootstrap.com/) | 5 | Frontend (along with HTML, CSS and JavaScript) |
+| [Python](https://www.python.org/) | 3.8.10 | Backend (data manipulation, data plotting, auxiliary functions) |
+| [Sqlite](https://www.sqlite.org/index.html) | 3.39.4 | Data storage & manipulation |
+| [SQLalchemy](https://www.sqlalchemy.org/) | 1.4.41 | Data storage & manipulation |
 
 
 ## Description of the app 📺
@@ -74,6 +75,30 @@ Here you can see which invoices you have issed so far. on right side of each lis
 
 
 ## Installation 💾
+
+To run the project use the following steps:
+1. Clone the repo:
+
+`git clone https://github.com/rafal-mokrzycki/invoicing_app.git`
+
+2. Install required libraries:
+
+`pip install -r requirements.txt`
+
+3. Create a database via python:
+
+`from scripts.database import Database`
+`db = Database()`
+`db.create_table("invoices", drop_if_exists=True)`
+`db.create_table("accounts", drop_if_exists=True)`
+`db.create_table("contractors", drop_if_exists=True)`
+
+4. Run the `main.py` file:
+
+`"path/to/python.exe" main.py`
+
+5. Go to the browser and browse `http://127.0.0.1:5000/`.
+
 
 ## Available scripts
 
