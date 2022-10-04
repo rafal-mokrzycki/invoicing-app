@@ -3,31 +3,23 @@
 <br>
 
 <p align="left">
-<img src=""  alt="Logo">
+<img src="static\assets\img\logo.png"  alt="Logo">FlexStart - invoicing app
 </p>
-
-<br>
-
-<br>
 
 </h1>
 
-<h4 align="left">Invoicing App</h4>
+<h4 align="left">Sample screenshot</h4>
 
 <p align="left">
   <a >
-    <img src=""
+    <img src="static\assets\img\screenshots\general_screen.jpg"
          alt="Screenshot">
   </a>
 </p>
 
 ## Project Overview 🎉
 
-### Aim of the project
-
-The aim of the project is to provide a tool that enables issuing, storing, printing out and sending invoices via email. The website enables also to search through existing invoices, filter and sort them, as well as plo the income in a given period.
-
-###
+The aim of the project is to provide a tool that enables issuing, storing, printing out and sending invoices via email. The website enables also to search through existing invoices, filter and sort them, as well as plot the income in a given period.
 
 ## Tech/framework used 🔧
 
@@ -97,18 +89,4 @@ To run the project use the following steps:
 
 `"path/to/python.exe" main.py`
 
-5. Go to the browser and browse `http://127.0.0.1:5000/`.
-
-
-## Available scripts
-
-| Command                   | Description                   |     |
-| ------------------------- | ----------------------------- | --- |
-| `npm run start`           | Open local server             |     |
-| `npm run build`           | Create optimized build        |     |
-| `npm run test`            | Run tests                     |     |
-
-
-## Live 📍
-
-## License 🔱
+5. Go to the browser and browse `http://127.0.0.1:5000/`. Enjoy!
