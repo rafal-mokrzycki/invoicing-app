@@ -1,0 +1,23 @@
+- [x] User panel (with buttons to see contractors, invoices, edit personal and contact data, maybe plot incomes)
+- [x] New invoice + Edit invoice - add functions calculating net and gross sum to every field
+- [x] Whole script - change 'position' into 'item'
+- [x] Your invoices - fix edit invoice button
+- [x] Your invoices - add email sending functionality to send button
+- [x] Show invoice - fix line under issuer and recipient
+- [x] Show invoice - add nicer horizontal division
+- [x] Home - make user logout button everyone with blue background
+- [x] All - add correct footer (not PHP)
+- [x] requirements.txt - add versions of modules added
+- [x] Register - fix checkbox input that is always false
+- [x] New invoice - add a workaround to count new invoice number
+- [x] index.html - change texts
+- [x] Divide config.json into credentials and settings
+- [ ] New invoice - add currency change
+- [ ] Fix user data edition (send data to DB)
+- [ ] Show invoice - add iteration through invoice items
+- [ ] New invoice - Add invoice item(s)
+- [ ] New invoice - Add 'global' caculations for net and gross values for invoice with more than one item
+- [ ] Contact form - change tech into Python + HTML + JavaScript
+- [ ] Relations in DB - fix
+- [ ] Mobile version of the website
+- [ ] Refine CSS
