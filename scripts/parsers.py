@@ -6,7 +6,6 @@ import calendar
 import datetime
 
 import repackage
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -14,6 +13,7 @@ from sqlalchemy import func
 repackage.up()
 from config_files.config import credentials, settings
 
+from scripts.database import Contractor
 from scripts.invoice import InvoiceForm
 
 app = Flask(__name__)
@@ -83,6 +83,11 @@ def parse_dict_with_invoices_counted():
         .filter(InvoiceForm.issue_date < first_day_of_next_month)
     )
     return append_dict(empty_dict, dict(query))
+
+
+def parse_contractors_tax_no():
+    query=db.session.query(Contractor.tax_no).all()
+    return [''] + [elem[0] for elem in query]
 
 
 def append_dict(dict1, dict2):

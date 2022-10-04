@@ -125,9 +125,13 @@
                     <!-- recipient -->
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="recipient">Recipient</label>
-                        <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
+                        <p><select class="recipient_tax_no" name="recipient_tax_no" type="text"
                                 value="{{ request.form.recipient_tax_no }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " required>
+                                {% for contractor in contractors %}
+                                <option value="{{contractor}}" selected>{{contractor}}</option>
+                                {% endfor %}
+                            </select>
                     </div>
                 </div>
 
