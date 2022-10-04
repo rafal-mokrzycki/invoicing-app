@@ -15,6 +15,7 @@ from sqlalchemy.orm import declarative_base, relationship
 
 app = Flask(__name__)
 app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 Base = declarative_base()

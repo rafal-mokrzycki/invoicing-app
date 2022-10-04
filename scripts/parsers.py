@@ -7,7 +7,6 @@ import datetime
 
 import repackage
 
-# from config_files.config import credentials, settings
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -19,6 +18,7 @@ from scripts.invoice import InvoiceForm
 
 app = Flask(__name__)
 app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 

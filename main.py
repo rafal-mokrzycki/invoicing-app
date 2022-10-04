@@ -37,6 +37,7 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 

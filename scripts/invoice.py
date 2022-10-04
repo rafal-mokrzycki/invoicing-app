@@ -12,6 +12,7 @@ from scripts.database import Invoice
 
 app = Flask(__name__)
 app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 
