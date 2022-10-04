@@ -1,14 +1,19 @@
-<!doctype html>
-<html>
+<!-- <!doctype html>
+<html> -->
+{% extends "base.html" %}
+{% block content %}
 
 <body>
-    <h1>Hello Plotly (but not Dash)</h1>
-    <div id='chart' class='chart' ”></div>
+    <!-- <h1>Hello Plotly (but not Dash)</h1> -->
+    <div id='chart' class='chart'></div>
 </body>
+
+</html>
+
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
     var graphs = {{ graphJSON | safe}};
     Plotly.plot('chart', graphs, {});
 </script>
 
-</html>
+{% endblock %}

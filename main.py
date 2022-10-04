@@ -36,6 +36,7 @@ from scripts.invoice import (
     get_number_of_invoices_in_db,
 )
 from scripts.parsers import parse_dict_with_invoices_counted
+from scripts.visualization import DataHandler
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -373,18 +374,20 @@ def send_email(
     session.quit()
 
 
-@app.route("/plotting")
-def plotting():
-    df = pd.DataFrame(
-        {
-            "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-            "Amount": [4, 1, 2, 2, 4, 5],
-            "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"],
-        }
-    )
-    fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+@app.route("/chart")
+def chart():
+    # df = pd.DataFrame(
+    #     {
+    #         "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
+    #         "Amount": [4, 1, 2, 2, 4, 5],
+    #         "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"],
+    #     }
+    # )
+    dh = DataHandler()
+    df = dh.get_data()
+    fig = px.bar(df, x="IssueDate", y="SumGross", color="InvoiceType")
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template("plotting.html", graphJSON=graphJSON)
+    return render_template("chart.html", graphJSON=graphJSON)
 
 
 if __name__ == "__main__":
