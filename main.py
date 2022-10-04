@@ -3,6 +3,7 @@
 To run type: flask --app hello run
 """
 import datetime
+import json
 import os
 import smtplib
 import time
@@ -11,7 +12,10 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import pandas as pd
 import pdfkit
+import plotly
+import plotly.express as px
 from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
@@ -32,6 +36,7 @@ from scripts.invoice import (
     get_number_of_invoices_in_db,
 )
 from scripts.parsers import parse_dict_with_invoices_counted
+from scripts.visualization import DataHandler
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -367,6 +372,22 @@ def send_email(
     text = message.as_string()
     session.sendmail(sender_address, receiver_address, text)
     session.quit()
+
+
+@app.route("/chart")
+def chart():
+    # df = pd.DataFrame(
+    #     {
+    #         "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
+    #         "Amount": [4, 1, 2, 2, 4, 5],
+    #         "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"],
+    #     }
+    # )
+    dh = DataHandler()
+    df = dh.get_data()
+    fig = px.bar(df, x="IssueDate", y="SumGross", color="InvoiceType")
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    return render_template("chart.html", graphJSON=graphJSON)
 
 
 if __name__ == "__main__":
