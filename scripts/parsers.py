@@ -5,14 +5,14 @@ Parsers
 import calendar
 import datetime
 
+import pandas as pd
 import repackage
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 
 repackage.up()
-from config_files.config import credentials, settings
+from config_files.config import credentials, load_config_file, settings
 
 from scripts.invoice import InvoiceForm
 
@@ -101,3 +101,11 @@ def append_dict(dict1, dict2):
     for key in result:
         result[key] = str(result[key])
     return result
+
+
+def parse_currencies(filename='currencies.csv', columns=['Currency Code']):
+    """
+    Reads the CSV file with currency symbols and parses them to UI
+    """
+    filepath=repackage.add(f'../config_files/{filename}')
+    return pd.read_csv(filepath, names=columns)
