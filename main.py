@@ -23,7 +23,7 @@ from flask_login import (
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from config_files.config import config
+from config_files.config import credentials, settings
 from scripts.database import Contractor, User
 from scripts.invoice import (
     InvoiceForm,
@@ -36,7 +36,7 @@ from scripts.parsers import parse_dict_with_invoices_counted
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config.update(config)
+app.config.update(settings)
 db = SQLAlchemy(app)
 
 
@@ -318,11 +318,11 @@ def send_invoice_as_attachment(id):
         send_email(
             id=invoice.id,
             sender_address=request.form.get("issuer_email") or user.email,
-            sender_pass=config["MAIL_PASSWORD"],
+            sender_pass=credentials["MAIL_PASSWORD"],
             receiver_address=request.form.get("recipient_email"),
             subject=request.form.get("subject"),
             body=request.form.get("email_body"),
-            filename=f"{config['PATH_TO_DOWNLOAD_FOLDER']}/Invoice_no_{invoice.invoice_no}.pdf",
+            filename=f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/Invoice_no_{invoice.invoice_no}.pdf",
         )
         return redirect(url_for("your_invoices"))
     return render_template(
@@ -348,7 +348,7 @@ def send_email(
     # The body and the attachments for the mail
     message.attach(MIMEText(body, "plain"))
     # os search filename in downloads and remove
-    if os.path.exists(f"{config['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
+    if os.path.exists(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
         os.remove()
     show_pdf(id=id, download=True)
     attach_file = open(filename, "rb")  # Open the file as binary mode
@@ -359,7 +359,7 @@ def send_email(
     payload.add_header("Content-Decomposition", "attachment", filename=filename)
     message.attach(payload)
     # Create SMTP session for sending the mail
-    session = smtplib.SMTP(config["MAIL_SERVER"], config["MAIL_PORT"])
+    session = smtplib.SMTP(credentials["MAIL_SERVER"], credentials["MAIL_PORT"])
     # use gmail with port
     session.starttls()  # enable security
     session.login(sender_address, sender_pass)  # login with mail_id and password

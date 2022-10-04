@@ -6,7 +6,7 @@ import traceback
 import repackage
 
 repackage.up(1)
-from config_files.config import config
+from config_files.config import credentials, settings
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -14,7 +14,7 @@ from sqlalchemy import Column, ForeignKey, Integer, Table
 from sqlalchemy.orm import declarative_base, relationship
 
 app = Flask(__name__)
-app.config.update(config)
+app.config.update(settings)
 db = SQLAlchemy(app)
 
 Base = declarative_base()
@@ -23,7 +23,7 @@ Base = declarative_base()
 class Database:
     def __init__(self, db_file=None) -> None:
         if db_file is None:
-            self.db_file = config["DATABASE"]
+            self.db_file = settings["DATABASE"]
         else:
             self.db_file = db_file
 
@@ -54,7 +54,7 @@ class Database:
         """
         connection = conn or self.create_connection()
         # create table ACCOUNTS
-        if table_name == config["TABLE_NAMES"][0]:
+        if table_name == settings["TABLE_NAMES"][0]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
                 id INTEGER PRIMARY KEY,
@@ -76,7 +76,7 @@ class Database:
                 newsletter INTEGER NOT NULL
                 )"""
         # create table CONTRACTORS
-        elif table_name == config["TABLE_NAMES"][1]:
+        elif table_name == settings["TABLE_NAMES"][1]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
                 id INTEGER PRIMARY KEY,
@@ -93,7 +93,7 @@ class Database:
                 zip_code varchar(250),
                 city varchar(250))"""
         # create table INVOICES
-        elif table_name == config["TABLE_NAMES"][2]:
+        elif table_name == settings["TABLE_NAMES"][2]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
                 id INTEGER PRIMARY KEY,
@@ -161,7 +161,7 @@ class Invoice(db.Model, UserMixin, Base):
 
 
 class User(db.Model, UserMixin, Base):
-    __tablename__ = config["TABLE_NAMES"][0]
+    __tablename__ = settings["TABLE_NAMES"][0]
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), nullable=False)
     name = db.Column(db.String(250), nullable=False)
@@ -182,7 +182,7 @@ class User(db.Model, UserMixin, Base):
 
 
 class Contractor(db.Model, UserMixin, Base):
-    __tablename__ = config["TABLE_NAMES"][1]
+    __tablename__ = settings["TABLE_NAMES"][1]
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(250), nullable=True)
     name = db.Column(db.String(250), nullable=True)

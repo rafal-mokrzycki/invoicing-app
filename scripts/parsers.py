@@ -6,19 +6,18 @@ import calendar
 import datetime
 
 import repackage
-
-# from config_files.config import config
+# from config_files.config import credentials, settings
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 
 repackage.up()
-from config_files.config import config
+from config_files.config import credentials, settings
 
 from scripts.invoice import InvoiceForm
 
 app = Flask(__name__)
-app.config.update(config)
+app.config.update(settings)
 db = SQLAlchemy(app)
 
 
@@ -60,10 +59,10 @@ def parse_dict_with_invoices_counted():
     and return json with invoices counted by groups for a given month.
     """
     empty_dict = {
-        [i for i in config["INVOICE_TYPES"]][i]: [
-            1 for _ in range(len(config["INVOICE_TYPES"]))
+        [i for i in settings["INVOICE_TYPES"]][i]: [
+            1 for _ in range(len(settings["INVOICE_TYPES"]))
         ][i]
-        for i in range(len([i for i in config["INVOICE_TYPES"]]))
+        for i in range(len([i for i in settings["INVOICE_TYPES"]]))
     }
     current_date = datetime.date.today()
     last_day_of_previous_month = datetime.date(
