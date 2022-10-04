@@ -9,7 +9,11 @@ def load_config_file(filepath):
         return json.load(file)
 
 
-if Path("config.json").is_file():
-    config = load_config_file("config.json")
+if Path("credentials.json").is_file():
+    credentials = load_config_file("credentials.json")
 else:
-    config = load_config_file(Path(__file__).parent.joinpath("config.json"))
+    credentials = load_config_file(Path(__file__).parent.joinpath("credentials.json"))
+if Path("settings.json").is_file():
+    settings = load_config_file("settings.json")
+else:
+    settings = load_config_file(Path(__file__).parent.joinpath("settings.json"))
