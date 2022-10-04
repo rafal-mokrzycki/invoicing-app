@@ -133,10 +133,11 @@
 
                 <!-- invoice position - texts -->
                 <div class="row invoice-positions-texts" id="invoice-positions-texts">
-                    <div class="feature-box col-lg-3 ">Invoice position</div>
+                    <div class="feature-box col-lg-2 ">Invoice position</div>
                     <div class="col-sm-1 row3 ">Amount</div>
                     <div class="col-sm-1 row3">Unit</div>
                     <div class="col-sm-1 more_discount2 row1">Net price</div>
+                    <div class="col-sm-1 more_discount2 row1">Currency</div>
                     <div class="col-sm-1 more row_tax ">VAT %</div>
                     <div class="col-sm-2 row1 ">Net sum</div>
                     <div class="col-sm-2 row1">Gross sum</div>
@@ -145,7 +146,7 @@
                 <!-- invoice item - values -->
                 <div class=" invoice-items-values" id="invoice-items-values">
                     <div class="row invoice-item-1" id="invoice-item-1">
-                        <div class="feature-box col-lg-3 "><input type="text" name="item" id="item"
+                        <div class="feature-box col-lg-2 "><input type="text" name="item" id="item"
                                 value="{{ request.form.item }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " required>
                         </div>
