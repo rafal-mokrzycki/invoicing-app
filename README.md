@@ -34,36 +34,51 @@ The aim of the project is to provide a tool that enables issuing, storing, print
 
 ## Description of the app 📺
 
+### 1. Homepage
+
 <p align="left">
-After opening the website you see a detailed information about the company, its employees' experience and the pricing. On the upper panel you can log in to the user panel or register.
-    <img src="static\assets\img\screenshots\homepage.jpg" alt="Homepage">
+After opening the website you see a detailed information about the company, its employees' experience and the pricing. On the upper panel you can log in to the user panel or register.</p>
+<p><img src="static\assets\img\screenshots\homepage.jpg" alt="Homepage">
 </p>
 <p align="left">
+
+### 2. Register / Login
+
 If you don't have an account you can register, giving basic personal data (first name, last name, phone number, email address). You have to choose a plan - basic plan is free but business plans provide more features (more on homepage in esction Pricing).
-    <img src="static\assets\img\screenshots\register.jpg" alt="Register">
+<p><img src="static\assets\img\screenshots\register.jpg" alt="Register"></p>
 </p>
 <p align="left">
     <img src="static\assets\img\screenshots\login.jpg" alt="Login">
 </p>
+
 <p align="left">
-After registration/login you're in the user panel. You can change/update your compny data, look up your invoices, check your income (work in progress) or issue a new invoice.
-    <img src="static\assets\img\screenshots\registered_user.jpg" alt="User panel">
+
+### 3. User desktop
+
+After registration/login you're in the user desktop. You can change/update your compny data, look up your invoices, check your income (work in progress) or issue a new invoice.</p>
+<p><img src="static\assets\img\screenshots\registered_user.jpg" alt="User desktop">
 </p>
 <p align="left">
-New invoice issuing form:
-    <img src="static\assets\img\screenshots\new_invoice.jpg" alt="New invoice">
+
+### 4. Issue a new invoice / update an existing one
+
+New invoice issuing form:</p>
+<p><img src="static\assets\img\screenshots\new_invoice.jpg" alt="New invoice">
 </p>
 
 <p align="left">
-Company data checkup/update form:
-    <img src="static\assets\img\screenshots\your_company_data.jpg" alt="Company data">
+Company data checkup/update form:</p>
+<p><img src="static\assets\img\screenshots\your_company_data.jpg" alt="Company data">
 </p>
 <p align="left">
-Here you can see which invoices you have issed so far. on right side of each listed invoice you can edit some data of it, show it as pdf or send it as an attachment via email (work in progress).
-    <img src="static\assets\img\screenshots\your_invoices.jpg" alt="All invoices">
+
+### 4. Invoice actions
+
+Here you can see which invoices you have issed so far. on right side of each listed invoice you can edit some data of it, show it as pdf or send it as an attachment via email (work in progress).</p>
+<p><img src="static\assets\img\screenshots\your_invoices.jpg" alt="All invoices">
 </p>
 
-## Code Example/Issues 🔍
+<!-- ## Code Example/Issues 🔍 -->
 
 
 ## Installation 💾
@@ -90,3 +105,16 @@ To run the project use the following steps:
 `"path/to/python.exe" main.py`
 
 5. Go to the browser and browse `http://127.0.0.1:5000/`. Enjoy!
+
+<!-- ## Available scripts
+
+| Command                   | Description                   |     |
+| ------------------------- | ----------------------------- | --- |
+| `npm run start`           | Open local server             |     |
+| `npm run build`           | Create optimized build        |     |
+| `npm run test`            | Run tests                     |     |
+
+
+## Live 📍
+
+## License 🔱 -->
