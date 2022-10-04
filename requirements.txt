@@ -7,3 +7,4 @@ numpy==1.23.2
 pdfkit==1.0.0
 repackage==0.7.3
 sqlalchemy==1.4.41
+plotly==5.10.0
