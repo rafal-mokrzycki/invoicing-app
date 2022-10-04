@@ -14,7 +14,8 @@ from sqlalchemy import Column, ForeignKey, Integer, Table
 from sqlalchemy.orm import declarative_base, relationship
 
 app = Flask(__name__)
-app.config.update(settings)
+app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 Base = declarative_base()

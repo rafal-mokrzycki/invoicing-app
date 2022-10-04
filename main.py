@@ -36,7 +36,8 @@ from scripts.parsers import parse_dict_with_invoices_counted
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config.update(settings)
+app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 

@@ -11,7 +11,8 @@ from flask_sqlalchemy import SQLAlchemy
 from scripts.database import Invoice
 
 app = Flask(__name__)
-app.config.update(settings)
+app.config.update(credentials)
+
 db = SQLAlchemy(app)
 
 
