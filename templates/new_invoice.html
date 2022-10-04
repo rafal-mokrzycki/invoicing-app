@@ -172,9 +172,11 @@
                         <div class="col-sm-1 row3">
                             <select id="currency" name="currency" value="{{ request.form.currency }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                     returnValue() " required>
-                                <option value="{{ list(filter(lambda num: num == 'PLN', currencies)) }}" selected>PLN
-                                </option>"
-                                {% for currency in currencies %}
+                                <option value="{{ currencies[0][0] }}" selected>{{currencies[0][0]}}</option>"
+                                {% for currency in currencies[0][1:] %}
+                                <option value="{{ currency }}">{{currency}}</option>"
+                                {% endfor %}
+                                {% for currency in currencies[1] %}
                                 <option value="{{currency}}">{{currency}}</option>"
                                 {% endfor %}
                             </select>
