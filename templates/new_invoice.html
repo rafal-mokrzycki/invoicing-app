@@ -144,7 +144,7 @@
                 </div>
 
                 <!-- invoice item - values -->
-                <div class=" invoice-items-values" id="invoice-items-values">
+                <div class="invoice-items-values" id="invoice-items-values">
                     <div class="row invoice-item-1" id="invoice-item-1">
                         <div class="feature-box col-lg-2 "><input type="text" name="item" id="item"
                                 value="{{ request.form.item }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
@@ -201,7 +201,7 @@
                 </div>
                 <!-- issue buton -->
                 <div class="add_buttons ">
-                    <a id="add_next_position" href="#" onclick="addNextFn()" accesskey="M" title="New position"
+                    <a id="add_next_position" href="" onclick="addNextFn()" accesskey="M" title="New position"
                         class="button-add-next-item btn success">
                         <i class="bi bi-plus-circle-dotted"></i><span>New position</span>
                     </a>
@@ -271,12 +271,13 @@
         }
     </script>
     <script>
+        var room = 1;
         function addNextFn() {
-            var parent_element = document.getElementById("invoice-positions-values");
-            var example_position = document.getElementById("invoice-position-0");
-            var new_position = example_position.cloneNode(true);
-            new_position.id = "invoice-position-2";
-            parent_element.appendChild(new_position);
+            room++;
+            var objTo = document.getElementById('invoice-items-values')
+            var divtest = document.createElement("div");
+            divtest.innerHTML = '<div class="row invoice-item-3">Room 3:</div>'
+            objTo.appendChild(divtest)
         }</script>
     <script>
         function deletePosition() {
