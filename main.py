@@ -12,7 +12,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import pdfkit
-from flask import Flask, flash, make_response, redirect, render_template, request, url_for
+from flask import (
+    Flask,
+    flash,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from flask_login import (
     LoginManager,
     current_user,
@@ -124,7 +132,9 @@ def reset_password():
             login_user(user)
             return redirect(url_for("user"))
 
-    return render_template("reset_password.html", logged_in=current_user.is_authenticated)
+    return render_template(
+        "reset_password.html", logged_in=current_user.is_authenticated
+    )
 
 
 @app.route("/user")
