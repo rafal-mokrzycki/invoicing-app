@@ -113,7 +113,8 @@ class Database:
                 tax_rate REAL NOT NULL,
                 unit varchar(250) NOT NULL,
                 issuer_id REAL,
-                recipient_id REAL)"""
+                recipient_id REAL,
+                currency varchar(250) NOT NULL)"""
         else:
             raise NameError
         try:
@@ -155,6 +156,7 @@ class Invoice(db.Model, UserMixin, Base):
     sum_net = db.Column(db.Float, nullable=False)
     tax_rate = db.Column(db.Float, nullable=False)
     unit = db.Column(db.String(250), nullable=False)
+    currency = Column(db.String(250), nullable=False)
     issuer_id = Column(Integer, ForeignKey("accounts.id"))
     recipient_id = Column(Integer, ForeignKey("contractors.id"))
 
@@ -200,7 +202,7 @@ class Contractor(db.Model, UserMixin, Base):
 
 if __name__ == "__main__":
     pass
-    db = Database()
-    db.create_table("invoices", drop_if_exists=True)
-    db.create_table("accounts", drop_if_exists=True)
-    db.create_table("contractors", drop_if_exists=True)
+    # db = Database()
+    # db.create_table("invoices", drop_if_exists=True)
+    # db.create_table("accounts", drop_if_exists=True)
+    # db.create_table("contractors", drop_if_exists=True)

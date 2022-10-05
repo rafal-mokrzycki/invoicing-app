@@ -12,7 +12,7 @@
 - [x] New invoice - add a workaround to count new invoice number
 - [x] index.html - change texts
 - [x] Divide config.json into credentials and settings
-- [ ] New invoice - add currency change
+- [x] New invoice - add currency change
 - [ ] Fix user data edition (send data to DB)
 - [ ] Show invoice - add iteration through invoice items
 - [ ] New invoice - Add invoice item(s)
