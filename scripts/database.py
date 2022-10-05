@@ -162,6 +162,7 @@ class Invoice(db.Model, UserMixin, Base):
     issuer_id = Column(Integer, ForeignKey("accounts.id"))
     recipient_id = Column(Integer, ForeignKey("contractors.id"))
 
+
 class User(db.Model, UserMixin, Base):
     __tablename__ = settings["TABLE_NAMES"][0]
     id = db.Column(db.Integer, primary_key=True)

@@ -103,17 +103,20 @@ def append_dict(dict1, dict2):
     return result
 
 
-def parse_currencies(filename='currencies.csv', columns=['Currency Code']):
+def parse_currencies(filename="currencies.csv", columns=["Currency Code"]):
     """
     Reads the CSV file with currency symbols and parses them to UI
     """
-    filepath = repackage.add(f'../config_files/{filename}')
+    filepath = repackage.add(f"../config_files/{filename}")
     df = pd.read_csv(filepath)
-    df_selected = df[~df['Currency Code'].isin(['PLN','EUR','USD','GBP','JPY'])]
+    df_selected = df[~df["Currency Code"].isin(["PLN", "EUR", "USD", "GBP", "JPY"])]
     if len(columns) == 1:
-        return [['PLN','EUR','USD','GBP','JPY'], df_selected[columns[0]].values.tolist()]
+        return [
+            ["PLN", "EUR", "USD", "GBP", "JPY"],
+            df_selected[columns[0]].values.tolist(),
+        ]
     else:
-        return [['PLN','EUR','USD','GBP','JPY'], df_selected[columns].values.tolist()]
-
-
-print(parse_currencies())
+        return [
+            ["PLN", "EUR", "USD", "GBP", "JPY"],
+            df_selected[columns].values.tolist(),
+        ]

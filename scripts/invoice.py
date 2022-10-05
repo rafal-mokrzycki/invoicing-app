@@ -37,7 +37,7 @@ class InvoiceForm(Invoice):
         sum_net,
         tax_rate,
         unit,
-        currency
+        currency,
     ):
         super().__init__()
         self.id = id
@@ -55,7 +55,7 @@ class InvoiceForm(Invoice):
         self.tax_rate = tax_rate
         self.unit = unit
         self.amount = amount
-        self.currency=currency
+        self.currency = currency
 
     def __repr__(self):
         return "<Invoice %r>" % self.id

@@ -39,7 +39,7 @@ from scripts.invoice import (
     format_percentages,
     get_number_of_invoices_in_db,
 )
-from scripts.parsers import parse_dict_with_invoices_counted
+from scripts.parsers import parse_currencies, parse_dict_with_invoices_counted
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -173,6 +173,7 @@ def new_invoice():
             tax_rate=request.form.get("tax_rate"),
             sum_net=request.form.get("sum_net"),
             sum_gross=request.form.get("sum_gross"),
+            currency=request.form.get("currency"),
         )
         db.session.add(new_invoice)
         db.session.commit()
@@ -187,6 +188,7 @@ def new_invoice():
         logged_in=current_user.is_authenticated,
         year_month=datetime.datetime.strftime(today, "%Y/%m/"),
         invoice_number_on_type=parse_dict_with_invoices_counted(),
+        currencies=parse_currencies(),
     )
 
 
