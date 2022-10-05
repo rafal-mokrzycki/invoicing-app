@@ -9,8 +9,8 @@ repackage.up(1)
 from config_files.config import credentials, settings
 from flask import Flask
 from flask_login import UserMixin
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, ForeignKey, Integer, Table
+from flask_sqlalchemy import Model, SQLAlchemy
+from sqlalchemy import Boolean, Column, Date, Float, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import declarative_base, relationship
 
 app = Flask(__name__)
@@ -139,70 +139,72 @@ class Database:
 
     def __delete_record__(self, db_file, table_name, key):
         pass
-class Invoice(db.Model, UserMixin, Base):
+
+
+class Invoice(Model, UserMixin, Base):
     __tablename__ = "invoices"
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Float, nullable=False)
-    invoice_no = db.Column(db.String(250), nullable=False)
-    invoice_type = db.Column(db.String(250), nullable=False)
-    issue_city = db.Column(db.String(250), nullable=False)
-    issue_date = db.Column(db.Date, nullable=False)
-    issuer_tax_no = db.Column(db.Integer, nullable=False)
-    item = db.Column(db.String(250), nullable=False)
-    price_net = db.Column(db.Float, nullable=False)
-    recipient_tax_no = db.Column(db.Integer, nullable=False)
-    sell_date = db.Column(db.Date, nullable=False)
-    sum_gross = db.Column( db.Float, nullable=False)
-    sum_net = db.Column(db.Float, nullable=False)
-    tax_rate = db.Column(db.Float, nullable=False)
-    unit = db.Column(db.String(250), nullable=False)
-    currency = Column(db.String(250), nullable=False)
+    id = Column(Integer, primary_key=True)
+    amount = Column(Float, nullable=False)
+    invoice_no = Column(String(250), nullable=False)
+    invoice_type = Column(String(250), nullable=False)
+    issue_city = Column(String(250), nullable=False)
+    issue_date = Column(Date, nullable=False)
+    issuer_tax_no = Column(Integer, nullable=False)
+    item = Column(String(250), nullable=False)
+    price_net = Column(Float, nullable=False)
+    recipient_tax_no = Column(Integer, nullable=False)
+    sell_date = Column(Date, nullable=False)
+    sum_gross = Column(Float, nullable=False)
+    sum_net = Column(Float, nullable=False)
+    tax_rate = Column(Float, nullable=False)
+    unit = Column(String(250), nullable=False)
+    currency = Column(String(250), nullable=False)
     issuer_id = Column(Integer, ForeignKey("accounts.id"))
     recipient_id = Column(Integer, ForeignKey("contractors.id"))
 
 
-class User(db.Model, UserMixin, Base):
+class User(Model, UserMixin, Base):
     __tablename__ = settings["TABLE_NAMES"][0]
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(250), nullable=False)
-    name = db.Column(db.String(250), nullable=False)
-    surname = db.Column(db.String(250), nullable=False)
-    phone_no = db.Column(db.Integer, nullable=False)
-    password = db.Column(db.String(250), nullable=False)
-    company_name = db.Column(db.String(250), nullable=True)
-    street = db.Column(db.String(250), nullable=True)
-    house_no = db.Column(db.String(250), nullable=True)
-    flat_no = db.Column(db.String(250), nullable=True)
-    zip_code = db.Column(db.String(250), nullable=True)
-    city = db.Column(db.String(250), nullable=True)
-    tax_no = db.Column(db.String(250), nullable=True)
-    bank_account = db.Column(db.String(250), nullable=True)
-    plan = db.Column(db.String(250), nullable=False)
-    terms = db.Column(db.Boolean, nullable=False)
-    newsletter = db.Column(db.Boolean, nullable=False)
+    id = Column(Integer, primary_key=True)
+    email = Column(String(250), nullable=False)
+    name = Column(String(250), nullable=False)
+    surname = Column(String(250), nullable=False)
+    phone_no = Column(Integer, nullable=False)
+    password = Column(String(250), nullable=False)
+    company_name = Column(String(250), nullable=True)
+    street = Column(String(250), nullable=True)
+    house_no = Column(String(250), nullable=True)
+    flat_no = Column(String(250), nullable=True)
+    zip_code = Column(String(250), nullable=True)
+    city = Column(String(250), nullable=True)
+    tax_no = Column(String(250), nullable=True)
+    bank_account = Column(String(250), nullable=True)
+    plan = Column(String(250), nullable=False)
+    terms = Column(Boolean, nullable=False)
+    newsletter = Column(Boolean, nullable=False)
 
 
-class Contractor(db.Model, UserMixin, Base):
+class Contractor(Model, UserMixin, Base):
     __tablename__ = settings["TABLE_NAMES"][1]
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(250), nullable=True)
-    name = db.Column(db.String(250), nullable=True)
-    surname = db.Column(db.String(250), nullable=True)
-    phone_no = db.Column(db.Integer, nullable=True)
-    company_name = db.Column(db.String(250), nullable=True)
-    street = db.Column(db.String(250), nullable=True)
-    house_no = db.Column(db.String(250), nullable=True)
-    flat_no = db.Column(db.String(250), nullable=True)
-    zip_code = db.Column(db.String(250), nullable=True)
-    city = db.Column(db.String(250), nullable=True)
-    tax_no = db.Column(db.String(250), nullable=True)
-    bank_account = db.Column(db.String(250), nullable=True)
-    # invoice_id = db.Column(db.Integer, ForeignKey("invoice.id"))
+    id = Column(Integer, primary_key=True)
+    email = Column(String(250), nullable=True)
+    name = Column(String(250), nullable=True)
+    surname = Column(String(250), nullable=True)
+    phone_no = Column(Integer, nullable=True)
+    company_name = Column(String(250), nullable=True)
+    street = Column(String(250), nullable=True)
+    house_no = Column(String(250), nullable=True)
+    flat_no = Column(String(250), nullable=True)
+    zip_code = Column(String(250), nullable=True)
+    city = Column(String(250), nullable=True)
+    tax_no = Column(String(250), nullable=True)
+    bank_account = Column(String(250), nullable=True)
+    # invoice_id = Column(Integer, ForeignKey("invoice.id"))
 
 
 if __name__ == "__main__":
     pass
     # db = Database()
-    # db.create_table("invoices", drop_if_exists=True)
-    # db.create_table("accounts", drop_if_exists=True)
-    # db.create_table("contractors", drop_if_exists=True)
+    # create_table("invoices", drop_if_exists=True)
+    # create_table("accounts", drop_if_exists=True)
+    # create_table("contractors", drop_if_exists=True)
