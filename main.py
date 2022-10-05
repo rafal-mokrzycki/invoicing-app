@@ -12,18 +12,34 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import pdfkit
-from flask import (Flask, flash, make_response, redirect, render_template,
-                   request, url_for)
-from flask_login import (LoginManager, current_user, login_required,
-                         login_user, logout_user)
+from flask import (
+    Flask,
+    flash,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import credentials, settings
 from scripts.database import Contractor, User
-from scripts.invoice import (InvoiceForm, format_number, format_percentages,
-                             get_number_of_invoices_in_db)
-from scripts.parsers import parse_currencies, parse_dict_with_invoices_counted
+from scripts.invoice import (
+    InvoiceForm,
+    format_number,
+    format_percentages,
+    get_number_of_invoices_in_db,
+)
+from scripts.parsers import parse_dict_with_invoices_counted
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -116,7 +132,9 @@ def reset_password():
             login_user(user)
             return redirect(url_for("user"))
 
-    return render_template("reset_password.html", logged_in=current_user.is_authenticated)
+    return render_template(
+        "reset_password.html", logged_in=current_user.is_authenticated
+    )
 
 
 @app.route("/user")
@@ -155,7 +173,6 @@ def new_invoice():
             tax_rate=request.form.get("tax_rate"),
             sum_net=request.form.get("sum_net"),
             sum_gross=request.form.get("sum_gross"),
-            currency=request.form.get("currency"),
         )
         db.session.add(new_invoice)
         db.session.commit()
@@ -170,7 +187,6 @@ def new_invoice():
         logged_in=current_user.is_authenticated,
         year_month=datetime.datetime.strftime(today, "%Y/%m/"),
         invoice_number_on_type=parse_dict_with_invoices_counted(),
-        currencies=parse_currencies()
     )
 
 
