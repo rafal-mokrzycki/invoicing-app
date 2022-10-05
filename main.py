@@ -12,24 +12,41 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import pdfkit
-from flask import (Flask, flash, make_response, redirect, render_template,
-                   request, url_for)
-from flask_login import (LoginManager, current_user, login_required,
-                         login_user, logout_user)
+from flask import (
+    Flask,
+    flash,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import credentials, settings
 from scripts.database import Contractor, User
-from scripts.invoice import (InvoiceForm, format_number, format_percentages,
-                             get_number_of_invoices_in_db)
+from scripts.invoice import (
+    InvoiceForm,
+    format_number,
+    format_percentages,
+    get_number_of_invoices_in_db,
+)
 from scripts.parsers import parse_dict_with_invoices_counted
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config.update(credentials)
-
+mail = Mail(app)
 db = SQLAlchemy(app)
 
 
@@ -38,30 +55,34 @@ def load_user(email):
     return User.query.get(email)
 
 
-@app.route("/",  methods=["GET", "POST"])
-@app.route("/home",  methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        # name = request.form.get("name")
-        # email = request.form.get("email")
-        # subject = request.form.get("subject")
-        # body = request.form.get("body")
-        return render_template("index.html", msg_sent=True, current_year=datetime.date.today().year, logged_in=current_user.is_authenticated)
-    return render_template("index.html", msg_sent=False, current_year=datetime.date.today().year, logged_in=current_user.is_authenticated)
+        name = request.form.get("name")
+        email = request.form.get("email")
+        subject = request.form.get("subject")
+        body = request.form.get("body")
+        msg = Message(
+            subject=f'New email from {name}. "{subject}"',
+            body=body,
+            sender=email,
+        )
+        mail.send(msg)
+        # return f"{msg}"
+        return render_template(
+            "index.html",
+            msg_sent=True,
+            current_year=datetime.date.today().year,
+            logged_in=current_user.is_authenticated,
+        )
+    return render_template(
+        "index.html",
+        msg_sent=False,
+        current_year=datetime.date.today().year,
+        logged_in=current_user.is_authenticated,
+    )
 
-
-# @app.route("/contact",  methods=["GET", "POST"])
-# def contact():
-#     if request.method == "POST":
-#         name = request.form.get("name")
-#         email = request.form.get("email")
-#         subject = request.form.get("subject")
-#         body = request.form.get("body")
-#         # send_email(sender_address=credentials['MAIL_USERNAME'],sender_pass=credentials["MAIL_PASSWORD"], receiver_address=request.form.get("email"),subject=request.form.get("subject"),body=request.form.get("body"))
-#         return render_template(
-#         "contact.html", msg_sent=True)
-#     return render_template(
-#         "contact.html", msg_sent=False)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -132,7 +153,9 @@ def reset_password():
             login_user(user)
             return redirect(url_for("user"))
 
-    return render_template("reset_password.html", logged_in=current_user.is_authenticated)
+    return render_template(
+        "reset_password.html", logged_in=current_user.is_authenticated
+    )
 
 
 @app.route("/user")
@@ -340,13 +363,13 @@ def send_invoice_as_attachment(id):
 
 
 def send_email(
-
     sender_address,
     sender_pass,
     receiver_address,
     subject,
     body,
-    filename=None,id=None,
+    filename=None,
+    id=None,
 ):
     # Setup the MIME
     message = MIMEMultipart()
