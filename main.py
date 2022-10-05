@@ -12,25 +12,17 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import pdfkit
-from flask import Flask, flash, make_response, redirect, render_template, request, url_for
-from flask_login import (
-    LoginManager,
-    current_user,
-    login_required,
-    login_user,
-    logout_user,
-)
+from flask import (Flask, flash, make_response, redirect, render_template,
+                   request, url_for)
+from flask_login import (LoginManager, current_user, login_required,
+                         login_user, logout_user)
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import credentials, settings
 from scripts.database import Contractor, User
-from scripts.invoice import (
-    InvoiceForm,
-    format_number,
-    format_percentages,
-    get_number_of_invoices_in_db,
-)
+from scripts.invoice import (InvoiceForm, format_number, format_percentages,
+                             get_number_of_invoices_in_db)
 from scripts.parsers import parse_dict_with_invoices_counted
 
 app = Flask(__name__)
@@ -46,14 +38,30 @@ def load_user(email):
     return User.query.get(email)
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/",  methods=["GET", "POST"])
+@app.route("/home",  methods=["GET", "POST"])
 def home():
-    current_year = datetime.date.today().year
-    return render_template(
-        "index.html", current_year=current_year, logged_in=current_user.is_authenticated
-    )
+    if request.method == "POST":
+        # name = request.form.get("name")
+        # email = request.form.get("email")
+        # subject = request.form.get("subject")
+        # body = request.form.get("body")
+        return render_template("index.html", msg_sent=True, current_year=datetime.date.today().year, logged_in=current_user.is_authenticated)
+    return render_template("index.html", msg_sent=False, current_year=datetime.date.today().year, logged_in=current_user.is_authenticated)
 
+
+# @app.route("/contact",  methods=["GET", "POST"])
+# def contact():
+#     if request.method == "POST":
+#         name = request.form.get("name")
+#         email = request.form.get("email")
+#         subject = request.form.get("subject")
+#         body = request.form.get("body")
+#         # send_email(sender_address=credentials['MAIL_USERNAME'],sender_pass=credentials["MAIL_PASSWORD"], receiver_address=request.form.get("email"),subject=request.form.get("subject"),body=request.form.get("body"))
+#         return render_template(
+#         "contact.html", msg_sent=True)
+#     return render_template(
+#         "contact.html", msg_sent=False)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -194,7 +202,7 @@ def your_invoices():
 @app.route("/your_invoices/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit(id):
-    """Method enables editiong existing invoices"""
+    """Method enables edition of existing invoices"""
     invoice = InvoiceForm.query.get_or_404(id)
     if request.method == "POST":
         invoice.id = invoice.id
@@ -332,13 +340,13 @@ def send_invoice_as_attachment(id):
 
 
 def send_email(
-    id,
+
     sender_address,
     sender_pass,
     receiver_address,
     subject,
     body,
-    filename,
+    filename=None,id=None,
 ):
     # Setup the MIME
     message = MIMEMultipart()
@@ -348,17 +356,19 @@ def send_email(
     message["Subject"] = subject
     # The body and the attachments for the mail
     message.attach(MIMEText(body, "plain"))
-    # os search filename in downloads and remove
-    if os.path.exists(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
-        os.remove()
-    show_pdf(id=id, download=True)
-    attach_file = open(filename, "rb")  # Open the file as binary mode
-    payload = MIMEBase("application", "octate-stream")
-    payload.set_payload((attach_file).read())
-    encoders.encode_base64(payload)  # encode the attachment
-    # add payload header with filename
-    payload.add_header("Content-Decomposition", "attachment", filename=filename)
-    message.attach(payload)
+
+    if filename is not None and id is not None:
+        if os.path.exists(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
+            os.remove()
+        show_pdf(id=id, download=True)
+        attach_file = open(filename, "rb")  # Open the file as binary mode
+        # os search filename in downloads and remove
+        payload = MIMEBase("application", "octate-stream")
+        payload.set_payload((attach_file).read())
+        encoders.encode_base64(payload)  # encode the attachment
+        # add payload header with filename
+        payload.add_header("Content-Decomposition", "attachment", filename=filename)
+        message.attach(payload)
     # Create SMTP session for sending the mail
     session = smtplib.SMTP(credentials["MAIL_SERVER"], credentials["MAIL_PORT"])
     # use gmail with port
