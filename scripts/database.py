@@ -58,7 +58,7 @@ class Database:
         if table_name == settings["TABLE_NAMES"][0]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY ASC,
                 email varchar(250) NOT NULL,
                 surname varchar(250) NOT NULL,
                 name varchar(250) NOT NULL,
@@ -80,7 +80,7 @@ class Database:
         elif table_name == settings["TABLE_NAMES"][1]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY ASC,
                 email varchar(250),
                 surname varchar(250),
                 name varchar(250),
@@ -97,7 +97,7 @@ class Database:
         elif table_name == settings["TABLE_NAMES"][2]:
             create_table_sql = f"""
             CREATE TABLE IF NOT EXISTS {table_name} (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY ASC,
                 amount REAL NOT NULL,
                 invoice_no varchar(250) NOT NULL,
                 invoice_type varchar(250) NOT NULL,
@@ -112,9 +112,11 @@ class Database:
                 sum_net REAL NOT NULL,
                 tax_rate REAL NOT NULL,
                 unit varchar(250) NOT NULL,
-                issuer_id REAL,
-                recipient_id REAL,
-                currency varchar(250) NOT NULL)"""
+                currency varchar(250) NOT NULL,
+                issuer_id INTEGER NOT NULL,
+                recipient_id INTEGER NOT NULL,
+                FOREIGN KEY(recipient_id) REFERENCES contractors(id),
+                FOREIGN KEY(issuer_id) REFERENCES accounts(id))"""
         else:
             raise NameError
         try:
