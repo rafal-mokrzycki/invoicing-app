@@ -203,6 +203,6 @@ class Contractor(db.Model, UserMixin, Base):
 if __name__ == "__main__":
     pass
     db = Database()
-    # db.create_table("invoices", drop_if_exists=True)
+    db.create_table("invoices", drop_if_exists=True)
     db.create_table("accounts", drop_if_exists=True)
-    # db.create_table("contractors", drop_if_exists=True)
+    db.create_table("contractors", drop_if_exists=True)
