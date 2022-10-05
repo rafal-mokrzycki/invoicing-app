@@ -59,17 +59,6 @@ class InvoiceForm(Invoice):
         return "<Invoice %r>" % self.id
 
 
-def calculate_gross(amount, tax_rate):
-    if tax_rate in settings["TAX_RATES"]:
-        return float(amount + amount * tax_rate)
-    else:
-        raise ValueError("Wrong tax rate")
-
-
-def calculate_sum(iterable):
-    return float(np.sum(iterable))
-
-
 def format_percentages(number):
     return str(int(number * 100)) + "%"
 
@@ -80,7 +69,3 @@ def format_number(number):
 
 def get_number_of_invoices_in_db():
     return db.session.query(InvoiceForm).count() + 1
-
-
-def ceidg_api():
-    pass
