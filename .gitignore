@@ -135,3 +135,7 @@ test*.py
 # sql & databases
 database.db
 schema.sql
+
+# config
+credentials.json
+config.json

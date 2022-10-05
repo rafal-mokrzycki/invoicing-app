@@ -138,8 +138,6 @@ class Database:
 
     def __delete_record__(self, db_file, table_name, key):
         pass
-
-
 class Invoice(db.Model, UserMixin, Base):
     __tablename__ = "invoices"
     id = db.Column(db.Integer, primary_key=True)
@@ -153,7 +151,7 @@ class Invoice(db.Model, UserMixin, Base):
     price_net = db.Column(db.Float, nullable=False)
     recipient_tax_no = db.Column(db.Integer, nullable=False)
     sell_date = db.Column(db.Date, nullable=False)
-    sum_gross = db.Column(db.Float, nullable=False)
+    sum_gross = db.Column( db.Float, nullable=False)
     sum_net = db.Column(db.Float, nullable=False)
     tax_rate = db.Column(db.Float, nullable=False)
     unit = db.Column(db.String(250), nullable=False)

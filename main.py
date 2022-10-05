@@ -28,6 +28,7 @@ from flask_login import (
     login_user,
     logout_user,
 )
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -45,7 +46,7 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config.update(credentials)
-
+mail = Mail(app)
 db = SQLAlchemy(app)
 
 
@@ -54,12 +55,32 @@ def load_user(email):
     return User.query.get(email)
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=["GET", "POST"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    current_year = datetime.date.today().year
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        subject = request.form.get("subject")
+        body = request.form.get("body")
+        msg = Message(
+            subject=f'New email from {name}. "{subject}"',
+            body=body,
+            sender=email,
+        )
+        mail.send(msg)
+        # return f"{msg}"
+        return render_template(
+            "index.html",
+            msg_sent=True,
+            current_year=datetime.date.today().year,
+            logged_in=current_user.is_authenticated,
+        )
     return render_template(
-        "index.html", current_year=current_year, logged_in=current_user.is_authenticated
+        "index.html",
+        msg_sent=False,
+        current_year=datetime.date.today().year,
+        logged_in=current_user.is_authenticated,
     )
 
 
@@ -204,7 +225,7 @@ def your_invoices():
 @app.route("/your_invoices/edit/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit(id):
-    """Method enables editiong existing invoices"""
+    """Method enables edition of existing invoices"""
     invoice = InvoiceForm.query.get_or_404(id)
     if request.method == "POST":
         invoice.id = invoice.id
@@ -342,13 +363,13 @@ def send_invoice_as_attachment(id):
 
 
 def send_email(
-    id,
     sender_address,
     sender_pass,
     receiver_address,
     subject,
     body,
-    filename,
+    filename=None,
+    id=None,
 ):
     # Setup the MIME
     message = MIMEMultipart()
@@ -358,17 +379,19 @@ def send_email(
     message["Subject"] = subject
     # The body and the attachments for the mail
     message.attach(MIMEText(body, "plain"))
-    # os search filename in downloads and remove
-    if os.path.exists(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
-        os.remove()
-    show_pdf(id=id, download=True)
-    attach_file = open(filename, "rb")  # Open the file as binary mode
-    payload = MIMEBase("application", "octate-stream")
-    payload.set_payload((attach_file).read())
-    encoders.encode_base64(payload)  # encode the attachment
-    # add payload header with filename
-    payload.add_header("Content-Decomposition", "attachment", filename=filename)
-    message.attach(payload)
+
+    if filename is not None and id is not None:
+        if os.path.exists(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
+            os.remove()
+        show_pdf(id=id, download=True)
+        attach_file = open(filename, "rb")  # Open the file as binary mode
+        # os search filename in downloads and remove
+        payload = MIMEBase("application", "octate-stream")
+        payload.set_payload((attach_file).read())
+        encoders.encode_base64(payload)  # encode the attachment
+        # add payload header with filename
+        payload.add_header("Content-Decomposition", "attachment", filename=filename)
+        message.attach(payload)
     # Create SMTP session for sending the mail
     session = smtplib.SMTP(credentials["MAIL_SERVER"], credentials["MAIL_PORT"])
     # use gmail with port
