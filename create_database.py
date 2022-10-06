@@ -6,7 +6,8 @@ def main():
 
 
 def update_credentials():
-    print("update_credentials")
+    var = input("Make an input: ")
+    print("update_credentials: {var}")
 
 
 def create_database():
