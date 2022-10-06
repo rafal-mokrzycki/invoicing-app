@@ -1,0 +1,4 @@
+id,email,name,surname,phone_no,company_name,street,house_no,flat_no,zip_code,city,tax_no,bank_account
+1,example@qwe.com,John,Smith,123-123-123,Example Co.,Main Street,13,133,13-133,Warsaw,PL3338887766,00-0000-0000-0000-0000
+2,example@wer.com,Eva,Jenkins,234-234-234,Example GmbH,,,,,,PL9933387766,00-0000-0000-0000-0001
+3,example@ert.com,Adam,Countenbury,345-345-345,Example AG,Riverside Street,35,22,13-222,Warsaw,PL9998883336,00-0000-0000-0000-0002
