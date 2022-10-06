@@ -1,14 +1,20 @@
 #!/usr/bin/env python
+def main():
+    update_credentials()
+    create_database()
+    feed_database()
+
+
 def update_credentials():
-    pass
+    print("update_credentials")
 
 
 def create_database():
-    pass
+    print("create_database")
 
 
 def feed_database():
-    pass
+    print("feed_database")
 
 
 if __name__ == "__main__":
@@ -18,3 +24,5 @@ if __name__ == "__main__":
     create_database()
     # feed tables with sample data
     feed_database()
+    # final ver
+    main()
