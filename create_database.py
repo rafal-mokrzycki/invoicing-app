@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 import re
-import sys
+import time
 
 
 def main():
     mail = get_and_check_email()
     password = get_and_check_password()
-    return mail, password
+    mail_server = get_mail_server()
+    return mail, password, mail_server
 
 
 def get_and_check_email():
@@ -17,7 +18,7 @@ def get_and_check_email():
             is not None
         ):
             return email
-        elif email == "q":
+        elif email == "q" or "Q":
             break
         else:
             print("Wrong email format. Try again.")
@@ -27,16 +28,26 @@ def get_and_check_email():
 def get_and_check_password():
     while True:
         password1 = input("Type in your email password (or [q] to quit): ")
-        if password1 == "q":
+        if password1 == "q" or "Q":
             break
         password2 = input("Type in your email password again (or [q] to quit): ")
-        if password2 == "q":
+        if password2 == "q" or "Q":
             break
         elif password1 == password2:
             return password1
         else:
             print("Your passwords don't match. Try again.")
             continue
+
+
+def get_mail_server():
+    mail_server = input(
+        "Type in your mail server (eg. smtp.example.com or [q] to quit): "
+    )
+    if mail_server == "q" or "Q":
+        return None
+    else:
+        return mail_server
 
 
 def update_credentials(email):
@@ -62,7 +73,6 @@ if __name__ == "__main__":
     # feed_database()
 
     # final ver
-    print(sys.argv)
     # print(len(sys.argv))
-    main()
+    get_mail_server()
     # update_credentials()
