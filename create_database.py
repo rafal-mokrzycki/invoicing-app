@@ -3,20 +3,15 @@ import re
 import sys
 
 
-def main(email):
-    mail = get_and_check_email(email)
-    return mail
-    # match = None
-    # while match is None:
-    #     email = input("Pass your email: ")
-    #     match = re.fullmatch(
-    #         r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+asd\.[A-Z|a-z]{2,}\b", email
-    #     )
+def main():
+    mail = get_and_check_email()
+    password = get_and_check_password()
+    return mail, password
 
 
-def get_and_check_email(email):
+def get_and_check_email():
     while True:
-        email = input("Pass your email (or [q] to quit): ")
+        email = input("Type in your email (or [q] to quit): ")
         if (
             re.fullmatch(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", email)
             is not None
@@ -26,6 +21,21 @@ def get_and_check_email(email):
             break
         else:
             print("Wrong email format. Try again.")
+            continue
+
+
+def get_and_check_password():
+    while True:
+        password1 = input("Type in your email password (or [q] to quit): ")
+        if password1 == "q":
+            break
+        password2 = input("Type in your email password again (or [q] to quit): ")
+        if password2 == "q":
+            break
+        elif password1 == password2:
+            return password1
+        else:
+            print("Your passwords don't match. Try again.")
             continue
 
 
@@ -52,5 +62,7 @@ if __name__ == "__main__":
     # feed_database()
 
     # final ver
-    main(sys.argv)
+    print(sys.argv)
+    # print(len(sys.argv))
+    main()
     # update_credentials()
