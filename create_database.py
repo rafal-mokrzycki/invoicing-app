@@ -6,14 +6,13 @@ from pathlib import Path
 
 def main():
     # create credentials.json file with default settings for a DB
-    # update_credentials()
-    c = Credentials()
-    c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
-    c.print_or_change_default_credentials()
-    c._update_credentials()
+    # c = Credentials()
+    # c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
+    # c.print_or_change_default_credentials()
+    # c._update_credentials()
 
     # create a database (database.db file with all the required tables, yet empty)
-    # create_database()
+    create_database()
 
     # feed tables with sample data
     # feed_database()
@@ -175,6 +174,15 @@ class Credentials:
         self._database_path = value
 
 
+def create_database():
+    from scripts.database import Database
+
+    db = Database()
+    db.create_table("invoices", drop_if_exists=True)
+    db.create_table("accounts", drop_if_exists=True)
+    db.create_table("contractors", drop_if_exists=True)
+
+
 def get_required_info():
     return (
         get_and_check_email(),
@@ -264,18 +272,9 @@ def get_db_secret_key():
             continue
 
 
-def update_credentials(email):
-    print(f"Your email is: {email}")
-
-
-def create_database():
-    print("create_database")
-
-
 def feed_database():
     print("feed_database")
 
 
 if __name__ == "__main__":
-
     main()
