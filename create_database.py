@@ -1,7 +1,18 @@
 #!/usr/bin/env python
 import json
 import re
+from datetime import datetime
 from pathlib import Path
+from time import time
+
+import pandas as pd
+from numpy import genfromtxt
+from sqlalchemy import Column, Date, Float, Integer, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+
+from config_files.config import settings
+
+Base = declarative_base()
 
 
 def main():
@@ -12,10 +23,10 @@ def main():
     # c._update_credentials()
 
     # create a database (database.db file with all the required tables, yet empty)
-    create_database()
+    # create_database()
 
     # feed tables with sample data
-    # feed_database()
+    feed_database()
 
 
 class Credentials:
@@ -273,7 +284,17 @@ def get_db_secret_key():
 
 
 def feed_database():
-    print("feed_database")
+    from config_files.config import credentials
+
+    # engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
+    # Base.metadata.create_all(engine)
+    for table_name in settings["TABLE_NAMES"]:
+        df = pd.read_csv(
+            filepath_or_buffer=f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
+        )
+        print(df.columns)
+
+    # print("feed_database")
 
 
 if __name__ == "__main__":
