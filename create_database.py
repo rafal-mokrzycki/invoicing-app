@@ -4,13 +4,14 @@ import time
 from pathlib import Path
 
 
-def main():
-    mail = get_and_check_email()
-    password = get_and_check_password()
-    mail_server = get_mail_server()
-    secret_key = get_db_secret_key()
-    print_default_credentials()
-    return mail, password, mail_server, secret_key
+class Credentials:
+    @property
+    def email(self):
+        return self._email
+
+    @email.setter
+    def email(self, value):
+        self._email = value
 
 
 def get_and_check_email():
@@ -26,6 +27,21 @@ def get_and_check_email():
         else:
             print("Wrong email format. Try again.")
             continue
+
+
+def main():
+    c = Credentials()
+    c.email = get_and_check_email()
+    print(c.email)
+
+
+# def main():
+#     mail = get_and_check_email()
+#     password = get_and_check_password()
+#     mail_server = get_mail_server()
+#     secret_key = get_db_secret_key()
+#     print_default_credentials()
+#     return mail, password, mail_server, secret_key
 
 
 def get_and_check_password():
@@ -120,6 +136,5 @@ if __name__ == "__main__":
     # feed_database()
 
     # final ver
-    # print(len(sys.argv))
-    print_default_credentials()
+    main()
     # update_credentials()
