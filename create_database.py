@@ -2,27 +2,170 @@
 import re
 import time
 from pathlib import Path
+from tkinter import Y
 
 
 class Credentials:
-    @property
-    def email(self):
-        return self._email
+    def __init__(self) -> None:
+        self._mail_username = None
+        self._mail_password = None
+        self._mail_server = None
+        self._download_folder = str(Path.home() / "Downloads")
+        self._database_path = f"{Path(__file__).parent.resolve()}\database.db"
+        self.__sqlalchemy_track_modifications__ = False
+        self.mail_use_tls = True
+        self.mail_use_ssl = False
+        self.mail_port = 587
 
-    @email.setter
-    def email(self, value):
-        self._email = value
+    def print_default_credentials(self):
+        print(
+            f"""Your default credentials are as follows:
+    Mail address: {self.mail_username}
+    Mail password: {self.mail_password}
+    Mail server: {self.mail_server}
+    Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
+    Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
+    'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
+    'MAIL_USE_TLS': {self.mail_use_tls}
+    'MAIL_USE_SSL': {self.mail_use_ssl}
+    'MAIL_PORT': {self.mail_port}"""
+        )
+        while True:
+            change = input("Do you want to change any of these? [Y/n]\t")
+            if change == "n":
+                break
+            elif change == "Y":
+                self.make_changes()
+                break
+            else:
+                continue
+
+    def make_changes(self):
+        while True:
+            number = input(
+                f"""Type in the number of parameter you want to change or [q] to quit:
+[1] Mail address: {self.mail_username}
+[2] Mail password: {self.mail_password}
+[3] Mail server: {self.mail_server}
+[4] Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
+[5] Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
+[6] 'MAIL_USE_TLS': {self.mail_use_tls}
+[7] 'MAIL_USE_SSL': {self.mail_use_ssl}
+[8] 'MAIL_PORT': {self.mail_port}
+(unchengable) 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
+"""
+            )
+            if number == "1":
+                self.mail_username = get_and_check_email()
+            elif number == "2":
+                self.mail_password = get_and_check_password()
+            elif number == "3":
+                self.mail_server = get_mail_server()
+            elif number == "4":
+                self.download_folder = input(
+                    f"Type in your download folder (current: {self.download_folder}): "
+                )
+            elif number == "5":
+                self.database_path = input(
+                    f"Type in your database path (current: {self.database_path}): "
+                )
+            elif number == "6":
+                self.mail_use_tls = get_boolean_input(
+                    input(
+                        f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
+                    )
+                )
+            elif number == "7":
+                self.mail_use_ssl = get_boolean_input(
+                    input(
+                        f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
+                    )
+                )
+            elif number == "8":
+                self.mail_port = get_integer_input(
+                    input(f"Type in your mail port (current: {self.mail_port}): ")
+                )
+            else:
+                break
+
+    @property
+    def mail_username(self):
+        return self._mail_username
+
+    @mail_username.setter
+    def mail_username(self, value):
+        self._mail_username = value
+
+    @property
+    def mail_password(self):
+        return self._mail_password
+
+    @mail_password.setter
+    def mail_password(self, value):
+        self._mail_password = value
+
+    @property
+    def mail_server(self):
+        return self._mail_server
+
+    @mail_server.setter
+    def mail_server(self, value):
+        self._mail_server = value
+
+    @property
+    def secret_key(self):
+        return self._secret_key
+
+    @secret_key.setter
+    def secret_key(self, value):
+        self._secret_key = value
+
+    @property
+    def download_folder(self):
+        return self._download_folder
+
+    @download_folder.setter
+    def download_folder(self, value):
+        self._download_folder = value
+
+    @property
+    def database_path(self):
+        return self._database_path
+
+    @database_path.setter
+    def database_path(self, value):
+        self._database_path = value
+
+
+def get_boolean_input(string):
+    if string == "T":
+        return True
+    elif string == "F":
+        return False
+    else:
+        print(
+            "You typed a wrong value. Only 'T' for True or 'F' for False are accepted."
+        )
+
+
+def get_integer_input(string):
+    if re.fullmatch(r"\b[0-9]{1,3}\b", string) is not None:
+        return string
+    else:
+        print("You typed a wrong value. Only numbers are accepted.")
 
 
 def get_and_check_email():
     while True:
-        email = input("Type in your email (or [q] to quit): ")
+        mail_username = input("Type in your email (or [q] to quit): ")
         if (
-            re.fullmatch(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", email)
+            re.fullmatch(
+                r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", mail_username
+            )
             is not None
         ):
-            return email
-        elif email == ("q" or "Q"):
+            return mail_username
+        elif mail_username == ("q" or "Q"):
             break
         else:
             print("Wrong email format. Try again.")
@@ -31,8 +174,12 @@ def get_and_check_email():
 
 def main():
     c = Credentials()
-    c.email = get_and_check_email()
-    print(c.email)
+    # print(c.download_folder)
+    # c.mail_username = get_and_check_email()
+    # c.mail_password = get_and_check_password()
+    # c.mail_server = get_mail_server()
+    print(c.mail_username)
+    c.print_default_credentials()
 
 
 # def main():
@@ -46,14 +193,14 @@ def main():
 
 def get_and_check_password():
     while True:
-        password1 = input("Type in your email password (or [q] to quit): ")
-        if password1 == ("q" or "Q"):
+        mail_password1 = input("Type in your email password (or [q] to quit): ")
+        if mail_password1 == ("q" or "Q"):
             break
-        password2 = input("Type in your email password again (or [q] to quit): ")
-        if password2 == ("q" or "Q"):
+        mail_password2 = input("Type in your email password again (or [q] to quit): ")
+        if mail_password2 == ("q" or "Q"):
             break
-        elif password1 == password2:
-            return password1
+        elif mail_password1 == mail_password2:
+            return mail_password1
         else:
             print("Your passwords don't match. Try again.")
             continue
@@ -66,8 +213,12 @@ def get_mail_server():
         )
         if mail_server == ("q" or "Q"):
             break
-        else:
+        if re.fullmatch(r"\b[a-z]+\.[a-z]+\.[a-z]{2,3}\b", mail_server) is not None:
             return mail_server
+        else:
+            print(
+                "Mail server should contain 3 groups of letters separated by commas, eg. smtp.example.com"
+            )
 
 
 def get_db_secret_key():
@@ -83,34 +234,6 @@ def get_db_secret_key():
         else:
             print("Your passwords don't match. Try again.")
             continue
-
-
-def print_default_credentials():
-    download_folder = str(Path.home() / "Downloads")
-    database_path = f"{Path(__file__).parent.resolve()}\database.db"
-    print(
-        f"""Your default credentials are as follows:
-    Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{download_folder}'
-    Database path ('SQLALCHEMY_DATABASE_URI'): '{database_path}'
-    'SQLALCHEMY_TRACK_MODIFICATIONS': False
-    'MAIL_USE_TLS': True
-    'MAIL_USE_SSL': False
-    'MAIL_PORT': 587
-"""
-    )
-    while True:
-        change = input("Do you want to change any of these? [Y/n]\t")
-        if change == "n":
-            break
-        elif change == "Y":
-            make_changes()
-            break
-        else:
-            continue
-
-
-def make_changes():
-    pass
 
 
 def update_credentials(email):
