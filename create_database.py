@@ -49,9 +49,11 @@ class Credentials:
         while True:
             change = input("Do you want to change any of these? [Y/n]\t")
             if change == "n":
+                ("No changes applied.")
                 break
             elif change == "Y":
                 self._apply_changes()
+                print("Changes applied.")
                 break
             else:
                 continue
