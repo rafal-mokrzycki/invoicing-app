@@ -4,6 +4,21 @@ import re
 from pathlib import Path
 
 
+def main():
+    # create credentials.json file with default settings for a DB
+    # update_credentials()
+    c = Credentials()
+    c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
+    c.print_or_change_default_credentials()
+    c._update_credentials()
+
+    # create a database (database.db file with all the required tables, yet empty)
+    # create_database()
+
+    # feed tables with sample data
+    # feed_database()
+
+
 class Credentials:
     def __init__(self) -> None:
         self._mail_username = None
@@ -17,7 +32,7 @@ class Credentials:
         self.mail_use_ssl = False
         self.mail_port = 587
 
-    def print_default_credentials(self):
+    def print_or_change_default_credentials(self):
         print(
             f"""Your default credentials are as follows:
     Mail address: {self.mail_username}
@@ -36,12 +51,13 @@ class Credentials:
             if change == "n":
                 break
             elif change == "Y":
-                self.apply_changes()
+                self._apply_changes()
                 break
             else:
                 continue
+        print("File credentials.json successfully created.")
 
-    def apply_changes(self):
+    def _apply_changes(self):
         while True:
             number = input(
                 f"""Type in the number of parameter you want to change or [q] to quit:
@@ -157,6 +173,15 @@ class Credentials:
         self._database_path = value
 
 
+def get_required_info():
+    return (
+        get_and_check_email(),
+        get_and_check_password(),
+        get_mail_server(),
+        get_db_secret_key(),
+    )
+
+
 def get_boolean_input(string):
     if string == "T":
         return True
@@ -190,27 +215,6 @@ def get_and_check_email():
         else:
             print("Wrong email format. Try again.")
             continue
-
-
-def main():
-    c = Credentials()
-    # print(c.download_folder)
-    c.mail_username = get_and_check_email()
-    c.mail_password = get_and_check_password()
-    c.mail_server = get_mail_server()
-    c.secret_key = get_db_secret_key()
-    # print(c.mail_username)
-    c.print_default_credentials()
-    c._update_credentials()
-
-
-# def main():
-#     mail = get_and_check_email()
-#     password = get_and_check_password()
-#     mail_server = get_mail_server()
-#     secret_key = get_db_secret_key()
-#     print_default_credentials()
-#     return mail, password, mail_server, secret_key
 
 
 def get_and_check_password():
@@ -271,15 +275,5 @@ def feed_database():
 
 
 if __name__ == "__main__":
-    # create credentials.json file with default settings for a DB
-    # update_credentials()
 
-    # create a database (database.db file with all the required tables, yet empty)
-    # create_database()
-
-    # feed tables with sample data
-    # feed_database()
-
-    # final ver
     main()
-    # update_credentials()
