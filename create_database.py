@@ -1,8 +1,7 @@
 #!/usr/bin/env python
+import json
 import re
-import time
 from pathlib import Path
-from tkinter import Y
 
 
 class Credentials:
@@ -10,6 +9,7 @@ class Credentials:
         self._mail_username = None
         self._mail_password = None
         self._mail_server = None
+        self._secret_key = None
         self._download_folder = str(Path.home() / "Downloads")
         self._database_path = f"{Path(__file__).parent.resolve()}\database.db"
         self.__sqlalchemy_track_modifications__ = False
@@ -25,6 +25,7 @@ class Credentials:
     Mail server: {self.mail_server}
     Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
     Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
+    Database secret key ('SECRET_KEY'): '{self.secret_key}'
     'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
     'MAIL_USE_TLS': {self.mail_use_tls}
     'MAIL_USE_SSL': {self.mail_use_ssl}
@@ -35,12 +36,12 @@ class Credentials:
             if change == "n":
                 break
             elif change == "Y":
-                self.make_changes()
+                self.apply_changes()
                 break
             else:
                 continue
 
-    def make_changes(self):
+    def apply_changes(self):
         while True:
             number = input(
                 f"""Type in the number of parameter you want to change or [q] to quit:
@@ -49,9 +50,10 @@ class Credentials:
 [3] Mail server: {self.mail_server}
 [4] Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
 [5] Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
-[6] 'MAIL_USE_TLS': {self.mail_use_tls}
-[7] 'MAIL_USE_SSL': {self.mail_use_ssl}
-[8] 'MAIL_PORT': {self.mail_port}
+[6] Database secret key ('SECRET_KEY'): '{self.secret_key}'
+[7] 'MAIL_USE_TLS': {self.mail_use_tls}
+[8] 'MAIL_USE_SSL': {self.mail_use_ssl}
+[9] 'MAIL_PORT': {self.mail_port}
 (unchengable) 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
 """
             )
@@ -70,23 +72,41 @@ class Credentials:
                     f"Type in your database path (current: {self.database_path}): "
                 )
             elif number == "6":
+                self.secret_key = get_db_secret_key()
+            elif number == "7":
                 self.mail_use_tls = get_boolean_input(
                     input(
                         f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
                     )
                 )
-            elif number == "7":
+            elif number == "8":
                 self.mail_use_ssl = get_boolean_input(
                     input(
                         f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
                     )
                 )
-            elif number == "8":
+            elif number == "9":
                 self.mail_port = get_integer_input(
                     input(f"Type in your mail port (current: {self.mail_port}): ")
                 )
             else:
                 break
+
+    def _update_credentials(self):
+        json_path = "config_files/credentials4.json"
+        data = {}
+        data["SQLALCHEMY_DATABASE_URI"] = self._database_path
+        data["SECRET_KEY"] = self.secret_key
+        data["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.__sqlalchemy_track_modifications__
+        data["MAIL_SERVER"] = self._mail_server
+        data["MAIL_PORT"] = self.mail_port
+        data["MAIL_USERNAME"] = self._mail_username
+        data["MAIL_PASSWORD"] = self._mail_password
+        data["MAIL_USE_TLS"] = self.mail_use_tls
+        data["MAIL_USE_SSL"] = self.mail_use_ssl
+        data["PATH_TO_DOWNLOAD_FOLDER"] = self._download_folder
+        with open(json_path, "w") as jsonFile:
+            json.dump(data, jsonFile)
 
     @property
     def mail_username(self):
@@ -175,11 +195,13 @@ def get_and_check_email():
 def main():
     c = Credentials()
     # print(c.download_folder)
-    # c.mail_username = get_and_check_email()
-    # c.mail_password = get_and_check_password()
-    # c.mail_server = get_mail_server()
-    print(c.mail_username)
+    c.mail_username = get_and_check_email()
+    c.mail_password = get_and_check_password()
+    c.mail_server = get_mail_server()
+    c.secret_key = get_db_secret_key()
+    # print(c.mail_username)
     c.print_default_credentials()
+    c._update_credentials()
 
 
 # def main():
