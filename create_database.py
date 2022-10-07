@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import csv
 import json
 import re
 from datetime import datetime
@@ -285,14 +286,36 @@ def get_db_secret_key():
 
 def feed_database():
     from config_files.config import credentials
+    from scripts.database import create_connection
 
+    connection = create_connection(settings["DATABASE"])
+    cursor = connection.cursor()
     # engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
     # Base.metadata.create_all(engine)
-    for table_name in settings["TABLE_NAMES"]:
-        df = pd.read_csv(
-            filepath_or_buffer=f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
+    table_name = "invoices"
+    filepath = f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
+    #     for table_name in settings["TABLE_NAMES"]:
+    #         df = pd.read_csv(
+    #             filepath_or_buffer=f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
+    #         )
+    #         for row in df.itertuples():
+    #             cursor.execute(
+    #                 f"""
+    # INSERT INTO {table_name} ({df.columns}) VALUES {[cell for cell in df.columns]}
+    # """
+    #             )
+    with open(filepath, "r") as f:
+        reader = csv.reader(f)
+        columns = next(reader)
+        query = f"insert into {0} ({1}) values ({2})"
+        query = query.format(
+            table_name, ",".join(columns), ",".join(["%s"] * len(columns))
         )
-        print(df.columns)
+
+        cursor = connection.cursor()
+        for data in reader:
+            cursor.execute(query, data)
+        cursor.commit()
 
     # print("feed_database")
 
