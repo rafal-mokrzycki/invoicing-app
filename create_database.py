@@ -6,8 +6,11 @@ from datetime import datetime
 from pathlib import Path
 from time import time
 
+import chardet
 import pandas as pd
-from numpy import genfromtxt
+import sqlalchemy
+from cv2 import _InputArray_FIXED_SIZE
+from numpy import DataSource, genfromtxt
 from sqlalchemy import Column, Date, Float, Integer, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -24,7 +27,7 @@ def main():
     # c._update_credentials()
 
     # create a database (database.db file with all the required tables, yet empty)
-    # create_database()
+    create_database()
 
     # feed tables with sample data
     feed_database()
@@ -290,34 +293,29 @@ def feed_database():
 
     connection = create_connection(settings["DATABASE"])
     cursor = connection.cursor()
-    # engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
+    engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
     # Base.metadata.create_all(engine)
-    table_name = "invoices"
-    filepath = f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
-    #     for table_name in settings["TABLE_NAMES"]:
-    #         df = pd.read_csv(
-    #             filepath_or_buffer=f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
-    #         )
-    #         for row in df.itertuples():
-    #             cursor.execute(
-    #                 f"""
-    # INSERT INTO {table_name} ({df.columns}) VALUES {[cell for cell in df.columns]}
-    # """
-    #             )
-    with open(filepath, "r") as f:
-        reader = csv.reader(f)
-        columns = next(reader)
-        query = f"insert into {0} ({1}) values ({2})"
-        query = query.format(
-            table_name, ",".join(columns), ",".join(["%s"] * len(columns))
+    for table_name in settings["TABLE_NAMES"]:
+
+        filepath = (
+            f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
         )
 
-        cursor = connection.cursor()
-        for data in reader:
-            cursor.execute(query, data)
-        cursor.commit()
+        with open(filepath, "rb") as f:
+            try:
+                result = chardet.detect(f.read())
+                df = pd.read_csv(filepath, encoding=result["encoding"])
+                df.to_sql(table_name, con=engine, index=False, if_exists="append")
 
-    # print("feed_database")
+                query = (
+                    sqlalchemy.update(Base.metadata.tables[table_name.__tablename__])
+                    .where(table_name.id == 1)
+                    .values(DataSource=filepath)
+                )
+                # try:
+                connection.execute(query)
+            except:
+                pass
 
 
 if __name__ == "__main__":
