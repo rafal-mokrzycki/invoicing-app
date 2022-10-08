@@ -137,7 +137,9 @@ class Database:
         cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
 
     def add_record(self, db_file, table_name):
-        pass
+        query = f"""
+        INSERT INTO {table_name} ()
+        """
 
     def __delete_record__(self, db_file, table_name, key):
         pass
