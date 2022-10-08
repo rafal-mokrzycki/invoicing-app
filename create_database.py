@@ -21,16 +21,16 @@ Base = declarative_base()
 
 def main():
     # create credentials.json file with default settings for a DB
-    # c = Credentials()
-    # c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
-    # c.print_or_change_default_credentials()
-    # c._update_credentials()
+    c = Credentials()
+    c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
+    c._change_default_credentials()
+    c._update_credentials()
 
     # create a database (database.db file with all the required tables, yet empty)
-    create_database()
+    # create_database()
 
     # feed tables with sample data
-    feed_database()
+    # feed_database()
 
 
 class Credentials:
@@ -46,19 +46,30 @@ class Credentials:
         self.mail_use_ssl = False
         self.mail_port = 587
 
-    def print_or_change_default_credentials(self):
+    def print_default_credentials(self, choice):
+        if choice:
+            numbers = [f"[{n+1}] " for n in list(range(9))] + ["(unchengable) "]
+        else:
+            numbers = [f"" for n in list(range(10))]
+        input_string = f"""
+{numbers[0]} Mail address: {self.mail_username}
+{numbers[1]} Mail password: {self.mail_password}
+{numbers[2]} Mail server: {self.mail_server}
+{numbers[3]} Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
+{numbers[4]} Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
+{numbers[5]} Database secret key ('SECRET_KEY'): '{self.secret_key}'
+{numbers[6]} 'MAIL_USE_TLS': {self.mail_use_tls}
+{numbers[7]} 'MAIL_USE_SSL': {self.mail_use_ssl}
+{numbers[8]} 'MAIL_PORT': {self.mail_port}
+{numbers[9]} 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
+"""
+        return input_string
+
+    def _change_default_credentials(self):
         print(
             f"""Your default credentials are as follows:
-    Mail address: {self.mail_username}
-    Mail password: {self.mail_password}
-    Mail server: {self.mail_server}
-    Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
-    Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
-    Database secret key ('SECRET_KEY'): '{self.secret_key}'
-    'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
-    'MAIL_USE_TLS': {self.mail_use_tls}
-    'MAIL_USE_SSL': {self.mail_use_ssl}
-    'MAIL_PORT': {self.mail_port}"""
+{self.print_default_credentials(choice=False)}
+    """
         )
         while True:
             change = input("Do you want to change any of these? [Y/n]\t")
@@ -77,16 +88,7 @@ class Credentials:
         while True:
             number = input(
                 f"""Type in the number of parameter you want to change or [q] to quit:
-[1] Mail address: {self.mail_username}
-[2] Mail password: {self.mail_password}
-[3] Mail server: {self.mail_server}
-[4] Download folder ('PATH_TO_DOWNLOAD_FOLDER'): '{self.download_folder}'
-[5] Database path ('SQLALCHEMY_DATABASE_URI'): '{self.database_path}'
-[6] Database secret key ('SECRET_KEY'): '{self.secret_key}'
-[7] 'MAIL_USE_TLS': {self.mail_use_tls}
-[8] 'MAIL_USE_SSL': {self.mail_use_ssl}
-[9] 'MAIL_PORT': {self.mail_port}
-(unchengable) 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
+{self.print_default_credentials(choice=True)}
 """
             )
             if number == "1":
