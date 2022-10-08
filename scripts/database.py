@@ -146,7 +146,7 @@ class Database:
 
 
 class Invoice(Model, UserMixin, Base):
-    __tablename__ = "invoices"
+    __tablename__ = settings["TABLE_NAMES"][2]
     id = Column(Integer, primary_key=True)
     amount = Column(Float, nullable=False)
     invoice_no = Column(String(250), nullable=False)
