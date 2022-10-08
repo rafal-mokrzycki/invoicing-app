@@ -11,7 +11,7 @@ import pandas as pd
 import sqlalchemy
 from cv2 import _InputArray_FIXED_SIZE
 from numpy import DataSource, genfromtxt
-from sqlalchemy import Column, Date, Float, Integer, create_engine
+from sqlalchemy import Column, Date, Float, Integer, MetaData, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
 from config_files.config import settings
@@ -21,16 +21,16 @@ Base = declarative_base()
 
 def main():
     # create credentials.json file with default settings for a DB
-    c = Credentials()
-    c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
-    c._change_default_credentials()
-    c._update_credentials()
+    # c = Credentials()
+    # c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
+    # c._change_default_credentials()
+    # c._update_credentials()
 
     # create a database (database.db file with all the required tables, yet empty)
-    # create_database()
+    create_database()
 
     # feed tables with sample data
-    # feed_database()
+    feed_database()
 
 
 class Credentials:
@@ -291,33 +291,16 @@ def get_db_secret_key():
 
 def feed_database():
     from config_files.config import credentials
-    from scripts.database import create_connection
 
-    connection = create_connection(settings["DATABASE"])
-    cursor = connection.cursor()
     engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
-    # Base.metadata.create_all(engine)
     for table_name in settings["TABLE_NAMES"]:
-
         filepath = (
             f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
         )
-
         with open(filepath, "rb") as f:
-            try:
-                result = chardet.detect(f.read())
-                df = pd.read_csv(filepath, encoding=result["encoding"])
-                df.to_sql(table_name, con=engine, index=False, if_exists="append")
-
-                query = (
-                    sqlalchemy.update(Base.metadata.tables[table_name.__tablename__])
-                    .where(table_name.id == 1)
-                    .values(DataSource=filepath)
-                )
-                # try:
-                connection.execute(query)
-            except:
-                pass
+            result = chardet.detect(f.read())
+            df = pd.read_csv(filepath, encoding=result["encoding"])
+            df.to_sql(table_name, con=engine, index=False, if_exists="replace")
 
 
 if __name__ == "__main__":
