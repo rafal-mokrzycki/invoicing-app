@@ -1,0 +1,6 @@
+id,amount,invoice_no,invoice_type,issue_city,issue_date,issuer_tax_no,item,price_net,recipient_tax_no,sell_date,sum_gross,sum_net,tax_rate,unit,currency
+1,3,2022/09/01,regular,Warsaw,2022-09-09,PL9998887766,Laptop,1200,PL5554443322,2022-09-09,4428,3600,0.23,unit,PLN
+2,1,2022/09/02,regular,Warsaw,2022-09-09,PL9998887766,Laptop,4800,PL5554223322,2022-09-09,5904,4800,0.23,unit,PLN
+3,1,2022/09/01,proforma,Warsaw,2022-09-09,PL9998887766,Event ticket,80,PL5511443322,2022-09-09,86.4,80,0.08,unit,PLN
+4,2,2022/10/01,regular,Warsaw,2022-10-09,PL9998887766,Laptop,6900,PL5556666322,2022-10-09,16974,13800,0.23,unit,PLN
+5,5,2022/10/01,advanced_payment,Warsaw,2022-10-09,PL9998887766,Book,25,PL5554443888,2022-10-09,131.25,125,0.05,unit,PLN
