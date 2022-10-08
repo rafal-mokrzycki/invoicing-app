@@ -1,17 +1,11 @@
 #!/usr/bin/env python
-import csv
 import json
 import re
-from datetime import datetime
 from pathlib import Path
-from time import time
 
 import chardet
 import pandas as pd
-import sqlalchemy
-from cv2 import _InputArray_FIXED_SIZE
-from numpy import DataSource, genfromtxt
-from sqlalchemy import Column, Date, Float, Integer, MetaData, create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
 from config_files.config import settings
@@ -21,10 +15,10 @@ Base = declarative_base()
 
 def main():
     # create credentials.json file with default settings for a DB
-    # c = Credentials()
-    # c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
-    # c._change_default_credentials()
-    # c._update_credentials()
+    c = Credentials()
+    c.mail_username, c.mail_password, c.mail_server, c.secret_key = get_required_info()
+    c._change_default_credentials()
+    c._update_credentials()
 
     # create a database (database.db file with all the required tables, yet empty)
     create_database()
