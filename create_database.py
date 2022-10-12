@@ -13,7 +13,7 @@ from config_files.config import settings
 from scripts.validators import Validator
 
 Base = declarative_base()
-v = Validator()
+Valid = Validator()
 
 
 def main():
@@ -105,20 +105,20 @@ class Credentials:
                 case "6":
                     self.secret_key = get_db_secret_key()
                 case "7":
-                    self.mail_use_tls = v.is_boolean_input(
+                    self.mail_use_tls = Valid.is_boolean_input(
                         input(
                             f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
                         )
                     )
                 case "8":
-                    self.mail_use_ssl = v.is_boolean_input(
+                    self.mail_use_ssl = Valid.is_boolean_input(
                         input(
                             f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
                         )
                     )
                 case "9":
-                    self.mail_port = self.mail_port or v.validate_server_port(
-                        v.is_integer_input(
+                    self.mail_port = self.mail_port or Valid.validate_server_port(
+                        Valid.is_integer_input(
                             input(
                                 f"Type in your mail port (current: {self.mail_port}): "
                             )
@@ -250,7 +250,7 @@ def get_mail_server():
         )
         if mail_server == ("q" or "Q"):
             break
-        elif v.validate_server_address(mail_server):
+        elif Valid.validate_server_address(mail_server):
             return mail_server
         else:
             print(
