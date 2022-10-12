@@ -10,8 +10,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
 from config_files.config import settings
+from scripts.validators import Validator
 
 Base = declarative_base()
+v = Validator()
 
 
 def main():
@@ -103,21 +105,26 @@ class Credentials:
                 case "6":
                     self.secret_key = get_db_secret_key()
                 case "7":
-                    self.mail_use_tls = get_boolean_input(
+                    self.mail_use_tls = v.is_boolean_input(
                         input(
                             f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
                         )
                     )
                 case "8":
-                    self.mail_use_ssl = get_boolean_input(
+                    self.mail_use_ssl = v.is_boolean_input(
                         input(
                             f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
                         )
                     )
                 case "9":
-                    self.mail_port = get_integer_input(
-                        input(f"Type in your mail port (current: {self.mail_port}): ")
+                    self.mail_port = self.mail_port or v.validate_server_port(
+                        v.is_integer_input(
+                            input(
+                                f"Type in your mail port (current: {self.mail_port}): "
+                            )
+                        )
                     )
+
                 case _:
                     break
 
@@ -204,24 +211,6 @@ def get_required_info():
     )
 
 
-def get_boolean_input(string):
-    if string == "T":
-        return True
-    elif string == "F":
-        return False
-    else:
-        print(
-            "You typed a wrong value. Only 'T' for True or 'F' for False are accepted."
-        )
-
-
-def get_integer_input(string):
-    if re.fullmatch(r"\b[0-9]{1,3}\b", string) is not None:
-        return string
-    else:
-        print("You typed a wrong value. Only numbers are accepted.")
-
-
 def get_and_check_email():
     while True:
         mail_username = input("Type in your email (or [q] to quit): ")
@@ -261,7 +250,7 @@ def get_mail_server():
         )
         if mail_server == ("q" or "Q"):
             break
-        if re.fullmatch(r"\b[a-z]+\.[a-z]+\.[a-z]{2,3}\b", mail_server) is not None:
+        elif v.validate_server_address(mail_server):
             return mail_server
         else:
             print(

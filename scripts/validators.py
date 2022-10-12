@@ -11,14 +11,14 @@ class Validator:
         else:
             print(
                 f"You typed a wrong value ({input_string}). \
-                    Only 'T' for True or 'F' for False are accepted."
+                    Only '{true}' for True or '{false}' for False are accepted."
             )
 
     def is_integer_input(self, input_string):
         if input_string.isdigit():
-            return True
+            return int(input_string)
         else:
-            raise ValueError("You have to input an integer.")
+            print("You typed a wrong value. Only numbers are accepted.")
 
     def validate_password_match(self, password1, password2):
         if password1 == password2:
@@ -42,8 +42,4 @@ class Validator:
 
     def validate_server_port(self, server_port):
         if server_port in [25, 465, 587, 2525]:
-            return True
-        else:
-            raise ValueError(
-                f"The number you passed ({server_port}) is not a valid server port."
-            )
+            return server_port
