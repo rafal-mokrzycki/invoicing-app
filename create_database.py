@@ -1,3 +1,4 @@
+"""to run: python -m create_database.py"""
 #!/usr/bin/env python
 import json
 import re
@@ -61,9 +62,8 @@ class Credentials:
 
     def _change_default_credentials(self):
         print(
-            f"""Your default credentials are as follows:
-{self.print_default_credentials(choice=False)}
-    """
+            f"""{'='*60}\nYour default credentials are as follows:
+{self.print_default_credentials(choice=False)}"""
         )
         while True:
             change = input("Do you want to change any of these? [Y/n]\t")
@@ -81,8 +81,8 @@ class Credentials:
     def _apply_changes(self):
         while True:
             number = input(
-                f"""Type in the number of parameter you want to change or [q] to quit:
-{self.print_default_credentials(choice=True)}
+                f"""{'='*60}\nType in the number of parameter you want to change or [q] to quit:
+{self.print_default_credentials(choice=True)}{'='*60}
 """
             )
             if number == "1":
@@ -121,7 +121,7 @@ class Credentials:
                 break
 
     def _update_credentials(self):
-        json_path = "config_files/credentials4.json"
+        json_path = "config_files/credentials_example.json"
         data = {}
         data["SQLALCHEMY_DATABASE_URI"] = self._database_path
         data["SECRET_KEY"] = self.secret_key
