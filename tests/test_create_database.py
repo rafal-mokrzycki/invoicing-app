@@ -1,4 +1,4 @@
-""" to run: python -m pytest -vv scripts\tests\test_create_database.py -s
+""" to run: python -m pytest -vv tests\test_create_database.py -s
 add --pdb to debug in command line
 use VScode test tools reccomended (the beaker) """
 import create_database as cd
