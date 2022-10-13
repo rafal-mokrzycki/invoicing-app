@@ -37,7 +37,7 @@ class Credentials:
         self._secret_key = None
         self._download_folder = str(Path.home() / "Downloads")
         self._database_path = f"{Path(__file__).parent.resolve()}\database.db"
-        self.__sqlalchemy_track_modifications__ = False
+        self.__sqlalchemy_track_modifications = False
         self.mail_use_tls = True
         self.mail_use_ssl = False
         self.mail_port = 587
@@ -57,7 +57,7 @@ class Credentials:
 {numbers[6]} 'MAIL_USE_TLS': {self.mail_use_tls}
 {numbers[7]} 'MAIL_USE_SSL': {self.mail_use_ssl}
 {numbers[8]} 'MAIL_PORT': {self.mail_port}
-{numbers[9]} 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
+{numbers[9]} 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications}
 """
         return input_string
 
@@ -132,7 +132,7 @@ class Credentials:
         data = {}
         data["SQLALCHEMY_DATABASE_URI"] = self._database_path
         data["SECRET_KEY"] = self.secret_key
-        data["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.__sqlalchemy_track_modifications__
+        data["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.__sqlalchemy_track_modifications
         data["MAIL_SERVER"] = self._mail_server
         data["MAIL_PORT"] = self.mail_port
         data["MAIL_USERNAME"] = self._mail_username
