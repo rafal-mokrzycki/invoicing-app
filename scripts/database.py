@@ -6,12 +6,13 @@ import traceback
 import repackage
 
 repackage.up(1)
-from config_files.config import credentials, settings
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import Model, SQLAlchemy
 from sqlalchemy import Boolean, Column, Date, Float, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import declarative_base, relationship
+
+from config_files.config import credentials, settings
 
 app = Flask(__name__)
 app.config.update(credentials)
@@ -305,6 +306,66 @@ class Invoice(Model, UserMixin, Base):
 
 
 class User(Model, UserMixin, Base):
+    """
+    A class used to represent a User. Inherits from Model, UserMixin and Base.
+
+    Attributes
+    ----------
+    __tablename__ : str
+        default="accounts"
+
+    id : int
+        primary key
+
+    email : str
+        email
+
+    name : str
+        first name
+
+    surname : str
+        last name
+
+    phone_no  : int
+        phone number
+
+    password : str
+        password
+
+    company_name  : str
+        company name
+
+    street  : str
+        street
+
+    house_no : int
+        house number
+
+    flat_no : int
+        flat number
+
+    zip_code  : str
+        zip code
+
+    city : str
+        city
+
+    tax_no : int
+        tax number
+
+    bank_account : int
+        tax number
+
+    plan : str
+        plan for the account, one from the following: "free", "starter", "business", "ultimate"
+
+    terms : bool
+        if the user agreed to the terms of use
+
+    newsletter : bool
+        if the user wants to receive a newsletter
+    """
+
     __tablename__ = settings["TABLE_NAMES"][0]
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
@@ -326,6 +387,55 @@ class User(Model, UserMixin, Base):
 
 
 class Contractor(Model, UserMixin, Base):
+    """
+    A class used to represent a User. Inherits from Model, UserMixin and Base.
+
+    Attributes
+    ----------
+    __tablename__ : str
+        default="accounts"
+
+    id : int
+        primary key
+
+    email : str
+        email
+
+    name : str
+        first name
+
+    surname : str
+        last name
+
+    phone_no  : int
+        phone number
+
+    company_name  : str
+        company name
+
+    street  : str
+        street
+
+    house_no : int
+        house number
+
+    flat_no : int
+        flat number
+
+    zip_code  : str
+        zip code
+
+    city : str
+        city
+
+    tax_no : int
+        tax number
+
+    bank_account : int
+        tax number
+
+    """
+
     __tablename__ = settings["TABLE_NAMES"][1]
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=True)
@@ -340,7 +450,6 @@ class Contractor(Model, UserMixin, Base):
     city = Column(String(250), nullable=True)
     tax_no = Column(String(250), nullable=True)
     bank_account = Column(String(250), nullable=True)
-    # invoice_id = Column(Integer, ForeignKey("invoice.id"))
 
 
 def create_connection(db_file: str):
