@@ -25,6 +25,10 @@ def test_validate_email_address():
     assert v.validate_email_address(email_address="test@test.com") is True
 
 
+def test_validate_email_address_false():
+    assert v.validate_email_address("wrongemailaddress") is None
+
+
 def test_validate_password_match():
     assert v.validate_password_match("password", "password") == "password"
 
@@ -35,6 +39,10 @@ def test_validate_password_match_false():
 
 def test_validate_server_port():
     assert v.validate_server_port(25) == 25
+
+
+def test_validate_server_port_false():
+    assert v.validate_server_port(251) is None
 
 
 def test_validate_server_address():
