@@ -13,11 +13,24 @@ class Validator:
     ----------
     is_boolean_input(input_string : str, true : bool="T", false : bool="F")
         Checks if a given input is of type bool.
+
     is_integer_input()
+        Checks if a given input is of type int.
+
     validate_password_match()
+        Checks if a given input is of type int.
+
     validate_email_address()
+        Checks if a given input is an email address (follows a regex pattern
+        '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
+
     validate_server_address()
+        Checks if a given input is a valid server address (follows a regex pattern
+        '\b[A-Za-z]+\.[A-Za-z0-9]+\.[A-Z|a-z]{2,3}\b').
+
     validate_server_port()
+        Checks if a given input is a valid server port (is one o the following:
+        25, 465, 587 or 2525)
     """
 
     def is_boolean_input(self, input_string: str, true: str = "T", false: str = "F"):
