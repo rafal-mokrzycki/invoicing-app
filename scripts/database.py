@@ -28,25 +28,6 @@ class Database:
         else:
             self.db_file = db_file
 
-    # def create_connection(self):
-    #     """create a database connection to the SQLite database
-    #         specified by db_files
-    #     :param db_file: database file
-    #     :return: Connection object or None
-    #     """
-    #     connection = None
-    #     try:
-    #         connection = sqlite3.connect(self.db_file)
-    #         return connection
-    #     except sqlite3.Error as e:
-    #         print("SQLite error: %s" % (" ".join(e.args)))
-    #         print("Exception class is: ", e.__class__)
-    #         print("SQLite traceback: ")
-    #         exc_type, exc_value, exc_tb = sys.exc_info()
-    #         print(traceback.format_exception(exc_type, exc_value, exc_tb))
-
-    #     return connection
-
     def create_table(self, table_name, conn=None, drop_if_exists=False):
         """create a table from the create_table_sql statement
         :param conn: Connection object

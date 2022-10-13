@@ -1,7 +1,6 @@
 """to run: python -m create_database.py"""
 #!/usr/bin/env python
 import json
-import re
 from pathlib import Path
 
 import chardet
@@ -105,20 +104,20 @@ class Credentials:
                 case "6":
                     self.secret_key = get_db_secret_key()
                 case "7":
-                    self.mail_use_tls = Valid.is_boolean_input(
+                    self.mail_use_tls = Validator().is_boolean_input(
                         input(
                             f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
                         )
                     )
                 case "8":
-                    self.mail_use_ssl = Valid.is_boolean_input(
+                    self.mail_use_ssl = Validator().is_boolean_input(
                         input(
                             f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
                         )
                     )
                 case "9":
-                    self.mail_port = self.mail_port or Valid.validate_server_port(
-                        Valid.is_integer_input(
+                    self.mail_port = self.mail_port or Validator().validate_server_port(
+                        Validator().is_integer_input(
                             input(
                                 f"Type in your mail port (current: {self.mail_port}): "
                             )
@@ -214,7 +213,7 @@ def get_required_info():
 def get_and_check_email():
     while True:
         mail_username = input("Type in your email (or [q] to quit): ")
-        if Valid.validate_email_address(mail_username):
+        if Validator().validate_email_address(mail_username):
             return mail_username
         elif mail_username == "q" or mail_username == "Q":
             return
@@ -245,7 +244,7 @@ def get_mail_server():
         )
         if mail_server == "q" or mail_server == "Q":
             return
-        elif Valid.validate_server_address(mail_server):
+        elif Validator().validate_server_address(mail_server):
             return mail_server
         else:
             print(
