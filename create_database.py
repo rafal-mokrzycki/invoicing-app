@@ -30,23 +30,58 @@ def main():
 
 
 class Credentials:
-    def __init__(self) -> None:
-        self._mail_username = None
-        self._mail_password = None
-        self._mail_server = None
-        self._secret_key = None
-        self._download_folder = str(Path.home() / "Downloads")
-        self._database_path = f"{Path(__file__).parent.resolve()}\database.db"
-        self.__sqlalchemy_track_modifications = False
-        self.mail_use_tls = True
-        self.mail_use_ssl = False
-        self.mail_port = 587
+    """Creates a table of a given table_name.
 
-    def print_default_credentials(self, choice):
+    Parameters
+    ----------
+    _mail_username : str, default None
+        mail username
+    _mail_password : str, default None
+        mail password
+    _mail_server : str, default None
+        mail server
+    _secret_key : str, default None
+        database secret key
+    _download_folder : str, default 'path/to/your/user/Downloads'
+        download folder
+    _database_path : str, default 'path/to/your/repo/database.db'
+        path o the database file
+    __sqlalchemy_track_modifications : bool, default False
+        if sqlalchemy should track modifications
+    mail_use_tls : bool, default True
+        if mail should use TLS
+    mail_use_ssl : bool, default False
+        if mail should use SSL
+    mail_port : int, default 587
+        mail port
+
+    Methods
+    ------
+    print_default_credentials(choice)
+    _change_default_credentials()
+    _apply_changes()
+    _update_credentials()
+    """
+
+    def __init__(self) -> None:
+        self._mail_username: str = None
+        self._mail_password: str = None
+        self._mail_server: str = None
+        self._secret_key: str = None
+        self._download_folder: str = str(Path.home() / "Downloads")
+        self._database_path: str = f"{Path(__file__).parent.resolve()}\database.db"
+        self.__sqlalchemy_track_modifications: bool = False
+        self.mail_use_tls: bool = True
+        self.mail_use_ssl: bool = False
+        self.mail_port: int = 587
+
+    def print_default_credentials(self, choice=True):
+        """Prints default credentials used for the credentials.json file.
+        Sets Credentials class attributes."""
         if choice:
             numbers = [f"[{n+1}] " for n in list(range(9))] + ["(unchengable) "]
         else:
-            numbers = [f"" for n in list(range(10))]
+            numbers = [f"[{n+1}] " for n in list(range(10))]
         input_string = f"""
 {numbers[0]} Mail address: {self.mail_username}
 {numbers[1]} Mail password: {self.mail_password}
@@ -62,6 +97,8 @@ class Credentials:
         return input_string
 
     def _change_default_credentials(self):
+        """Prints default credentials used for the credentials.json file
+        and enables the user to change them. Sets Credentials class attributes."""
         print(
             f"""{'='*60}\nYour default credentials are as follows:
 {self.print_default_credentials(choice=False)}"""
@@ -80,6 +117,9 @@ class Credentials:
         print("File credentials.json successfully created.")
 
     def _apply_changes(self):
+        """Enables the user to change default credentials but selecting a number of
+        a Credentials class attribute."""
+
         while True:
             number = input(
                 f"""{'='*60}\nType in the number of parameter you want to change or [q] to quit:
@@ -128,6 +168,7 @@ class Credentials:
                     break
 
     def _update_credentials(self):
+        """Takes Credentials class attributes and saves them to credentials.json."""
         json_path = "config_files/credentials_example.json"
         data = {}
         data["SQLALCHEMY_DATABASE_URI"] = self._database_path
@@ -193,6 +234,7 @@ class Credentials:
 
 
 def create_database():
+    """Initializes Database class instance and creates required tables."""
     from scripts.database import Database
 
     db = Database()
@@ -202,6 +244,7 @@ def create_database():
 
 
 def get_required_info():
+    """Returns user email, password, mail server and database secret key."""
     return (
         get_and_check_email(),
         get_and_check_password(),
@@ -211,6 +254,7 @@ def get_required_info():
 
 
 def get_and_check_email():
+    """Returns a valid email address based on user input."""
     while True:
         mail_username = input("Type in your email (or [q] to quit): ")
         if Validator().validate_email_address(mail_username):
@@ -223,6 +267,7 @@ def get_and_check_email():
 
 
 def get_and_check_password():
+    """Returns a valid password based on user input."""
     while True:
         mail_password1 = input("Type in your email password (or [q] to quit): ")
         if mail_password1 == "q" or mail_password1 == "Q":
@@ -238,6 +283,7 @@ def get_and_check_password():
 
 
 def get_mail_server():
+    """Returns a valid mail server based on user input."""
     while True:
         mail_server = input(
             "Type in your mail server (eg. smtp.example.com or [q] to quit): "
@@ -255,6 +301,7 @@ def get_mail_server():
 
 
 def get_db_secret_key():
+    """Returns a valid database secret key based on user input."""
     while True:
         secret_key1 = input("Set your database secret key (or [q] to quit): ")
         if secret_key1 == "q" or secret_key1 == "Q":
@@ -270,6 +317,7 @@ def get_db_secret_key():
 
 
 def feed_database():
+    """Reads CSV files and inserts the data to dataset's tables."""
     from config_files.config import credentials
 
     engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
