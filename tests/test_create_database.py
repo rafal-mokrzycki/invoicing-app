@@ -1,6 +1,9 @@
 """ to run: python -m pytest -vv tests\test_create_database.py -s
 add --pdb to debug in command line
 use VScode test tools reccomended (the beaker) """
+import repackage
+
+repackage.up()
 import create_database as cd
 
 
@@ -9,14 +12,18 @@ def test_get_and_check_email(monkeypatch):
     assert cd.get_and_check_email() == "example@example.com"
 
 
-# def test_get_and_check_email_false_1(monkeypatch):
-#     monkeypatch.setattr("builtins.input", lambda _: "q")
-#     assert cd.get_and_check_email() == "End loop."
+def test_get_and_check_email_false_1(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "q")
+    assert cd.get_and_check_email() is None
 
 
-# def test_get_and_check_email_false_2(monkeypatch):
-#     monkeypatch.setattr("builtins.input", lambda _: "some_weird_things")
-#     assert cd.get_and_check_email() == "Wrong email format. Try again."
+def test_get_and_check_email_false_2(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "Q")
+    assert cd.get_and_check_email() is None
+
+
+def test_get_and_check_email_false_3(monkeypatch):
+    pass
 
 
 def test_get_and_check_password(monkeypatch):
@@ -24,23 +31,53 @@ def test_get_and_check_password(monkeypatch):
     assert cd.get_and_check_password() == "password"
 
 
-# def test_get_and_check_password_false_1(monkeypatch):
-#     responses = iter(["password", "not matching password"])
-#     # monkeypatch.setattr("builtins.input", lambda _: responses)
-#     monkeypatch.setattr("builtins.input", lambda _: next(responses))
-#     assert cd.get_and_check_password() == "Your passwords don't match. Try again."
+def test_get_and_check_password_false_1(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "q")
+    assert cd.get_and_check_password() is None
 
 
-# def test_get_and_check_password_false_2(monkeypatch):
-#     monkeypatch.setattr("builtins.input", lambda _: "q")
-#     assert cd.get_and_check_password() == "End loop."
+def test_get_and_check_password_false_2(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "Q")
+    assert cd.get_and_check_password() is None
 
 
-# def test_get_and_check_password_false_3(monkeypatch):
-#     monkeypatch.setattr("builtins.input", lambda _: "Q")
-#     assert cd.get_and_check_password() == "End loop."
+def test_get_and_check_password_false_3(monkeypatch):
+    pass
 
 
 def test_get_mail_server(monkeypatch):
     monkeypatch.setattr("builtins.input", lambda _: "asd.asd.asd")
     assert cd.get_mail_server() == "asd.asd.asd"
+
+
+def test_get_mail_server_false_1(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "q")
+    assert cd.get_mail_server() is None
+
+
+def test_get_mail_server_false_2(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "Q")
+    assert cd.get_mail_server() is None
+
+
+def test_get_mail_server_false_3(monkeypatch):
+    pass
+
+
+def test_get_db_secret_key(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "secret-key")
+    assert cd.get_db_secret_key() == "secret-key"
+
+
+def test_get_db_secret_key_false_1(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "q")
+    assert cd.get_db_secret_key() is None
+
+
+def test_get_db_secret_key_false_2(monkeypatch):
+    monkeypatch.setattr("builtins.input", lambda _: "Q")
+    assert cd.get_db_secret_key() is None
+
+
+def test_get_db_secret_key_false_3(monkeypatch):
+    pass

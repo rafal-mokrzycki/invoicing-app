@@ -214,15 +214,10 @@ def get_required_info():
 def get_and_check_email():
     while True:
         mail_username = input("Type in your email (or [q] to quit): ")
-        if (
-            re.fullmatch(
-                r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", mail_username
-            )
-            is not None
-        ):
+        if Valid.validate_email_address(mail_username):
             return mail_username
-        elif mail_username == ("q" or "Q"):
-            break
+        elif mail_username == "q" or mail_username == "Q":
+            return
         else:
             print("Wrong email format. Try again.")
             continue
@@ -231,10 +226,10 @@ def get_and_check_email():
 def get_and_check_password():
     while True:
         mail_password1 = input("Type in your email password (or [q] to quit): ")
-        if mail_password1 == ("q" or "Q"):
+        if mail_password1 == "q" or mail_password1 == "Q":
             break
         mail_password2 = input("Type in your email password again (or [q] to quit): ")
-        if mail_password2 == ("q" or "Q"):
+        if mail_password2 == "q" or mail_password2 == "Q":
             break
         elif mail_password1 == mail_password2:
             return mail_password1
@@ -248,24 +243,26 @@ def get_mail_server():
         mail_server = input(
             "Type in your mail server (eg. smtp.example.com or [q] to quit): "
         )
-        if mail_server == ("q" or "Q"):
-            break
+        if mail_server == "q" or mail_server == "Q":
+            return
         elif Valid.validate_server_address(mail_server):
             return mail_server
         else:
             print(
-                "Mail server should contain 3 groups of letters separated by commas, eg. smtp.example.com"
+                "Mail server should contain 3 groups of letters separated \
+                    by commas, eg. smtp.example.com"
             )
+            continue
 
 
 def get_db_secret_key():
     while True:
         secret_key1 = input("Set your database secret key (or [q] to quit): ")
-        if secret_key1 == ("q" or "Q"):
-            break
+        if secret_key1 == "q" or secret_key1 == "Q":
+            return
         secret_key2 = input("Type in your database secret key again (or [q] to quit): ")
-        if secret_key2 == ("q" or "Q"):
-            break
+        if secret_key2 == "q" or secret_key2 == "Q":
+            return
         elif secret_key1 == secret_key2:
             return secret_key2
         else:

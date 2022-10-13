@@ -3,7 +3,7 @@ add --pdb to debug in command line
 use VScode test tools reccomended (the beaker) """
 import repackage
 
-repackage.up(2)
+repackage.up()
 from scripts.validators import Validator
 
 v = Validator()
