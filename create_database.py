@@ -58,9 +58,15 @@ class Credentials:
     Methods
     ------
     print_default_credentials(choice)
+        Prints default credentials used for the credentials.json file.
     _change_default_credentials()
+        Prints default credentials used for the credentials.json file
+        and enables the user to change them.
     _apply_changes()
+        Enables the user to change default credentials by selecting a number
+        of a Credentials class attribute.
     _update_credentials()
+        Takes Credentials class attributes and saves them to credentials.json.
     """
 
     def __init__(self) -> None:
@@ -75,7 +81,7 @@ class Credentials:
         self.mail_use_ssl: bool = False
         self.mail_port: int = 587
 
-    def print_default_credentials(self, choice=True):
+    def print_default_credentials(self, choice: bool = True):
         """Prints default credentials used for the credentials.json file.
         Sets Credentials class attributes."""
         if choice:
@@ -117,12 +123,13 @@ class Credentials:
         print("File credentials.json successfully created.")
 
     def _apply_changes(self):
-        """Enables the user to change default credentials but selecting a number of
-        a Credentials class attribute."""
+        """Enables the user to change default credentials by selecting a number
+        of a Credentials class attribute."""
 
         while True:
             number = input(
-                f"""{'='*60}\nType in the number of parameter you want to change or [q] to quit:
+                f"""
+{'='*60}\nType in the number of parameter you want to change or [q] to quit:
 {self.print_default_credentials(choice=True)}{'='*60}
 """
             )
