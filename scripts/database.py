@@ -6,12 +6,13 @@ import traceback
 import repackage
 
 repackage.up(1)
-from config_files.config import credentials, settings
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import Model, SQLAlchemy
 from sqlalchemy import Boolean, Column, Date, Float, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import declarative_base, relationship
+
+from config_files.config import credentials, settings
 
 app = Flask(__name__)
 app.config.update(credentials)
@@ -22,36 +23,53 @@ Base = declarative_base()
 
 
 class Database:
-    def __init__(self, db_file=None) -> None:
+    """
+    A class used to represent a Database
+
+    Attributes
+    ----------
+    db_file : str
+        database file name, default=None, if not passed explicitly then database.db
+
+    Methods
+    -------
+    create_table(table_name : str, conn : sqlite3.Connection=None, drop_if_exists=False)
+        Creates a table of a given table_name.
+
+    __drop_table__(table_name: str, conn: sqlite3.Connection = None)
+        Drops a table of a given table_name.
+
+    add_record(record_to_add: list,table_name: str,conn: sqlite3.Connection = None)
+        Not yet implemented. Adds a record to a table of a given table_name.
+
+    __delete_record__(id_record_to_delete: int, table_name: str, conn: sqlite3.Connection = None)
+        Not yet implemented. Deletes a record from a table of a given table_name.
+    """
+
+    def __init__(self, db_file: str = None) -> None:
         if db_file is None:
             self.db_file = settings["DATABASE"]
         else:
             self.db_file = db_file
 
-    # def create_connection(self):
-    #     """create a database connection to the SQLite database
-    #         specified by db_files
-    #     :param db_file: database file
-    #     :return: Connection object or None
-    #     """
-    #     connection = None
-    #     try:
-    #         connection = sqlite3.connect(self.db_file)
-    #         return connection
-    #     except sqlite3.Error as e:
-    #         print("SQLite error: %s" % (" ".join(e.args)))
-    #         print("Exception class is: ", e.__class__)
-    #         print("SQLite traceback: ")
-    #         exc_type, exc_value, exc_tb = sys.exc_info()
-    #         print(traceback.format_exception(exc_type, exc_value, exc_tb))
+    def create_table(
+        self, table_name: str, conn: sqlite3.Connection = None, drop_if_exists=False
+    ):
+        """Creates a table of a given table_name.
 
-    #     return connection
+        Parameters
+        ----------
+        table_name : str
+            one of "accounts", "contractors" or "invoices"
+        conn : sqlite3.Connection, optional
+            opens a connection to an SQLite database
+        drop_if_exists : boolean, default=False
+            if True drops an existing table of a given name
 
-    def create_table(self, table_name, conn=None, drop_if_exists=False):
-        """create a table from the create_table_sql statement
-        :param conn: Connection object
-        :param create_table_sql: a CREATE TABLE statement
-        :return:
+        Raises
+        ------
+        NameError
+            If a wrong table_name is passed.
         """
         connection = conn or create_connection(self.db_file)
         # create table ACCOUNTS
@@ -124,6 +142,7 @@ class Database:
             if drop_if_exists:
                 cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
             cursor.execute(create_table_sql)
+            print(f"Table {table_name} created.")
         except sqlite3.Error as e:
             print("SQLite error: %s" % (" ".join(e.args)))
             print("Exception class is: ", e.__class__)
@@ -131,21 +150,140 @@ class Database:
             exc_type, exc_value, exc_tb = sys.exc_info()
             print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
-    def __drop_table__(self, table_name, conn=None):
-        connection = conn or create_connection(self.db_file)
-        cursor = connection.cursor()
-        cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
+    def __drop_table__(self, table_name: str, conn: sqlite3.Connection = None):
+        """Drops a table of a given table_name.
 
-    def add_record(self, db_file, table_name):
-        query = f"""
-        INSERT INTO {table_name} ()
+        Parameters
+        ----------
+        table_name : str
+            one of "accounts", "contractors" or "invoices"
+        conn : sqlite3.Connection, optional
+            opens a connection to an SQLite database
+
+        Raises
+        ------
+        NameError
+            If a wrong table_name is passed.
         """
+        if table_name not in settings["TABLE_NAMES"]:
+            raise NameError("Wrong table name.")
+        else:
+            connection = conn or create_connection(self.db_file)
+            cursor = connection.cursor()
+            cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
+            print(f"Table {table_name} dropped.")
 
-    def __delete_record__(self, db_file, table_name, key):
+    def add_record(
+        self,
+        record_to_add: list,
+        table_name: str,
+        conn: sqlite3.Connection = None,
+    ):
+        """Not yet implemented. Adds a record to a table of a given table_name.
+
+        Parameters
+        ----------
+        record_to_add : list
+            list o items to add
+        table_name : str
+            one of "accounts", "contractors" or "invoices"
+        conn : sqlite3.Connection, optional
+            opens a connection to an SQLite database
+
+        Returns
+        ------
+        None
+        """
+        pass
+
+    def __delete_record__(
+        self,
+        id_record_to_delete: int,
+        table_name: str,
+        conn: sqlite3.Connection = None,
+    ):
+        """Not yet implemented. Deletes a record from a table of a given table_name.
+
+        Parameters
+        ----------
+        id_record_to_delete : int
+            id of a record to delete
+        table_name : str
+            one of "accounts", "contractors" or "invoices"
+        conn : sqlite3.Connection, optional
+            opens a connection to an SQLite database
+
+        Returns
+        ------
+        None
+        """
         pass
 
 
 class Invoice(Model, UserMixin, Base):
+    """
+    A class used to represent an Invoice. Inherits from Model, UserMixin and Base.
+
+    Attributes
+    ----------
+    __tablename__ : str
+        default="invoices"
+
+    id : int
+        primary key
+
+    amount : float
+        amount of goods in an item
+
+    invoice_no : str
+        invoice number, set automatically
+
+    invoice_type : str
+        invoice type, one of the following: "regular", "advanced payment", "proforma"
+
+    issue_city : str
+        issue city
+
+    issue_date : date
+        issue date
+
+    issuer_tax_no : int
+        issuer tax number
+
+    item : str
+        item / position
+
+    price_net : float
+        price net of a good
+
+    recipient_tax_no : int
+        recipient tax number
+
+    sell_date : date
+        sell date
+
+    sum_gross : float
+        sum gross (sum of all goods in an item * tax rate)
+
+    sum_net : float
+        sum net (sum of all goods in an item)
+
+    tax_rate : float
+        tax rate for an item, one of the following: 0.00, 0.05, 0.08, 0.23
+
+    unit : str
+        unit of an item
+
+    currency : str
+        currency of an item
+
+    issuer_id : int
+        issuer id, foreign key
+
+    recipient_id : int
+        recipient id, foreign key
+    """
+
     __tablename__ = settings["TABLE_NAMES"][2]
     id = Column(Integer, primary_key=True)
     amount = Column(Float, nullable=False)
@@ -168,6 +306,66 @@ class Invoice(Model, UserMixin, Base):
 
 
 class User(Model, UserMixin, Base):
+    """
+    A class used to represent a User. Inherits from Model, UserMixin and Base.
+
+    Attributes
+    ----------
+    __tablename__ : str
+        default="accounts"
+
+    id : int
+        primary key
+
+    email : str
+        email
+
+    name : str
+        first name
+
+    surname : str
+        last name
+
+    phone_no  : int
+        phone number
+
+    password : str
+        password
+
+    company_name  : str
+        company name
+
+    street  : str
+        street
+
+    house_no : int
+        house number
+
+    flat_no : int
+        flat number
+
+    zip_code  : str
+        zip code
+
+    city : str
+        city
+
+    tax_no : int
+        tax number
+
+    bank_account : int
+        tax number
+
+    plan : str
+        plan for the account, one from the following: "free", "starter", "business", "ultimate"
+
+    terms : bool
+        if the user agreed to the terms of use
+
+    newsletter : bool
+        if the user wants to receive a newsletter
+    """
+
     __tablename__ = settings["TABLE_NAMES"][0]
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
@@ -189,6 +387,55 @@ class User(Model, UserMixin, Base):
 
 
 class Contractor(Model, UserMixin, Base):
+    """
+    A class used to represent a User. Inherits from Model, UserMixin and Base.
+
+    Attributes
+    ----------
+    __tablename__ : str
+        default="accounts"
+
+    id : int
+        primary key
+
+    email : str
+        email
+
+    name : str
+        first name
+
+    surname : str
+        last name
+
+    phone_no  : int
+        phone number
+
+    company_name  : str
+        company name
+
+    street  : str
+        street
+
+    house_no : int
+        house number
+
+    flat_no : int
+        flat number
+
+    zip_code  : str
+        zip code
+
+    city : str
+        city
+
+    tax_no : int
+        tax number
+
+    bank_account : int
+        tax number
+
+    """
+
     __tablename__ = settings["TABLE_NAMES"][1]
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=True)
@@ -203,14 +450,19 @@ class Contractor(Model, UserMixin, Base):
     city = Column(String(250), nullable=True)
     tax_no = Column(String(250), nullable=True)
     bank_account = Column(String(250), nullable=True)
-    # invoice_id = Column(Integer, ForeignKey("invoice.id"))
 
 
-def create_connection(db_file):
-    """create a database connection to the SQLite database
-        specified by db_files
-    :param db_file: database file
-    :return: Connection object or None
+def create_connection(db_file: str):
+    """Creates a database connection to the SQLite database specified by db_files.
+    Parameters
+    ----------
+    db_file : str
+        database file name (ex. database.db)
+
+    Returns
+    ------
+    connection : sqlite3.Connection
+        opens a connection to an SQLite database
     """
     connection = None
     try:
@@ -227,7 +479,6 @@ def create_connection(db_file):
 
 
 if __name__ == "__main__":
-    pass
     db = Database()
     db.create_table("invoices", drop_if_exists=True)
     db.create_table("accounts", drop_if_exists=True)

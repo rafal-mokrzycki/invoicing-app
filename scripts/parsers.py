@@ -13,7 +13,6 @@ from sqlalchemy import func
 
 repackage.up()
 from config_files.config import credentials, settings
-
 from scripts.invoice import InvoiceForm
 
 app = Flask(__name__)
@@ -23,9 +22,8 @@ db = SQLAlchemy(app)
 
 
 def parse_invoice_number(invoice_type):
-    """
-    Takes invoice type andbased on the current year and month, number of invoices in DB
-    and pattern YYYY/MM/number_of_invoice parses invoice number.
+    """Takes invoice type and parses invoice number based on the current year and month,
+    number of invoices in DB and pattern YYYY/MM/number_of_invoice.
     """
     current_date = datetime.date.today()
     last_day_of_previous_month = datetime.date(
@@ -55,9 +53,9 @@ def parse_invoice_number(invoice_type):
 
 
 def parse_dict_with_invoices_counted():
-    """
-    Takes invoice type andbased on the current year and month, number of invoices in DB
-    and return json with invoices counted by groups for a given month.
+    """Takes invoice type and based on the current year and month,
+    number of invoices in DB, returns a JSON file with invoices
+    counted by groups for a given month.
     """
     empty_dict = {
         [i for i in settings["INVOICE_TYPES"]][i]: [
@@ -86,8 +84,7 @@ def parse_dict_with_invoices_counted():
 
 
 def append_dict(dict1, dict2):
-    """
-    Appends one dictionary to another one keeping keys from both and returning
+    """Appends one dictionary to another one keeping keys from both and returning
     a sum of their values.
     """
     result = {}
@@ -104,9 +101,7 @@ def append_dict(dict1, dict2):
 
 
 def parse_currencies(filename="currencies.csv", columns=["Currency Code"]):
-    """
-    Reads the CSV file with currency symbols and parses them to UI
-    """
+    """Reads the CSV file with currency symbols and parses them to UI"""
     filepath = repackage.add(f"../config_files/{filename}")
     df = pd.read_csv(filepath)
     df_selected = df[~df["Currency Code"].isin(["PLN", "EUR", "USD", "GBP", "JPY"])]

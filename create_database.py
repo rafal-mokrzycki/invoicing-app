@@ -1,6 +1,6 @@
+"""to run: python -m create_database.py"""
 #!/usr/bin/env python
 import json
-import re
 from pathlib import Path
 
 import chardet
@@ -9,8 +9,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
 from config_files.config import settings
+from scripts.validators import Validator
 
 Base = declarative_base()
+Valid = Validator()
 
 
 def main():
@@ -28,23 +30,64 @@ def main():
 
 
 class Credentials:
-    def __init__(self) -> None:
-        self._mail_username = None
-        self._mail_password = None
-        self._mail_server = None
-        self._secret_key = None
-        self._download_folder = str(Path.home() / "Downloads")
-        self._database_path = f"{Path(__file__).parent.resolve()}\database.db"
-        self.__sqlalchemy_track_modifications__ = False
-        self.mail_use_tls = True
-        self.mail_use_ssl = False
-        self.mail_port = 587
+    """Creates a table of a given table_name.
 
-    def print_default_credentials(self, choice):
+    Parameters
+    ----------
+    _mail_username : str, default None
+        mail username
+    _mail_password : str, default None
+        mail password
+    _mail_server : str, default None
+        mail server
+    _secret_key : str, default None
+        database secret key
+    _download_folder : str, default 'path/to/your/user/Downloads'
+        download folder
+    _database_path : str, default 'path/to/your/repo/database.db'
+        path o the database file
+    __sqlalchemy_track_modifications : bool, default False
+        if sqlalchemy should track modifications
+    mail_use_tls : bool, default True
+        if mail should use TLS
+    mail_use_ssl : bool, default False
+        if mail should use SSL
+    mail_port : int, default 587
+        mail port
+
+    Methods
+    ------
+    print_default_credentials(choice)
+        Prints default credentials used for the credentials.json file.
+    _change_default_credentials()
+        Prints default credentials used for the credentials.json file
+        and enables the user to change them.
+    _apply_changes()
+        Enables the user to change default credentials by selecting a number
+        of a Credentials class attribute.
+    _update_credentials()
+        Takes Credentials class attributes and saves them to credentials.json.
+    """
+
+    def __init__(self) -> None:
+        self._mail_username: str = None
+        self._mail_password: str = None
+        self._mail_server: str = None
+        self._secret_key: str = None
+        self._download_folder: str = str(Path.home() / "Downloads")
+        self._database_path: str = f"{Path(__file__).parent.resolve()}\database.db"
+        self.__sqlalchemy_track_modifications: bool = False
+        self.mail_use_tls: bool = True
+        self.mail_use_ssl: bool = False
+        self.mail_port: int = 587
+
+    def print_default_credentials(self, choice: bool = True):
+        """Prints default credentials used for the credentials.json file.
+        Sets Credentials class attributes."""
         if choice:
             numbers = [f"[{n+1}] " for n in list(range(9))] + ["(unchengable) "]
         else:
-            numbers = [f"" for n in list(range(10))]
+            numbers = [f"[{n+1}] " for n in list(range(10))]
         input_string = f"""
 {numbers[0]} Mail address: {self.mail_username}
 {numbers[1]} Mail password: {self.mail_password}
@@ -55,15 +98,16 @@ class Credentials:
 {numbers[6]} 'MAIL_USE_TLS': {self.mail_use_tls}
 {numbers[7]} 'MAIL_USE_SSL': {self.mail_use_ssl}
 {numbers[8]} 'MAIL_PORT': {self.mail_port}
-{numbers[9]} 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications__}
+{numbers[9]} 'SQLALCHEMY_TRACK_MODIFICATIONS': {self.__sqlalchemy_track_modifications}
 """
         return input_string
 
     def _change_default_credentials(self):
+        """Prints default credentials used for the credentials.json file
+        and enables the user to change them. Sets Credentials class attributes."""
         print(
-            f"""Your default credentials are as follows:
-{self.print_default_credentials(choice=False)}
-    """
+            f"""{'='*60}\nYour default credentials are as follows:
+{self.print_default_credentials(choice=False)}"""
         )
         while True:
             change = input("Do you want to change any of these? [Y/n]\t")
@@ -79,10 +123,14 @@ class Credentials:
         print("File credentials.json successfully created.")
 
     def _apply_changes(self):
+        """Enables the user to change default credentials by selecting a number
+        of a Credentials class attribute."""
+
         while True:
             number = input(
-                f"""Type in the number of parameter you want to change or [q] to quit:
-{self.print_default_credentials(choice=True)}
+                f"""
+{'='*60}\nType in the number of parameter you want to change or [q] to quit:
+{self.print_default_credentials(choice=True)}{'='*60}
 """
             )
             match number:
@@ -103,30 +151,36 @@ class Credentials:
                 case "6":
                     self.secret_key = get_db_secret_key()
                 case "7":
-                    self.mail_use_tls = get_boolean_input(
+                    self.mail_use_tls = Validator().is_boolean_input(
                         input(
                             f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
                         )
                     )
                 case "8":
-                    self.mail_use_ssl = get_boolean_input(
+                    self.mail_use_ssl = Validator().is_boolean_input(
                         input(
                             f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
                         )
                     )
                 case "9":
-                    self.mail_port = get_integer_input(
-                        input(f"Type in your mail port (current: {self.mail_port}): ")
+                    self.mail_port = self.mail_port or Validator().validate_server_port(
+                        Validator().is_integer_input(
+                            input(
+                                f"Type in your mail port (current: {self.mail_port}): "
+                            )
+                        )
                     )
+
                 case _:
                     break
 
     def _update_credentials(self):
-        json_path = "config_files/credentials4.json"
+        """Takes Credentials class attributes and saves them to credentials.json."""
+        json_path = "config_files/credentials_example.json"
         data = {}
         data["SQLALCHEMY_DATABASE_URI"] = self._database_path
         data["SECRET_KEY"] = self.secret_key
-        data["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.__sqlalchemy_track_modifications__
+        data["SQLALCHEMY_TRACK_MODIFICATIONS"] = self.__sqlalchemy_track_modifications
         data["MAIL_SERVER"] = self._mail_server
         data["MAIL_PORT"] = self.mail_port
         data["MAIL_USERNAME"] = self._mail_username
@@ -187,6 +241,7 @@ class Credentials:
 
 
 def create_database():
+    """Initializes Database class instance and creates required tables."""
     from scripts.database import Database
 
     db = Database()
@@ -196,6 +251,7 @@ def create_database():
 
 
 def get_required_info():
+    """Returns user email, password, mail server and database secret key."""
     return (
         get_and_check_email(),
         get_and_check_password(),
@@ -204,48 +260,27 @@ def get_required_info():
     )
 
 
-def get_boolean_input(string):
-    if string == "T":
-        return True
-    elif string == "F":
-        return False
-    else:
-        print(
-            "You typed a wrong value. Only 'T' for True or 'F' for False are accepted."
-        )
-
-
-def get_integer_input(string):
-    if re.fullmatch(r"\b[0-9]{1,3}\b", string) is not None:
-        return string
-    else:
-        print("You typed a wrong value. Only numbers are accepted.")
-
-
 def get_and_check_email():
+    """Returns a valid email address based on user input."""
     while True:
         mail_username = input("Type in your email (or [q] to quit): ")
-        if (
-            re.fullmatch(
-                r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", mail_username
-            )
-            is not None
-        ):
+        if Validator().validate_email_address(mail_username):
             return mail_username
-        elif mail_username == ("q" or "Q"):
-            break
+        elif mail_username == "q" or mail_username == "Q":
+            return
         else:
             print("Wrong email format. Try again.")
             continue
 
 
 def get_and_check_password():
+    """Returns a valid password based on user input."""
     while True:
         mail_password1 = input("Type in your email password (or [q] to quit): ")
-        if mail_password1 == ("q" or "Q"):
+        if mail_password1 == "q" or mail_password1 == "Q":
             break
         mail_password2 = input("Type in your email password again (or [q] to quit): ")
-        if mail_password2 == ("q" or "Q"):
+        if mail_password2 == "q" or mail_password2 == "Q":
             break
         elif mail_password1 == mail_password2:
             return mail_password1
@@ -255,28 +290,32 @@ def get_and_check_password():
 
 
 def get_mail_server():
+    """Returns a valid mail server based on user input."""
     while True:
         mail_server = input(
             "Type in your mail server (eg. smtp.example.com or [q] to quit): "
         )
-        if mail_server == ("q" or "Q"):
-            break
-        if re.fullmatch(r"\b[a-z]+\.[a-z]+\.[a-z]{2,3}\b", mail_server) is not None:
+        if mail_server == "q" or mail_server == "Q":
+            return
+        elif Validator().validate_server_address(mail_server):
             return mail_server
         else:
             print(
-                "Mail server should contain 3 groups of letters separated by commas, eg. smtp.example.com"
+                "Mail server should contain 3 groups of letters separated \
+                    by commas, eg. smtp.example.com"
             )
+            continue
 
 
 def get_db_secret_key():
+    """Returns a valid database secret key based on user input."""
     while True:
         secret_key1 = input("Set your database secret key (or [q] to quit): ")
-        if secret_key1 == ("q" or "Q"):
-            break
+        if secret_key1 == "q" or secret_key1 == "Q":
+            return
         secret_key2 = input("Type in your database secret key again (or [q] to quit): ")
-        if secret_key2 == ("q" or "Q"):
-            break
+        if secret_key2 == "q" or secret_key2 == "Q":
+            return
         elif secret_key1 == secret_key2:
             return secret_key2
         else:
@@ -285,6 +324,7 @@ def get_db_secret_key():
 
 
 def feed_database():
+    """Reads CSV files and inserts the data to dataset's tables."""
     from config_files.config import credentials
 
     engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
