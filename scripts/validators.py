@@ -80,10 +80,11 @@ class Validator:
             Otherwise."""
         if type(input_string) == int:
             return input_string
-        elif input_string.isdigit():
+        elif type(input_string) == str and input_string.isdigit():
             return int(input_string)
         else:
             print("You typed a wrong value. Only numbers are accepted.")
+            return
 
     def validate_password_match(self, password1: str, password2: str):
         """Checks if a given input is of type int.
