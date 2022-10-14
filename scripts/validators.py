@@ -78,7 +78,9 @@ class Validator:
             If user input (input_string) can be converted to int.
         None
             Otherwise."""
-        if input_string.isdigit():
+        if type(input_string) == int:
+            return input_string
+        elif input_string.isdigit():
             return int(input_string)
         else:
             print("You typed a wrong value. Only numbers are accepted.")
