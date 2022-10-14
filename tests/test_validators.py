@@ -11,7 +11,11 @@ def test_is_boolean_input():
     assert Validator().is_boolean_input(input_string="T") is True
 
 
-def test_is_boolean_input_false():
+def test_is_boolean_input_false_1():
+    assert Validator().is_boolean_input(input_string="F") is False
+
+
+def test_is_boolean_input_false_2():
     assert Validator().is_boolean_input(input_string="2") is None
 
 
