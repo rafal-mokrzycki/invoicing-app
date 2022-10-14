@@ -31,20 +31,20 @@ def test_is_integer_input_false():
     assert Validator().is_integer_input(input_string=True) is None
 
 
-def test_validate_email_address():
-    assert Validator().validate_email_address(email_address="test@test.com") is True
-
-
-def test_validate_email_address_false():
-    assert Validator().validate_email_address("wrongemailaddress") is None
-
-
 def test_validate_password_match():
     assert Validator().validate_password_match("password", "password") == "password"
 
 
 def test_validate_password_match_false():
     assert Validator().validate_password_match("password", "p@ssword") is None
+
+
+def test_validate_email_address():
+    assert Validator().validate_email_address(email_address="test@test.com") is True
+
+
+def test_validate_email_address_false():
+    assert Validator().validate_email_address("wrongemailaddress") is None
 
 
 def test_validate_server_port():
