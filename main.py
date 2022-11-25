@@ -2,6 +2,7 @@
 """
 To run type: flask --app hello run
 """
+import base64
 import datetime
 import os
 import smtplib
@@ -10,17 +11,10 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pathlib import Path
 
 import pdfkit
-from flask import (
-    Flask,
-    flash,
-    make_response,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from flask_login import (
     LoginManager,
     current_user,
@@ -107,9 +101,10 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-
-        if User.query.filter_by(email=request.form.get("email")).first():
+        print(1)
+        if User.query.filter_by(email=request.form.get("email")):
             # User already exists
+            print(2)
             flash("You've already signed up with that email, log in instead!")
             return redirect(url_for("login"))
 
@@ -153,9 +148,7 @@ def reset_password():
             login_user(user)
             return redirect(url_for("user"))
 
-    return render_template(
-        "reset_password.html", logged_in=current_user.is_authenticated
-    )
+    return render_template("reset_password.html", logged_in=current_user.is_authenticated)
 
 
 @app.route("/user")
@@ -258,7 +251,7 @@ def edit(id):
 @app.route("/your_invoices/show/<int:id>", methods=["GET", "POST"])
 @login_required
 def show_pdf(id, download=False):
-    path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    path_wkhtmltopdf = Path(r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe")
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
     invoice = InvoiceForm.query.get_or_404(id)
     rendered = render_template(
@@ -356,7 +349,10 @@ def send_invoice_as_attachment(id):
             receiver_address=request.form.get("recipient_email"),
             subject=request.form.get("subject"),
             body=request.form.get("email_body"),
-            filename=f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/Invoice_no_{invoice.invoice_no}.pdf",
+            filename=os.path.join(
+                os.path(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}"),
+                os.path(f"Invoice_no_{invoice.invoice_no}.pdf"),
+            ),
         )
         return redirect(url_for("your_invoices"))
     return render_template(
@@ -383,7 +379,12 @@ def send_email(
     message.attach(MIMEText(body, "plain"))
 
     if filename is not None and id is not None:
-        if os.path.exists(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"):
+        if os.path.exists(
+            os.path.join(
+                os.path(f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}"),
+                os.path(f"{filename}"),
+            )
+        ):
             os.remove()
         show_pdf(id=id, download=True)
         attach_file = open(filename, "rb")  # Open the file as binary mode

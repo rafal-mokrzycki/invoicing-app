@@ -1,6 +1,7 @@
 """to run: python -m create_database.py"""
 #!/usr/bin/env python
 import json
+import os
 from pathlib import Path
 
 import chardet
@@ -75,7 +76,9 @@ class Credentials:
         self._mail_server: str = None
         self._secret_key: str = None
         self._download_folder: str = str(Path.home() / "Downloads")
-        self._database_path: str = f"{Path(__file__).parent.resolve()}\database.db"
+        self._database_path: str = os.path.join(
+            os.path(f"{Path(__file__).parent.resolve()}"), os.path("database.db")
+        )
         self.__sqlalchemy_track_modifications: bool = False
         self.mail_use_tls: bool = True
         self.mail_use_ssl: bool = False
@@ -165,9 +168,7 @@ class Credentials:
                 case "9":
                     self.mail_port = self.mail_port or Validator().validate_server_port(
                         Validator().is_integer_input(
-                            input(
-                                f"Type in your mail port (current: {self.mail_port}): "
-                            )
+                            input(f"Type in your mail port (current: {self.mail_port}): ")
                         )
                     )
 
@@ -329,8 +330,10 @@ def feed_database():
 
     engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
     for table_name in settings["TABLE_NAMES"]:
-        filepath = (
-            f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
+        filepath = os.path.join(
+            f"{Path(__file__).parent.resolve()}",
+            os.path("config_files"),
+            os.path(f"demo_{table_name}.csv"),
         )
         with open(filepath, "rb") as f:
             result = chardet.detect(f.read())
