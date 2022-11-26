@@ -150,7 +150,7 @@ class Validator:
         ):
             return True
 
-    def validate_server_port(self, server_port: str | int):
+    def validate_server_port(self, server_port: "str | int"):
         """Checks if a given input is a valid server port (is one o the following:
         25, 465, 587 or 2525).
 
