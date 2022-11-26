@@ -133,46 +133,43 @@ class Credentials:
 {self.print_default_credentials(choice=True)}{'='*60}
 """
             )
-            match number:
-                case "1":
-                    self.mail_username = get_and_check_email()
-                case "2":
-                    self.mail_password = get_and_check_password()
-                case "3":
-                    self.mail_server = get_mail_server()
-                case "4":
-                    self.download_folder = input(
-                        f"Type in your download folder (current: {self.download_folder}): "
+            if number == "1":
+                self.mail_username = get_and_check_email()
+            elif number == "2":
+                self.mail_password = get_and_check_password()
+            elif number == "3":
+                self.mail_server = get_mail_server()
+            elif number == "4":
+                self.download_folder = input(
+                    f"Type in your download folder (current: {self.download_folder}): "
+                )
+            elif number == "5":
+                self.database_path = input(
+                    f"Type in your database path (current: {self.database_path}): "
+                )
+            elif number == "6":
+                self.secret_key = get_db_secret_key()
+            elif number == "7":
+                self.mail_use_tls = Validator().is_boolean_input(
+                    input(
+                        f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
                     )
-                case "5":
-                    self.database_path = input(
-                        f"Type in your database path (current: {self.database_path}): "
+                )
+            elif number == "8":
+                self.mail_use_ssl = Validator().is_boolean_input(
+                    input(
+                        f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
                     )
-                case "6":
-                    self.secret_key = get_db_secret_key()
-                case "7":
-                    self.mail_use_tls = Validator().is_boolean_input(
-                        input(
-                            f"Should your mail use TLS [T/F] (current: {self.mail_use_tls})? "
-                        )
+                )
+            elif number == "9":
+                self.mail_port = self.mail_port or Validator().validate_server_port(
+                    Validator().is_integer_input(
+                        input(f"Type in your mail port (current: {self.mail_port}): ")
                     )
-                case "8":
-                    self.mail_use_ssl = Validator().is_boolean_input(
-                        input(
-                            f"Should your mail use SSL [T/F] (current: {self.mail_use_ssl})? "
-                        )
-                    )
-                case "9":
-                    self.mail_port = self.mail_port or Validator().validate_server_port(
-                        Validator().is_integer_input(
-                            input(
-                                f"Type in your mail port (current: {self.mail_port}): "
-                            )
-                        )
-                    )
+                )
 
-                case _:
-                    break
+            else:
+                break
 
     def _update_credentials(self):
         """Takes Credentials class attributes and saves them to credentials.json."""
@@ -329,9 +326,7 @@ def feed_database():
 
     engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
     for table_name in settings["TABLE_NAMES"]:
-        filepath = (
-            f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
-        )
+        filepath = f"{Path(__file__).parent.resolve()}\config_files\demo_{table_name}.csv"
         with open(filepath, "rb") as f:
             result = chardet.detect(f.read())
             df = pd.read_csv(filepath, encoding=result["encoding"])
