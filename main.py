@@ -370,4 +370,6 @@ def send_email(
 
 
 if __name__ == "__main__":
+    print(app.config)
+    db.drop_all()
     app.run(debug=True)

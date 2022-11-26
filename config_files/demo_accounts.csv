@@ -1,0 +1,2 @@
+id,email,name,surname,phone_no,password,company_name,street,house_no,flat_no,zip_code,city,tax_no,bank_account,plan,terms,newsletter
+1,example@example.com,John,Smith,123123123,example,Example Co.,Main Street,13,133,13-133,Warsaw,PL9998887766,00-0000-0000-0000-0000,free,1,0
