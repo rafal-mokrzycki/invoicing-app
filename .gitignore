@@ -129,9 +129,12 @@ dmypy.json
 .pyre/
 
 # tmp
-test*.py
 *.pdf
+*.sage.py
 
 # sql & databases
 database.db
 schema.sql
+
+# config
+credentials.json

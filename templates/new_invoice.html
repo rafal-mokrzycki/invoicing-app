@@ -133,19 +133,20 @@
 
                 <!-- invoice position - texts -->
                 <div class="row invoice-positions-texts" id="invoice-positions-texts">
-                    <div class="feature-box col-lg-3 ">Invoice position</div>
+                    <div class="feature-box col-lg-2 ">Invoice position</div>
                     <div class="col-sm-1 row3 ">Amount</div>
                     <div class="col-sm-1 row3">Unit</div>
                     <div class="col-sm-1 more_discount2 row1">Net price</div>
+                    <div class="col-sm-1 more_discount2 row1">Currency</div>
                     <div class="col-sm-1 more row_tax ">VAT %</div>
                     <div class="col-sm-2 row1 ">Net sum</div>
                     <div class="col-sm-2 row1">Gross sum</div>
                 </div>
 
                 <!-- invoice item - values -->
-                <div class=" invoice-items-values" id="invoice-items-values">
+                <div class="invoice-items-values" id="invoice-items-values">
                     <div class="row invoice-item-1" id="invoice-item-1">
-                        <div class="feature-box col-lg-3 "><input type="text" name="item" id="item"
+                        <div class="feature-box col-lg-2 "><input type="text" name="item" id="item"
                                 value="{{ request.form.item }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " required>
                         </div>
@@ -169,6 +170,18 @@
                                 onblur="this.parentNode.style.backgroundColor =/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'"
                                 onchange=" sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ; returnValue() "
                                 value=" {{ request.form.price_net }}" required></div>
+                        <div class="col-sm-1 row3">
+                            <select id="currency" name="currency" value="{{ request.form.currency }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
+                                    returnValue() " required>
+                                <option value="{{ currencies[0][0] }}" selected>{{currencies[0][0]}}</option>"
+                                {% for currency in currencies[0][1:] %}
+                                <option value="{{ currency }}">{{currency}}</option>"
+                                {% endfor %}
+                                {% for currency in currencies[1] %}
+                                <option value="{{currency}}">{{currency}}</option>"
+                                {% endfor %}
+                            </select>
+                        </div>
                         <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " value="{{ request.form.tax_rate }}" required>
                                 <option value="0.0">exempt</option>
@@ -188,7 +201,7 @@
                 </div>
                 <!-- issue buton -->
                 <div class="add_buttons ">
-                    <a id="add_next_position" href="#" onclick="addNextFn()" accesskey="M" title="New position"
+                    <a id="add_next_position" href="" onclick="addNextFn()" accesskey="M" title="New position"
                         class="button-add-next-item btn success">
                         <i class="bi bi-plus-circle-dotted"></i><span>New position</span>
                     </a>
@@ -258,12 +271,13 @@
         }
     </script>
     <script>
+        var room = 1;
         function addNextFn() {
-            var parent_element = document.getElementById("invoice-positions-values");
-            var example_position = document.getElementById("invoice-position-0");
-            var new_position = example_position.cloneNode(true);
-            new_position.id = "invoice-position-2";
-            parent_element.appendChild(new_position);
+            room++;
+            var objTo = document.getElementById('invoice-items-values')
+            var divtest = document.createElement("div");
+            divtest.innerHTML = '<div class="row invoice-item-3">Room 3:</div>'
+            objTo.appendChild(divtest)
         }</script>
     <script>
         function deletePosition() {
