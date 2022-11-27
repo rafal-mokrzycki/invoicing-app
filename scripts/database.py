@@ -31,4 +31,4 @@ def query():
 if __name__ == "__main__":
     create_database()
     populate_data()
-    query()
+    print(query())

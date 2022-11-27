@@ -17,6 +17,9 @@ from email.mime.text import MIMEText
 import repackage
 
 repackage.up(1)
+import calendar
+import datetime
+
 import pdfkit
 from flask import Flask, flash, make_response, redirect, render_template, request, url_for
 from flask_login import (
@@ -40,11 +43,20 @@ from sqlalchemy import (
     String,
     Table,
     create_engine,
+    func,
 )
 from sqlalchemy.orm import declarative_base, relationship, scoped_session, sessionmaker
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import credentials, settings
+from scripts.formatters import (
+    format_number,
+    format_percentages,
+    get_number_of_objects_in_table,
+)
+from scripts.helpers import append_dict, get_currencies
+
+CURRENCY = "PLN"
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -187,7 +199,7 @@ def new_invoice():
     today = datetime.datetime.now()
     if request.method == "POST":
         new_invoice = InvoiceForm(
-            id=get_number_of_invoices_in_db(),
+            id=get_number_of_objects_in_table(Invoice),
             invoice_type=request.form.get("invoice_type"),
             invoice_no=request.form.get("invoice_no"),
             issue_date=today.date(),
@@ -218,8 +230,8 @@ def new_invoice():
         max_date=(today + datetime.timedelta(days=60)).strftime("%Y-%m-%d"),
         logged_in=current_user.is_authenticated,
         year_month=datetime.datetime.strftime(today, "%Y/%m/"),
-        invoice_number_on_type=parse_dict_with_invoices_counted(),
-        currencies=parse_currencies(),
+        invoice_number_on_type=get_dict_with_invoices_counted(InvoiceForm),
+        currencies=get_currencies(),
     )
 
 
@@ -476,8 +488,161 @@ class Invoice(db.Model, UserMixin, Base):
     tax_rate = Column(Float, nullable=False)
     unit = Column(String(250), nullable=False)
     currency = Column(String(250), nullable=False)
-    issuer_id = Column(Integer, ForeignKey("accounts.id"))
-    recipient_id = Column(Integer, ForeignKey("contractors.id"))
+    # issuer_id = Column(Integer, ForeignKey("accounts.id"))
+    # recipient_id = Column(Integer, ForeignKey("contractors.id"))
+
+
+class InvoiceForm(Invoice):
+    """
+    A class used to represent an Invoice. Inherits from Invoice.
+    Attributes
+    ----------
+    id : int
+        primary key
+    amount : float
+        amount of goods in an item
+    invoice_no : str
+        invoice number, set automatically
+    invoice_type : str
+        invoice type, one of the following: "regular", "advanced payment", "proforma"
+    issue_city : str
+        issue city
+    issue_date : date
+        issue date
+    issuer_tax_no : int
+        issuer tax number
+    item : str
+        item / position
+    price_net : float
+        price net of a good
+    recipient_tax_no : int
+        recipient tax number
+    sell_date : date
+        sell date
+    sum_gross : float
+        sum gross (sum of all goods in an item * tax rate)
+    sum_net : float
+        sum net (sum of all goods in an item)
+    tax_rate : float
+        tax rate for an item, one of the following: 0.00, 0.05, 0.08, 0.23
+    unit : str
+        unit of an item
+    currency : str
+        currency of an item
+    issuer_id : int
+        issuer id, foreign key
+    recipient_id : int
+        recipient id, foreign key
+    Methods
+    ----------
+    __repr__()
+        Returns invoice id
+    """
+
+    def __init__(
+        self,
+        id,
+        amount,
+        invoice_no,
+        invoice_type,
+        issue_city,
+        issue_date,
+        issuer_tax_no,
+        item,
+        price_net,
+        recipient_tax_no,
+        sell_date,
+        sum_gross,
+        sum_net,
+        tax_rate,
+        unit,
+        currency,
+        # issuer_id,
+        # contractor_id,
+    ):
+        super().__init__()
+        self.id = id
+        self.invoice_no = invoice_no
+        self.invoice_type = invoice_type
+        self.issue_city = issue_city
+        self.issue_date = issue_date
+        self.issuer_tax_no = issuer_tax_no
+        self.item = item
+        self.price_net = price_net
+        self.recipient_tax_no = recipient_tax_no
+        self.sell_date = sell_date
+        self.sum_gross = sum_gross
+        self.sum_net = sum_net
+        self.tax_rate = tax_rate
+        self.unit = unit
+        self.amount = amount
+        self.currency = currency
+        # self.issuer_id = issuer_id
+        # self.contractor_id = contractor_id
+
+    def __repr__(self):
+        return "<Invoice %r>" % self.id
+
+    def get_invoice_number(self, invoice_type):
+        """Takes invoice type and gets invoice number based on the current year and month,
+        number of invoices in DB and pattern YYYY/MM/number_of_invoice.
+        """
+        current_date = datetime.date.today()
+        last_day_of_previous_month = datetime.date(
+            current_date.year,
+            current_date.month - 1,
+            calendar.monthrange(current_date.year, current_date.month - 1)[1],
+        )
+        first_day_of_next_month = datetime.date(
+            current_date.year,
+            current_date.month + 1,
+            1,
+        )
+        current_year = datetime.datetime.now().strftime("%Y")
+        current_month = datetime.datetime.now().strftime("%m")
+        query = (
+            db.session.query(self.invoice_type, func.count(v.invoice_type))
+            .group_by(self.invoice_type)
+            .filter(self.issue_date > last_day_of_previous_month)
+            .filter(self.issue_date < first_day_of_next_month)
+            .all()
+        )
+        try:
+            invoice_number = [elem[1] for elem in query if elem[0] == invoice_type][0]
+        except IndexError:
+            invoice_number = 1
+        return f"{current_year}/{current_month}/{invoice_number + 1}"
+
+
+def get_dict_with_invoices_counted(object):
+    """Takes invoice type and based on the current year and month,
+    number of invoices in DB, returns a JSON file with invoices
+    counted by groups for a given month.
+    """
+    empty_dict = {
+        [i for i in settings["INVOICE_TYPES"]][i]: [
+            1 for _ in range(len(settings["INVOICE_TYPES"]))
+        ][i]
+        for i in range(len([i for i in settings["INVOICE_TYPES"]]))
+    }
+    current_date = datetime.date.today()
+    last_day_of_previous_month = datetime.date(
+        current_date.year,
+        current_date.month - 1,
+        calendar.monthrange(current_date.year, current_date.month - 1)[1],
+    )
+    first_day_of_next_month = datetime.date(
+        current_date.year,
+        current_date.month + 1,
+        1,
+    )
+    query = (
+        db_session.query(object.invoice_type, func.count(object.invoice_type))
+        .group_by(object.invoice_type)
+        .filter(object.issue_date > last_day_of_previous_month)
+        .filter(object.issue_date < first_day_of_next_month)
+    )
+    return append_dict(empty_dict, dict(query))
 
 
 class User(db.Model, UserMixin, Base):
@@ -562,7 +727,7 @@ class User(db.Model, UserMixin, Base):
         terms,
         newsletter,
     ):
-        self.id = 2  # db_session.query(self).count()
+        self.id = db_session.query(User).count()
         self.email = email
         self.name = name
         self.surname = surname
