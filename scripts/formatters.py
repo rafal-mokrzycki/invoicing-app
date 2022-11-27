@@ -26,9 +26,6 @@ db = SQLAlchemy(app)
 Base = declarative_base()
 engine = create_engine(
     "sqlite:///database.db",
-    # connect_args={"port": 3306},
-    # echo="debug",
-    # echo_pool=True,
 )
 db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
 

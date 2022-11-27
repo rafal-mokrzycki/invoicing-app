@@ -67,9 +67,6 @@ db = SQLAlchemy(app)
 Base = declarative_base()
 engine = create_engine(
     "sqlite:///database.db",
-    # connect_args={"port": 3306},
-    # echo="debug",
-    # echo_pool=True,
 )
 db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
 
@@ -218,8 +215,8 @@ def new_invoice():
             sum_gross=request.form.get("sum_gross"),
             currency=request.form.get("currency"),
         )
-        db.session.add(new_invoice)
-        db.session.commit()
+        db_session.add(new_invoice)
+        db_session.commit()
         return redirect(url_for("user"))
     return render_template(
         "new_invoice.html",
@@ -250,7 +247,8 @@ def your_invoices():
 @login_required
 def edit(id):
     """Method enables edition of existing invoices"""
-    invoice = InvoiceForm.query.get_or_404(id)
+    invoice = Invoice.query.get_or_404(id)
+    print(type(invoice))
     if request.method == "POST":
         invoice.id = invoice.id
         invoice.invoice_type = request.form.get("invoice_type")
@@ -270,7 +268,7 @@ def edit(id):
         invoice.sum_net = request.form.get("sum_net")
         invoice.sum_gross = request.form.get("sum_gross")
         try:
-            db.session.commit()
+            db_session.commit()
             return redirect(url_for("your_invoices"))
         except:
             pass
@@ -357,7 +355,7 @@ def user_data_edit():
         user.tax_no = request.form.get("tax_no")
         user.bank_account = request.form.get("bank_account")
         try:
-            db.session.commit()
+            db_session.commit()
             return redirect(url_for("user"))
         except:
             pass
@@ -601,7 +599,7 @@ class InvoiceForm(Invoice):
         current_year = datetime.datetime.now().strftime("%Y")
         current_month = datetime.datetime.now().strftime("%m")
         query = (
-            db.session.query(self.invoice_type, func.count(v.invoice_type))
+            db_session.query(self.invoice_type, func.count(v.invoice_type))
             .group_by(self.invoice_type)
             .filter(self.issue_date > last_day_of_previous_month)
             .filter(self.issue_date < first_day_of_next_month)

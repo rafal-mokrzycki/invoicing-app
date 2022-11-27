@@ -14,8 +14,6 @@ from sqlalchemy import func
 repackage.up()
 from config_files.config import credentials, settings
 
-# from app import InvoiceForm
-
 app = Flask(__name__)
 app.config.update(credentials)
 
