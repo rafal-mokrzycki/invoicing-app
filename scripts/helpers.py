@@ -22,7 +22,7 @@ db = SQLAlchemy(app)
 
 def append_dict(dict1, dict2):
     """Appends one dictionary to another one keeping keys from both and returning
-    a sum of their values.
+    a sum of their values as strings.
     """
     result = {}
     for i in set(list(dict1.keys()) + list(dict2.keys())):
@@ -37,11 +37,15 @@ def append_dict(dict1, dict2):
     return result
 
 
-def get_currencies(filename="currencies.csv", columns=["Currency Code"]):
+def get_currencies(filename="currencies.csv", columns=None, filepath=None):
     """Reads the CSV file with currency symbols and parses them to UI"""
-    filepath = repackage.add(f"../config_files/{filename}")
+
+    if columns is None:
+        columns = ["Currency Code"]
+    if filepath is None:
+        filepath = repackage.add(f"../config_files/{filename}")
     df = pd.read_csv(filepath)
-    df_selected = df[~df["Currency Code"].isin(["PLN", "EUR", "USD", "GBP", "JPY"])]
+    df_selected = df[~df[columns].isin(["PLN", "EUR", "USD", "GBP", "JPY"])]
     if len(columns) == 1:
         return [
             ["PLN", "EUR", "USD", "GBP", "JPY"],
