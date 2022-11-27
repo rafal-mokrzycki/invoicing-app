@@ -1,15 +1,8 @@
+import csv
+
 import pandas as pd
-import repackage
 
-repackage.up()
-from app import Base, engine
-
-
-def create_database(drop_all=True):
-    if drop_all:
-        Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
-    print("Database initialized.")
+from app import Base, Contractor, User, db, db_session, engine
 
 
 def populate_data():
@@ -21,9 +14,5 @@ def populate_data():
     invoices.to_sql("invoices", con=engine, index=False, if_exists="replace")
     contractors.to_sql("contractors", con=engine, index=False, if_exists="replace")
 
-    print("Database populated.")
 
-
-if __name__ == "__main__":
-    create_database()
-    populate_data()
+populate_data()
