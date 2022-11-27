@@ -5,10 +5,7 @@ To run type: flask --app hello run
 import datetime
 import os
 import smtplib
-import sqlite3
-import sys
 import time
-import traceback
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart

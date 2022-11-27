@@ -1,18 +1,14 @@
 #!/usr/bin/env python
 """
-Parsers
+Helper functions
 """
-import calendar
-import datetime
-
 import pandas as pd
 import repackage
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func
 
 repackage.up()
-from config_files.config import credentials, settings
+from config_files.config import credentials
 
 app = Flask(__name__)
 app.config.update(credentials)

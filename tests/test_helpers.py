@@ -1,7 +1,6 @@
 """ to run: python -m pytest -vv tests\test_helpers.py -s
 add --pdb to debug in command line
 use VScode test tools reccomended (the beaker) """
-import csv
 import os
 
 import pandas as pd

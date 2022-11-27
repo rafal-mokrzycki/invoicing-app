@@ -1,19 +1,10 @@
 """ to run: python -m pytest -vv tests\test_formatters.py -s
 add --pdb to debug in command line
 use VScode test tools reccomended (the beaker) """
-import csv
-import os
-
-import pandas as pd
-import pytest
 import repackage
 
 repackage.up()
-from scripts.formatters import (
-    format_number,
-    format_percentages,
-    get_number_of_objects_in_table,
-)
+from scripts.formatters import format_number, format_percentages
 
 CURRENCY = "PLN"
 
