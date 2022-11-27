@@ -12,6 +12,11 @@ def create_database(drop_all=True):
     Base.metadata.create_all(bind=engine)
     print("Database initialized.")
 
+def create_database(drop_all=True):
+    if drop_all:
+        Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    print("Database initialized.")
 
 def populate_data():
     users = pd.read_csv("config_files/demo_accounts.csv")
