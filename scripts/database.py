@@ -2,7 +2,7 @@ import pandas as pd
 import repackage
 
 repackage.up()
-from app import Base, engine
+from app import Base, User, engine
 
 
 def create_database(drop_all=True):
@@ -24,6 +24,11 @@ def populate_data():
     print("Database populated.")
 
 
+def query():
+    User.query.all()
+
+
 if __name__ == "__main__":
     create_database()
     populate_data()
+    query()
