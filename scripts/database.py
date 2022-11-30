@@ -60,6 +60,7 @@ def feed_database():
         )
     )
     users["password"] = users["password"].apply(lambda x: generate_password_hash(x))
+
     users.to_sql("accounts", con=engine, index=False, if_exists="replace")
     invoices.to_sql("invoices", con=engine, index=False, if_exists="replace")
     contractors.to_sql("contractors", con=engine, index=False, if_exists="replace")
