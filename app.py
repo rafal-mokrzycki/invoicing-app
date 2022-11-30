@@ -16,6 +16,7 @@ import repackage
 repackage.up(1)
 import calendar
 import datetime
+import os
 
 import pdfkit
 from flask import Flask, flash, make_response, redirect, render_template, request, url_for
@@ -62,9 +63,7 @@ app.config.update(credentials)
 mail = Mail(app)
 db = SQLAlchemy(app)
 Base = declarative_base()
-engine = create_engine(
-    "sqlite:///database.db",
-)
+engine = create_engine("sqlite:///database.db")
 db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
 
 
