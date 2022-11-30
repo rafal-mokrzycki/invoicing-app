@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+"""
+Database creation
+"""
 import argparse
 import os
 
@@ -16,14 +20,12 @@ parser.add_argument(
     "--drop",
     default="yes",
     choices=["yes", "no"],
-    # action="store_true",
     help="drop all exisiting tables and create new ones",
 )
 parser.add_argument(
     "--feed",
     default="yes",
     choices=["yes", "no"],
-    # action="store_true",
     help="feed database with sample data",
 )
 args = parser.parse_args()

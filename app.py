@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+"""
+Main module. To run type:
+'path/to/python.exe' app.py
+"""
 import datetime
 import os
 import smtplib
