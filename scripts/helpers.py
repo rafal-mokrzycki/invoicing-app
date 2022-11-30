@@ -2,10 +2,13 @@
 """
 Helper functions
 """
+import time
+
 import pandas as pd
 import repackage
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from IPython.display import clear_output
 
 repackage.up()
 from config_files.config import credentials
@@ -52,3 +55,11 @@ def get_currencies(filename="currencies.csv", columns=None, filepath=None):
             ["PLN", "EUR", "USD", "GBP", "JPY"],
             df_selected[columns].values.tolist(),
         ]
+
+
+def wait(step=1, max=3, string="Processing"):
+    for x in range(0, max):
+        display = string + "." * (x + 1)
+        print(display, end="\r")
+        time.sleep(step)
+    clear_output(wait=True)

@@ -12,6 +12,7 @@ from credentials import update_credentials
 from werkzeug.security import generate_password_hash
 
 repackage.up()
+from scripts.helpers import wait
 
 parser = argparse.ArgumentParser(
     description="Initialization of a database with an option to feed it with sample data",
@@ -35,12 +36,12 @@ config = vars(args)
 
 def main():
     print("First you need to initialize credentials.json file.\n")
-    time.sleep(2)
+    time.sleep(1)
     update_credentials()
-    time.sleep(1)
+    wait(string="Database being initialized")
     create_database()
-    time.sleep(1)
     if config["feed"].upper() == "YES":
+        wait(string="Database being updated")
         feed_database()
     else:
         print("Database not fed with data.")
