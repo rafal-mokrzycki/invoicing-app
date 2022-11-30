@@ -7,7 +7,7 @@ import pandas as pd
 import pytest
 import repackage
 
-repackage.up()
+repackage.up(2)
 from scripts.helpers import append_dict, get_currencies
 
 

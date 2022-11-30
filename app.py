@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
-To run type: flask --app hello run
+Main module. To run type:
+'path/to/python.exe' app.py
 """
 import datetime
 import os
@@ -15,8 +16,6 @@ import repackage
 
 repackage.up(1)
 import calendar
-import datetime
-import os
 
 import pdfkit
 from flask import Flask, flash, make_response, redirect, render_template, request, url_for
@@ -29,21 +28,10 @@ from flask_login import (
     logout_user,
 )
 from flask_mail import Mail, Message
-from flask_sqlalchemy import Model, SQLAlchemy
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Date,
-    Float,
-    ForeignKey,
-    Integer,
-    MetaData,
-    String,
-    Table,
-    create_engine,
-    func,
-)
-from sqlalchemy.orm import declarative_base, relationship, scoped_session, sessionmaker
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Boolean, Column, Date, Float, Integer, String, create_engine, func
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config_files.config import credentials, settings
@@ -266,8 +254,8 @@ def edit(id):
         try:
             db_session.commit()
             return redirect(url_for("your_invoices"))
-        except:
-            pass
+        except SQLAlchemyError:
+            print("There was an error.")
     return render_template("edit_invoice.html", invoice=invoice)
 
 
@@ -353,8 +341,8 @@ def user_data_edit():
         try:
             db_session.commit()
             return redirect(url_for("user"))
-        except:
-            pass
+        except SQLAlchemyError:
+            print("There was an error.")
     return render_template("user_data_edit.html", user=user, is_edit=True)
 
 
@@ -595,7 +583,7 @@ class InvoiceForm(Invoice):
         current_year = datetime.datetime.now().strftime("%Y")
         current_month = datetime.datetime.now().strftime("%m")
         query = (
-            db_session.query(self.invoice_type, func.count(v.invoice_type))
+            db_session.query(self.invoice_type, func.count(self.invoice_type))
             .group_by(self.invoice_type)
             .filter(self.issue_date > last_day_of_previous_month)
             .filter(self.issue_date < first_day_of_next_month)
@@ -675,7 +663,8 @@ class User(db.Model, UserMixin, Base):
     bank_account : int
         tax number
     plan : str
-        plan for the account, one from the following: "free", "starter", "business", "ultimate"
+        plan for the account, one from the following:
+        "free", "starter", "business", "ultimate"
     terms : bool
         if the user agreed to the terms of use
     newsletter : bool

@@ -34,8 +34,8 @@ def format_percentages(number):
     return str(int(number * 100)) + "%"
 
 
-def format_number(number)
-"""Formats a floating point number into string wiht a currency code,
+def format_number(number):
+    """Formats a floating point number into string wiht a currency code,
     i.e. 2.50 -> '2.50 PLN'"""
     return "{:.2f}".format(number) + f" {CURRENCY}"
 
