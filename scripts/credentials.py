@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 
+import pandas as pd
 import repackage
 
 repackage.up()
@@ -12,25 +13,30 @@ from scripts.validators import Validator
 Valid = Validator()
 DEFAULT_EMAIL = "example@example.com"
 DEFAULT_EMAIL_SERVER = "smtp.example.com"
+DEFAULT_PASSWORD = "example"
 
 
 def update_credentials():
     """Takes Credentials class attributes and saves them to credentials.json."""
     json_path = os.path.join("config_files", "credentials.json")
+    csv_path = os.path.join("config_files", "demo_accounts.csv")
     data = {}
     data["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     data["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     data["MAIL_PORT"] = 587
     data["MAIL_USERNAME"] = get_and_check_email() or DEFAULT_EMAIL
-    data["MAIL_PASSWORD"] = get_and_check_password()
+    data["MAIL_PASSWORD"] = get_and_check_password() or DEFAULT_PASSWORD
     data["MAIL_SERVER"] = get_mail_server() or DEFAULT_EMAIL_SERVER
-    data["SECRET_KEY"] = get_db_secret_key()
+    data["SECRET_KEY"] = get_db_secret_key() or DEFAULT_PASSWORD
     data["MAIL_USE_TLS"] = True
     data["MAIL_USE_SSL"] = False
     data["PATH_TO_DOWNLOAD_FOLDER"] = str(os.path.join(Path.home(), "Downloads"))
     with open(json_path, "w") as jsonFile:
         json.dump(data, jsonFile)
-
+    df = pd.read_csv(csv_path)
+    df["email"].iloc[0] = data["MAIL_USERNAME"]
+    df["password"].iloc[0] = data["MAIL_PASSWORD"]
+    df.to_csv(csv_path, index=None)
     print(
         f"""
 Your credentials were set to the following and saved in {json_path} file:
@@ -71,7 +77,9 @@ def get_and_check_email():
 def get_and_check_password():
     """Return a valid password based on user input."""
     while True:
-        mail_password1 = input("Type in your email password: ")
+        mail_password1 = input(
+            f"Type in your email password or hit ENTER to leave '{DEFAULT_PASSWORD}': "
+        )
         mail_password2 = input("Type in your email password again: ")
         if mail_password1 == mail_password2:
             return mail_password1
@@ -100,7 +108,9 @@ def get_mail_server():
 def get_db_secret_key():
     """Return a valid database secret key based on user input."""
     while True:
-        secret_key1 = input("Set your database secret key: ")
+        secret_key1 = input(
+            f"Set your database secret key or hit ENTER to leave '{DEFAULT_PASSWORD}': "
+        )
         secret_key2 = input("Type in your database secret key again: ")
         if secret_key1 == secret_key2:
             return secret_key2
