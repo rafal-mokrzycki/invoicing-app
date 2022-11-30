@@ -51,7 +51,7 @@ app.config.update(credentials)
 mail = Mail(app)
 db = SQLAlchemy(app)
 Base = declarative_base()
-engine = create_engine("sqlite:///database.db")
+engine = create_engine(credentials["SQLALCHEMY_DATABASE_URI"])
 db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
 
 
