@@ -2,6 +2,7 @@
 """to run: python -m create_database.py"""
 import json
 import os
+from getpass import getpass
 from pathlib import Path
 
 import pandas as pd
@@ -77,10 +78,10 @@ def get_and_check_email():
 def get_and_check_password():
     """Return a valid password based on user input."""
     while True:
-        mail_password1 = input(
-            f"Type in your email password or hit ENTER to leave '{DEFAULT_PASSWORD}': "
+        mail_password1 = getpass(
+            prompt=f"Type in your email password or hit ENTER to leave '{DEFAULT_PASSWORD}': "
         )
-        mail_password2 = input("Type in your email password again: ")
+        mail_password2 = getpass(prompt="Type in your email password again: ")
         if mail_password1 == mail_password2:
             return mail_password1
         else:
@@ -108,10 +109,10 @@ def get_mail_server():
 def get_db_secret_key():
     """Return a valid database secret key based on user input."""
     while True:
-        secret_key1 = input(
-            f"Set your database secret key or hit ENTER to leave '{DEFAULT_PASSWORD}': "
+        secret_key1 = getpass(
+            prompt=f"Set your database secret key or hit ENTER to leave '{DEFAULT_PASSWORD}': "
         )
-        secret_key2 = input("Type in your database secret key again: ")
+        secret_key2 = getpass(prompt="Type in your database secret key again: ")
         if secret_key1 == secret_key2:
             return secret_key2
         else:
