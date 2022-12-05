@@ -103,6 +103,10 @@ def test_get_mail_server_wrong(monkeypatch):
     pass
 
 
+def test_get_db_secret_key_default():
+    pass
+
+
 def test_get_db_secret_key_correct():
     pass
 
@@ -113,4 +117,4 @@ def test_get_db_secret_key_wrong():
 
 if __name__ == "__main__":
     pass
-    print(get_mail_server())
+    print(get_db_secret_key())

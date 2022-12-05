@@ -126,18 +126,41 @@ def get_mail_server(mail_server: str = None, responses: Optional[Iterable[str]] 
         raise ValueError("Unexpected end of responses")
 
 
-def get_db_secret_key():
+def get_db_secret_key(
+    secret_key1: str = None,
+    secret_key2: str = None,
+    responses1: Optional[Iterable[str]] = None,
+    responses2: Optional[Iterable[str]] = None,
+):
     """Return a valid database secret key based on user input."""
-    while True:
-        secret_key1 = getpass(
-            prompt=f"Set your database secret key or hit ENTER to leave '{DEFAULT_PASSWORD}': "
+
+    if responses1 is None:
+        # An infinite stream of calls to input()
+        responses1 = iter(
+            lambda: getpass(
+                f"Set your database secret key or hit ENTER to leave '{DEFAULT_PASSWORD}': "
+            ),
+            None,
         )
-        secret_key2 = getpass(prompt="Type in your database secret key again: ")
-        if secret_key1 == secret_key2:
-            return secret_key2
-        else:
-            print("Your passwords don't match. Try again.")
-            continue
+    if responses2 is None:
+        # An infinite stream of calls to input()
+        responses2 = iter(
+            lambda: getpass("Type in your database secret key again: "),
+            None,
+        )
+    for secret_key1 in responses1:
+        for secret_key2 in responses2:
+            if secret_key1 == secret_key2:
+                if secret_key1 == "":
+                    return DEFAULT_PASSWORD
+                return secret_key2
+            else:
+                print("Your passwords don't match. Try again.")
+                break
+
+    else:
+        # Note: cannot be raised from the default value of responses
+        raise ValueError("Unexpected end of responses")
 
 
 if __name__ == "__main__":
