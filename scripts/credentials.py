@@ -4,6 +4,7 @@ import json
 import os
 from getpass import getpass
 from pathlib import Path
+from typing import Iterable, Optional
 
 import pandas as pd
 import repackage
@@ -60,19 +61,44 @@ You can change the settings anytime by updating the {json_path} file.
     )
 
 
-def get_and_check_email():
+# def get_and_check_email():
+#     """Return a valid email address based on user input."""
+#     while True:
+#         mail_username = input(
+#             f"Type in your email (eg. {DEFAULT_EMAIL}) or hit ENTER to leave {DEFAULT_EMAIL}): "
+#         )
+#         if Validator().validate_email_address(mail_username):
+#             return mail_username
+#         elif mail_username == "":
+#             return DEFAULT_EMAIL
+#         else:
+#             print("Wrong email format. Try again.")
+#             continue
+
+
+def get_and_check_email(
+    mail_username: str = None, responses: Optional[Iterable[str]] = None
+):
     """Return a valid email address based on user input."""
-    while True:
-        mail_username = input(
-            f"Type in your email (eg. {DEFAULT_EMAIL}) or hit ENTER to leave {DEFAULT_EMAIL}): "
+    if responses is None:
+        # An infinite stream of calls to input()
+        responses = iter(
+            lambda: input(
+                f"Type in your email (eg. {DEFAULT_EMAIL}) or hit ENTER to leave {DEFAULT_EMAIL}): "
+            ),
+            None,
         )
+
+    for mail_username in responses:
         if Validator().validate_email_address(mail_username):
             return mail_username
         elif mail_username == "":
             return DEFAULT_EMAIL
         else:
             print("Wrong email format. Try again.")
-            continue
+    else:
+        # Note: cannot be raised from the default value of responses
+        raise ValueError("Unexpected end of responses")
 
 
 def get_and_check_password():
@@ -89,21 +115,45 @@ def get_and_check_password():
             continue
 
 
-def get_mail_server():
-    """Return a valid mail server based on user input."""
-    while True:
-        mail_server = input(
-            f"Type in your mail server (eg. {DEFAULT_EMAIL_SERVER}) or hit ENTER to leave {DEFAULT_EMAIL_SERVER}): "
+# def get_mail_server():
+#     """Return a valid mail server based on user input."""
+#     while True:
+#         mail_server = input(
+#             f"Type in your mail server (eg. {DEFAULT_EMAIL_SERVER}) or hit ENTER to leave {DEFAULT_EMAIL_SERVER}): "
+#         )
+#         if mail_server == "":
+#             return DEFAULT_EMAIL_SERVER
+#         elif Validator().validate_server_address(mail_server):
+#             return mail_server
+#         else:
+#             print(
+#                 "Mail server should contain 3 groups of letters separated \
+#                     by commas, eg. smtp.example.com"
+#             )
+def get_mail_server(mail_server: str = None, responses: Optional[Iterable[str]] = None):
+    """Return a valid email address based on user input."""
+    if responses is None:
+        # An infinite stream of calls to input()
+        responses = iter(
+            lambda: input(
+                f"Type in your email (eg. {DEFAULT_EMAIL_SERVER}) or hit ENTER to leave {DEFAULT_EMAIL_SERVER}): "
+            ),
+            None,
         )
-        if mail_server == "":
-            return DEFAULT_EMAIL_SERVER
-        elif Validator().validate_server_address(mail_server):
+
+    for mail_server in responses:
+        if Validator().validate_server_address(mail_server):
             return mail_server
+        elif mail_server == "":
+            return DEFAULT_EMAIL_SERVER
         else:
             print(
                 "Mail server should contain 3 groups of letters separated \
-                    by commas, eg. smtp.example.com"
+#                     by commas, eg. smtp.example.com"
             )
+    else:
+        # Note: cannot be raised from the default value of responses
+        raise ValueError("Unexpected end of responses")
 
 
 def get_db_secret_key():
