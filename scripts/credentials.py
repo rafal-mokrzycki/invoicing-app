@@ -11,7 +11,7 @@ import repackage
 repackage.up()
 from scripts.validators import Validator
 
-Valid = Validator()
+# https://deniscapeto.com/2021/03/06/how-to-test-a-while-true-in-python/
 DEFAULT_EMAIL = "example@example.com"
 DEFAULT_EMAIL_SERVER = "smtp.example.com"
 DEFAULT_PASSWORD = "example"
