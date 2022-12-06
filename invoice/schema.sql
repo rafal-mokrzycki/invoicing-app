@@ -1,9 +1,10 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS invoice;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT UNIQUE NOT NULL,
+  username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   plan TEXT NOT NULL,
   terms BOOLEAN NOT NULL,
@@ -15,5 +16,20 @@ CREATE TABLE invoice (
   invoice_no TEXT NOT NULL,
   invoice_type TEXT NOT NULL,
   issue_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  issuer_id INTEGER NOT NULL,
   FOREIGN KEY (issuer_id) REFERENCES user (id)
 );
+-- CREATE TABLE user (
+--   id INTEGER PRIMARY KEY AUTOINCREMENT,
+--   username TEXT UNIQUE NOT NULL,
+--   password TEXT NOT NULL
+-- );
+
+-- CREATE TABLE post (
+--   id INTEGER PRIMARY KEY AUTOINCREMENT,
+--   author_id INTEGER NOT NULL,
+--   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--   title TEXT NOT NULL,
+--   body TEXT NOT NULL,
+--   FOREIGN KEY (author_id) REFERENCES user (id)
+-- );
