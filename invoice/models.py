@@ -29,18 +29,18 @@ from flask_login import (
 )
 from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Boolean, Column, Date, Float, Integer, String, create_engine, func
-from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from config_files.config import credentials, settings
 from scripts.formatters import (
     format_number,
     format_percentages,
     get_number_of_objects_in_table,
 )
 from scripts.helpers import append_dict, get_currencies
+from sqlalchemy import Boolean, Column, Date, Float, Integer, String, create_engine, func
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from config_files.config import credentials, settings
 
 # repackage.up(2)
 # from app import db
@@ -315,18 +315,18 @@ class User(db.Model, UserMixin):
     __tablename__ = settings["TABLE_NAMES"][0]
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
-    name = Column(String(250), nullable=False)
-    surname = Column(String(250), nullable=False)
-    phone_no = Column(Integer, nullable=False)
+    # name = Column(String(250), nullable=False)
+    # surname = Column(String(250), nullable=False)
+    # phone_no = Column(Integer, nullable=False)
     password = Column(String(250), nullable=False)
-    company_name = Column(String(250), nullable=True)
-    street = Column(String(250), nullable=True)
-    house_no = Column(String(250), nullable=True)
-    flat_no = Column(String(250), nullable=True)
-    zip_code = Column(String(250), nullable=True)
-    city = Column(String(250), nullable=True)
-    tax_no = Column(String(250), nullable=True)
-    bank_account = Column(String(250), nullable=True)
+    # company_name = Column(String(250), nullable=True)
+    # street = Column(String(250), nullable=True)
+    # house_no = Column(String(250), nullable=True)
+    # flat_no = Column(String(250), nullable=True)
+    # zip_code = Column(String(250), nullable=True)
+    # city = Column(String(250), nullable=True)
+    # tax_no = Column(String(250), nullable=True)
+    # bank_account = Column(String(250), nullable=True)
     plan = Column(String(250), nullable=False)
     terms = Column(Boolean, nullable=False)
     newsletter = Column(Boolean, nullable=False)
