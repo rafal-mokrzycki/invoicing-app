@@ -1,85 +1,15 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
 {% block content %}
-
-<!-- ======= Register Section ======= -->
-
-<section id="register" class="register d-flex align-items-center">
-    <div class="container">
-        <h1>New here? Please register</h1>
-        <br>
-        <form class="register-form" action="" method="post">
-            <div class="row">
-                <div class="feature-box col-lg-6 ">
-                    <input type="text" placeholder="First name" name="surname" value="{{
-          request.form.surname }}">
-                </div>
-                <div class="feature-box col-lg-6 ">
-                    <input type="text" placeholder="Last name" name="name" value="{{
-          request.form.name }}">
-                </div>
-                <div class="feature-box col-lg-6 ">
-                    <input type="tel" placeholder="Phone number" name="phone_no" pattern="[0-9]+"
-                        value="{{ request.form.phone_no }}" required>
-                </div>
-                <div class="feature-box col-lg-6 ">
-                    <input type="text" placeholder="Email address" name="email" value="{{ request.form.email }}"
-                        required>
-                </div>
-                <div class="feature-box col-lg-12 ">
-                    <input type="password" placeholder="Password" name="password" id="password"
-                        value="{{ request.form.password }}" onchange="validatePassword()" required>
-                </div>
-                <div class="feature-box col-lg-12 ">
-                    <input type="password" placeholder="Confirm password" id="confirm_password" name="confirm_password"
-                        onkeyup="validatePassword()" required>
-                </div>
-                <div class="col-lg-3 choose-plan">Choose plan:</div>
-                <div class="col-lg-9">
-                    <select id="plan" name="plan" value="{{ request.form.plan }}" required>
-                        <option value="free" selected>Free ($0/mo)</option>
-                        <option value="starter">Starter ($19/mo)</option>
-                        <option value="business">Business ($29/mo)</option>
-                        <option value="ultimate">Ultimate ($49/mo)</option>
-                    </select>
-                </div>
-                <div class="checkbox col-lg-12 ">
-                    <input type="checkbox" id="terms" name="terms" checked="{{ request.form.terms }}" required>I
-                    accept the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a> and the <a
-                        href="/privacy-policy" target="_blank">Privacy Policy</a>
-                </div>
-                <div class="checkbox col-lg-12 ">
-                    <input type="checkbox" id="newsletter" name="newsletter" checked="{{ request.form.newsletter }}">I
-                    wish to subscribe to the newsletter
-                </div>
-                <div class="feature-box col-lg-12 ">
-                    <input class="btn btn-default" type="submit" value="Register">
-                </div>
-                <div class="feature-box col-lg-12 ">
-                    <a href="/login">Already have an account?</a>
-                </div>
-
-            </div>
-        </form>
-        {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-            {% endif %}
-    </div>
-</section>
-<section id="contact" class="contact">
-    <!-- ======= Footer ======= -->
-    {% include "footer.html" %}
-    <!-- End Footer -->
-</section>
-<script>
-    function validatePassword() {
-        var password = document.getElementById("password");
-        var confirm_password = document.getElementById("confirm_password");
-
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-</script>
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Register">
+  </form>
 {% endblock %}
