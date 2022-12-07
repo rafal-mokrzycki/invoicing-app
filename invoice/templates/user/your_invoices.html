@@ -44,10 +44,10 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('user') }}">YourDesktop</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('home') }}">Pricing</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                    <li><a class="login-logout scrollto" href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
+                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
+                    <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
+                    <li><a class="login-logout scrollto" href="{{ url_for('auth.logout') }}">Logout</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

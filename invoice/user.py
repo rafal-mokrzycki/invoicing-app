@@ -96,3 +96,16 @@ def new_invoice():
         currencies=currencies,
         today=today,
     )
+
+
+@bp.route("/user/your_invoices", methods=["GET", "POST"])
+@login_required
+def your_invoices():
+    db = get_db()
+    # invoices = db.execute(
+    #     "SELECT id, invoice_no , sum_net , sum_gross , recipient_tax_no , issue_date , sell_date ,item"
+    #     " FROM invoice"
+    #     " ORDER BY issue_date DESC"
+    # ).fetchall()
+    invoices = [3]
+    return render_template("user/your_invoices.html", invoices=invoices)
