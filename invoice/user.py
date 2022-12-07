@@ -94,4 +94,5 @@ def new_invoice():
         "user/new_invoice.html",
         invoice_number_on_type=invoice_number_on_type,
         currencies=currencies,
+        today=today,
     )
