@@ -38,7 +38,3 @@ def format_number(number):
     """Formats a floating point number into string wiht a currency code,
     i.e. 2.50 -> '2.50 PLN'"""
     return "{:.2f}".format(number) + f" {CURRENCY}"
-
-
-# def get_number_of_objects_in_table(object):
-#     return db_session.query(object).count() + 1

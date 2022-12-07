@@ -2,6 +2,7 @@
 """
 Helper functions
 """
+import json
 import time
 
 import pandas as pd
@@ -56,6 +57,11 @@ def get_currencies(filename="currencies.csv", columns=None, filepath=None):
             ["PLN", "EUR", "USD", "GBP", "JPY"],
             df_selected[columns].values.tolist(),
         ]
+
+
+def get_number_of_objects_in_table(database=None, table=None, object=None):
+    query = f"SELECT {object}, count({object}) as count FROM {table} GROUP BY {object};"
+    return [tuple(row) for row in database.execute(query).fetchall()]
 
 
 def wait(step=1, max=3, string="Processing"):

@@ -69,10 +69,10 @@
                     <div hidden>
                         <input class="form-control  datepicker f3 hasDatepicker" name="year_month" id="year_month"
                             type="text" value="{{ year_month }}">
-                        <input id="regular" type="text" value="{{ invoice_number_on_type['regular'] }}">
-                        <input id="proforma" type="text" value="{{ invoice_number_on_type['proforma'] }}">
-                        <input id="advanced_payment" type="text"
-                            value="{{ invoice_number_on_type['advanced_payment'] }}">
+                        <input id="regular" type="text" value="{{ invoice_number_on_type[0][1] }}">
+                        <input id="proforma" type="text" value="{{ invoice_number_on_type[1][1] }}">
+                        <input id="advanced_payment" type="text" value="{{ invoice_number_on_type[2][1] }}">
+
                     </div>
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
