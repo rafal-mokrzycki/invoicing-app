@@ -18,6 +18,7 @@ import datetime
 
 from invoice.auth import login_required
 from invoice.db import get_db
+from invoice.helpers import get_currencies
 
 bp = Blueprint("user", __name__)
 
@@ -31,7 +32,7 @@ def user():
 @bp.route("/user/new_invoice", methods=("GET", "POST"))
 def new_invoice():
     invoice_number_on_type = {"regular": 1, "proforma": 3, "advanced payment": 1}
-    currencies = [["PLN", "USD", "GBP"]]
+    currencies = get_currencies()
     today = datetime.datetime.now()
     if request.method == "POST":
         # id=get_number_of_objects_in_table(Invoice)
@@ -85,7 +86,7 @@ def new_invoice():
                 ),
             )
             db.commit()
-            return redirect(url_for("user"))
+            return render_template("user/user.html")
 
     return render_template(
         "user/new_invoice.html",

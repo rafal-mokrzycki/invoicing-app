@@ -6,17 +6,18 @@ import time
 
 import pandas as pd
 import repackage
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
 from IPython.display import clear_output
 
 repackage.up()
-from config_files.config import credentials
+# from config_files.config import credentials
 
-app = Flask(__name__)
-app.config.update(credentials)
+# app = Flask(__name__)
+# app.config.update(credentials)
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 
 def append_dict(dict1, dict2):

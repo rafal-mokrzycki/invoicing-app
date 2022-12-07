@@ -40,5 +40,5 @@ def format_number(number):
     return "{:.2f}".format(number) + f" {CURRENCY}"
 
 
-def get_number_of_objects_in_table(object):
-    return db_session.query(object).count() + 1
+# def get_number_of_objects_in_table(object):
+#     return db_session.query(object).count() + 1
