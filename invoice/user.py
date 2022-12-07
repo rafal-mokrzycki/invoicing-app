@@ -20,6 +20,12 @@ def user():
     return render_template("user/user.html")
 
 
-@bp.route("/user/new_invoice")
+@bp.route("/user/new_invoice", methods=("GET", "POST"))
 def new_invoice():
-    return render_template("new_invoice.html")
+    invoice_number_on_type = {"regular": 1, "proforma": 3, "advanced payment": 1}
+    currencies = [["PLN", "USD", "GBP"]]
+    return render_template(
+        "user/new_invoice.html",
+        invoice_number_on_type=invoice_number_on_type,
+        currencies=currencies,
+    )
