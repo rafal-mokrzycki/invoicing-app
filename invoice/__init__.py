@@ -42,5 +42,8 @@ def create_app(test_config=None):
     app.register_blueprint(index.bp)
     app.add_url_rule("/", endpoint="index")
     app.add_url_rule("/home", endpoint="index")
+    from . import user
 
+    app.register_blueprint(user.bp)
+    app.add_url_rule("/user", endpoint="user")
     return app

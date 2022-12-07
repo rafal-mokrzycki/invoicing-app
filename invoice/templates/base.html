@@ -54,8 +54,8 @@
                 <ul>
 
                     {% if g.user: %}
-                    <li><a class="new-invoice scrollto" href="{{ url_for('auth.logout') }}">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('auth.logout') }}">YourDesktop</a></li>
+                    <li><a class="new-invoice scrollto" href="{{ url_for('user.new_invoice') }}">New invoice</a></li>
+                    <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a>
                     </li>
                     <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
