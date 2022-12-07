@@ -180,8 +180,8 @@ class InvoiceForm(Invoice):
         tax_rate,
         unit,
         currency,
-        # issuer_id,
-        # contractor_id,
+        issuer_id,
+        contractor_id,
     ):
         super().__init__()
         self.id = id
@@ -315,9 +315,9 @@ class User(db.Model, UserMixin):
     __tablename__ = settings["TABLE_NAMES"][0]
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
-    # name = Column(String(250), nullable=False)
-    # surname = Column(String(250), nullable=False)
-    # phone_no = Column(Integer, nullable=False)
+    name = Column(String(250), nullable=False)
+    surname = Column(String(250), nullable=False)
+    phone_no = Column(Integer, nullable=False)
     password = Column(String(250), nullable=False)
     # company_name = Column(String(250), nullable=True)
     # street = Column(String(250), nullable=True)
