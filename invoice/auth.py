@@ -57,3 +57,37 @@ def register():
         flash(error)
 
     return render_template("auth/register.html")
+
+
+@bp.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        db = get_db()
+        error = None
+        user = db.execute("SELECT * FROM user WHERE email = ?", (email,)).fetchone()
+        # user = User.query.filter_by(email=email).first()
+        # Email doesn't exist or password incorrect.
+        if user is None:
+            error = "That email does not exist, please try again.."
+        elif not check_password_hash(user["password"], password):
+            error = "Password incorrect, please try again."
+        if error is None:
+            session.clear()
+            session["user_id"] = user["id"]
+            return redirect(url_for("index"))
+
+        flash(error)
+        # if not user:
+        #     flash("That email does not exist, please try again.")
+        #     return redirect(url_for("login"))
+        # elif not check_password_hash(user.password, password):
+        #     flash("Password incorrect, please try again.")
+        #     return redirect(url_for("login"))
+        # else:
+        #     login_user(user)
+        #     return redirect(url_for("user"))
+
+    # return render_template("login.html", logged_in=current_user.is_authenticated)
+    return render_template("auth/login.html")
