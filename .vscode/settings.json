@@ -5,7 +5,7 @@
     "files.autoSave": "afterDelay",
     "python.linting.flake8Enabled": true,
     "editor.rulers": [
-        90
+        72, 79
     ],
     "editor.renderWhitespace": "all",
     "python.linting.flake8Args": [
