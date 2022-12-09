@@ -24,12 +24,13 @@ bp = Blueprint("user", __name__)
 
 
 @bp.route("/user")
+@login_required
 def user():
     return render_template("user/user.html")
 
 
-@login_required
 @bp.route("/user/new_invoice", methods=("GET", "POST"))
+@login_required
 def new_invoice():
     invoice_number_on_type = get_number_of_objects_in_table(
         database=get_db(), table="invoice", object="invoice_type"
@@ -102,14 +103,14 @@ def new_invoice():
     )
 
 
-@bp.route("/user/your_invoices", methods=["GET", "POST"])
-@login_required
+@bp.route("/user/your_invoices")
+# @login_required
 def your_invoices():
     db = get_db()
-    # invoices = db.execute(
-    #     "SELECT id, invoice_no , sum_net , sum_gross , recipient_tax_no , issue_date , sell_date ,item"
-    #     " FROM invoice"
-    #     " ORDER BY issue_date DESC"
-    # ).fetchall()
-    invoices = [3]
+    invoices = db.execute(
+        "SELECT id, invoice_no, sum_net, sum_gross, recipient_tax_no, issue_date, sell_date, item"
+        " FROM invoice"
+        " ORDER BY issue_date DESC"
+    ).fetchall()
+    # https://stackoverflow.com/questions/13932380/sqlite3-dbapi2-py-date-conversion-issue
     return render_template("user/your_invoices.html", invoices=invoices)
