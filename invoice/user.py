@@ -1,10 +1,12 @@
 import time
 
+import pdfkit
 import repackage
 from flask import (
     Blueprint,
     flash,
     g,
+    make_response,
     redirect,
     render_template,
     request,
@@ -18,6 +20,7 @@ import datetime
 
 from invoice.auth import login_required
 from invoice.db import get_db
+from invoice.formatters import format_number, format_percentages
 from invoice.helpers import get_currencies, get_number_of_objects_in_table
 
 bp = Blueprint("user", __name__)
@@ -151,6 +154,7 @@ def edit_invoice(id):
             invoice_no=?,
             issue_date=?,
             issue_city=?,
+            sell_date=?,
             issuer_tax_no=?,
             recipient_tax_no=?,
             item=?,
@@ -162,10 +166,11 @@ def edit_invoice(id):
             sum_gross=?
             WHERE id = ?""",
                 (
+                    invoice_type,
                     invoice_no,
                     issue_date,
-                    issue_date,
                     issue_city,
+                    sell_date,
                     issuer_tax_no,
                     recipient_tax_no,
                     item,
@@ -182,10 +187,41 @@ def edit_invoice(id):
         db.commit()
         return render_template("user/user.html")
     return render_template("user/edit_invoice.html", invoice=invoice)
-    # db = get_db()
-    # invoices = db.execute(
-    #     "SELECT id, invoice_no, sum_net, sum_gross, recipient_tax_no, issue_date, sell_date, item"
-    #     " FROM invoice"
-    #     " ORDER BY issue_date DESC"
-    # ).fetchall()
-    # return render_template("user/your_invoices.html", invoices=invoices)
+
+
+@bp.route("/user/your_invoices/show/<int:id>", methods=["GET", "POST"])
+@login_required
+def show_pdf(id, download=True):
+    path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    db = get_db()
+    invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
+    rendered = render_template(
+        "user/pdf_template.html",
+        amount=invoice["amount"],
+        invoice_no=invoice["invoice_no"],
+        invoice_type=invoice["invoice_type"].upper(),
+        issue_city=invoice["issue_city"],
+        issue_date=invoice["issue_date"],
+        issuer_tax_no=invoice["issuer_tax_no"],
+        item=invoice["item"],
+        price_net=format_number(invoice["price_net"]),
+        recipient_tax_no=invoice["recipient_tax_no"],
+        sell_date=invoice["sell_date"],
+        sum_gross=format_number(invoice["sum_gross"]),
+        sum_net=format_number(invoice["sum_net"]),
+        tax_string=format_percentages(invoice["tax_rate"]),
+        unit=invoice["unit"],
+    )
+    pdf = pdfkit.from_string(rendered, False, configuration=config)
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    if download:
+        response.headers[
+            "Content-Disposition"
+        ] = f"attachment; filename=Invoice_no_{invoice['invoice_no']}.pdf"
+    else:
+        response.headers[
+            "Content-Disposition"
+        ] = f"inline; filename=Invoice_no_{invoice['invoice_no']}.pdf"
+    return response
