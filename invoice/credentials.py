@@ -32,7 +32,9 @@ def update_credentials():
     data["SECRET_KEY"] = get_db_secret_key() or DEFAULT_PASSWORD
     data["MAIL_USE_TLS"] = True
     data["MAIL_USE_SSL"] = False
-    data["PATH_TO_DOWNLOAD_FOLDER"] = str(os.path.join(Path.home(), "Downloads"))
+    data["PATH_TO_DOWNLOAD_FOLDER"] = str(
+        os.path.join(Path.home(), "Downloads")
+    )
     with open(json_path, "w") as jsonFile:
         json.dump(data, jsonFile)
     df = pd.read_csv(csv_path)
@@ -100,7 +102,9 @@ def get_and_check_password():
             continue
 
 
-def get_mail_server(mail_server: str = None, responses: Optional[Iterable[str]] = None):
+def get_mail_server(
+    mail_server: str = None, responses: Optional[Iterable[str]] = None
+):
     """Return a valid email address based on user input."""
     if responses is None:
         # An infinite stream of calls to input()
