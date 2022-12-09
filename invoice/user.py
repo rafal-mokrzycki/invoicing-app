@@ -111,9 +111,10 @@ def new_invoice():
 def your_invoices():
     db = get_db()
     invoices = db.execute(
-        "SELECT id, invoice_no, sum_net, sum_gross, recipient_tax_no, issue_date, sell_date, item"
-        " FROM invoice"
-        " ORDER BY issue_date DESC"
+        """SELECT id, invoice_no, sum_net, sum_gross, recipient_tax_no,
+        issue_date, sell_date, item
+         FROM invoice
+         ORDER BY issue_date DESC"""
     ).fetchall()
     return render_template("user/your_invoices.html", invoices=invoices)
 
@@ -184,7 +185,6 @@ def edit_invoice(id):
                 ),
             )
             db.commit()
-        db.commit()
         return render_template("user/user.html")
     return render_template("user/edit_invoice.html", invoice=invoice)
 
@@ -225,3 +225,113 @@ def show_pdf(id, download=True):
             "Content-Disposition"
         ] = f"inline; filename=Invoice_no_{invoice['invoice_no']}.pdf"
     return response
+
+
+@bp.route("/user/user_data", methods=["GET", "POST"])
+@login_required
+def user_data():
+    db = get_db()
+    user = db.execute(f"SELECT * FROM user WHERE id = {g.user['id']}").fetchone()
+    if request.method == "POST":
+        user_id = user["id"]
+        # user.email = user.email
+        name = user["name"]
+        surname = user["surname"]
+        phone_no = user["phone_no"]
+        # user.password = user.password
+        # user.company_name = user.company_name
+        # user.street = user.street
+        # user.house_no = user.house_no
+        # user.flat_no = user.flat_no
+        # user.zip_code = user.zip_code
+        # user.city = user.city
+        # user.tax_no = user.tax_no
+        # user.bank_account = user.bank_account
+        error = None
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                """
+            UPDATE user
+            SET phone_no=?
+            --invoice_no=?,
+            --issue_date=?,
+            --issue_city=?,
+            --sell_date=?,
+            --issuer_tax_no=?,
+            --recipient_tax_no=?,
+            --item=?,
+            --amount=?,
+            --unit=?,
+            --price_net=?,
+            --tax_rate=?,
+            --sum_net=?,
+            --sum_gross=?
+            WHERE id = ?""",
+                (phone_no, user_id),
+            )
+            db.commit()
+        return redirect(url_for("user.user_data_edit"))
+    return render_template("user/user_data.html", user=user)
+
+
+@bp.route("/user/user_data_edit", methods=["GET", "POST"])
+@login_required
+def user_data_edit():
+    db = get_db()
+    user = db.execute(f"SELECT * FROM user WHERE id = {g.user['id']}").fetchone()
+    if request.method == "POST":
+        user_id = user["id"]
+        # user.email = user.email
+        name = request.form["name"]
+        surname = request.form["surname"]
+        phone_no = request.form["phone_no"]
+        # user.password = user.password
+        company_name = request.form["company_name"]
+        street = request.form["street"]
+        house_no = request.form["house_no"]
+        flat_no = request.form["flat_no"]
+        zip_code = request.form["zip_code"]
+        city = request.form["city"]
+        tax_no = request.form["tax_no"]
+        bank_account = request.form["bank_account"]
+        error = None
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                """
+            UPDATE user
+            SET phone_no=?,
+            name=?,
+            surname=?,
+            company_name=?,
+            street=?,
+            house_no=?,
+            flat_no=?,
+            zip_code=?,
+            city=?,
+            tax_no=?,
+            bank_account=?
+            WHERE id = ?""",
+                (
+                    phone_no,
+                    name,
+                    surname,
+                    company_name,
+                    street,
+                    house_no,
+                    flat_no,
+                    zip_code,
+                    city,
+                    tax_no,
+                    bank_account,
+                    user_id,
+                ),
+            )
+            db.commit()
+        return redirect(url_for("user.user_data"))
+    return render_template("user/user_data_edit.html", user=user, is_edit=True)

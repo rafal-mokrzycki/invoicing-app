@@ -28,6 +28,9 @@ def register():
         plan = request.form["plan"]
         terms = request.form["terms"]
         newsletter = request.form["newsletter"]
+        name = request.form["name"]
+        surname = request.form["surname"]
+        phone_no = request.form["phone_no"]
         db = get_db()
         error = None
 
@@ -39,8 +42,8 @@ def register():
         if error is None:
             try:
                 db.execute(
-                    """INSERT INTO user (email, password, plan, terms, newsletter)
-                    VALUES (?, ?, ?, ?, ?)""",
+                    """INSERT INTO user (email, password, plan, terms, newsletter, name, surname, phone_no)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
                     (
                         email,
                         generate_password_hash(
@@ -49,6 +52,9 @@ def register():
                         plan,
                         terms,
                         newsletter,
+                        name,
+                        surname,
+                        phone_no,
                     ),
                 )
                 db.commit()
