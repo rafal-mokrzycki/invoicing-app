@@ -231,7 +231,9 @@ def show_pdf(id, download=True):
 @login_required
 def user_data():
     db = get_db()
-    user = db.execute(f"SELECT * FROM user WHERE id = {g.user['id']}").fetchone()
+    user = db.execute(
+        f"SELECT * FROM user WHERE id = {g.user['id']}"
+    ).fetchone()
     if request.method == "POST":
         user_id = user["id"]
         # user.email = user.email
@@ -281,12 +283,14 @@ def user_data():
 @login_required
 def user_data_edit():
     db = get_db()
-    user = db.execute(f"SELECT * FROM user WHERE id = {g.user['id']}").fetchone()
+    user = db.execute(
+        f"SELECT * FROM user WHERE id = {g.user['id']}"
+    ).fetchone()
     if request.method == "POST":
         user_id = user["id"]
         # user.email = user.email
-        name = request.form["name"]
-        surname = request.form["surname"]
+        name = user["name"]
+        surname = user["surname"]
         phone_no = request.form["phone_no"]
         # user.password = user.password
         company_name = request.form["company_name"]
@@ -333,5 +337,7 @@ def user_data_edit():
                 ),
             )
             db.commit()
+        flash("Data updated.")
         return redirect(url_for("user.user_data"))
+        # return render_template("user/user_data_edit.html", user=user)
     return render_template("user/user_data_edit.html", user=user, is_edit=True)

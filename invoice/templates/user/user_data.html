@@ -13,61 +13,61 @@
         <form class="user-data-form " action="" method="post">
             <div class="row">
                 <div class="feature-box col-lg-3 ">
-                    <label for="tax_no">First name:</label>
-                    <input type="text" name="surname" value="{{ user['surname'] }}" readonly>
+                    <label for="name">First name:</label>
+                    <input type="text" name="name" value="{{ user['name'] }}" readonly>
                 </div>
                 <div class="feature-box col-lg-3 ">
-                    <label for="tax_no">Last name:</label>
-                    <input type="text" name="name" value="{{ user.name }}" readonly>
+                    <label for="surname">Last name:</label>
+                    <input type="text" name="surname" value="{{ user.surname }}" readonly>
                 </div>
                 <div class="feature-box col-lg-6 ">
-                    <label for="tax_no">Company name:</label>
-                    <input type="text" name="company" value="{{ request.form.company }}" readonly>
+                    <label for="company_name">Company name:</label>
+                    <input type="text" name="company_name" value="{{ user['company_name'] }}" readonly>
                 </div>
                 <!--  -->
                 <div class="feature-box col-lg-3 ">
-                    <label for="tax_no">Phone number:</label>
+                    <label for="phone_no">Phone number:</label>
                     <input type="tel" name="phone_no" pattern="[0-9]+" value="{{ user.phone_no }}"
                         readonly>
                 </div>
                 <div class="feature-box col-lg-3 ">
-                    <label for="tax_no">Email address:</label>
+                    <label for="email">Email address:</label>
                     <input type="text" name="email" value="{{ user.email }}" readonly>
                 </div>
 
                 <div class="feature-box col-lg-6 ">
-                    <label for="tax_no">Street:</label>
-                    <input type="text" name="street" value="{{ request.form.street }}" readonly>
+                    <label for="street">Street:</label>
+                    <input type="text" name="street" value="{{ user.street }}" readonly>
                 </div>
 
                 <!--  -->
                 <div class="feature-box col-lg-6 ">
                     <label for="tax_no">Tax number:</label>
-                    <input type="text" name="tax_no" value="{{ request.form.tax_no }}" readonly>
+                    <input type="text" name="tax_no" value="{{ user.tax_no }}" readonly>
                 </div>
 
                 <div class="feature-box col-lg-3 ">
-                    <label for="tax_no">House number:</label>
-                    <input type="text" name="house_no" value="{{ request.form.house_no }}" readonly>
+                    <label for="house_no">House number:</label>
+                    <input type="text" name="house_no" value="{{ user.house_no }}" readonly>
                 </div>
                 <div class="feature-box col-lg-3 ">
-                    <label for="tax_no">Flat number:</label>
-                    <input type="text" name="flat_no" value="{{ request.form.flat_no }}" readonly>
+                    <label for="flat_no">Flat number:</label>
+                    <input type="text" name="flat_no" value="{{ user.flat_no }}" readonly>
                 </div>
 
                 <!--  -->
 
                 <div class="feature-box col-lg-6 ">
                     <label for="bank_account">Bank account :</label>
-                    <input type="text" name="bank_account" value="{{ request.form.bank_account }}" readonly>
+                    <input type="text" name="bank_account" value="{{ user.bank_account }}" readonly>
                 </div>
                 <div class="feature-box col-lg-3 ">
                     <label for="tax_no">ZIP code:</label>
-                    <input type="text" name="zip_code" value="{{ request.form.zip_code }}" readonly>
+                    <input type="text" name="zip_code" value="{{ user.zip_code }}" readonly>
                 </div>
                 <div class="feature-box col-lg-3 ">
                     <label for="tax_no">City:</label>
-                    <input type="text" name="city" value="{{ request.form.city }}" readonly>
+                    <input type="text" name="city" value="{{ user.city }}" readonly>
                 </div>
                 <!--  -->
                 <div class="feature-box col-lg-5 ">
