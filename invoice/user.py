@@ -235,11 +235,11 @@ def user_data():
         f"SELECT * FROM user WHERE id = {g.user['id']}"
     ).fetchone()
     if request.method == "POST":
-        user_id = user["id"]
+        # user_id = user["id"]
         # user.email = user.email
-        name = user["name"]
-        surname = user["surname"]
-        phone_no = user["phone_no"]
+        # name = user["name"]
+        # surname = user["surname"]
+        # phone_no = user["phone_no"]
         # user.password = user.password
         # user.company_name = user.company_name
         # user.street = user.street
@@ -249,32 +249,32 @@ def user_data():
         # user.city = user.city
         # user.tax_no = user.tax_no
         # user.bank_account = user.bank_account
-        error = None
-        if error is not None:
-            flash(error)
-        else:
-            db = get_db()
-            db.execute(
-                """
-            UPDATE user
-            SET phone_no=?
-            --invoice_no=?,
-            --issue_date=?,
-            --issue_city=?,
-            --sell_date=?,
-            --issuer_tax_no=?,
-            --recipient_tax_no=?,
-            --item=?,
-            --amount=?,
-            --unit=?,
-            --price_net=?,
-            --tax_rate=?,
-            --sum_net=?,
-            --sum_gross=?
-            WHERE id = ?""",
-                (phone_no, user_id),
-            )
-            db.commit()
+        # error = None
+        # if error is not None:
+        #     flash(error)
+        # else:
+        #     db = get_db()
+        #     db.execute(
+        #         """
+        #     UPDATE user
+        #     SET phone_no=?
+        #     --invoice_no=?,
+        #     --issue_date=?,
+        #     --issue_city=?,
+        #     --sell_date=?,
+        #     --issuer_tax_no=?,
+        #     --recipient_tax_no=?,
+        #     --item=?,
+        #     --amount=?,
+        #     --unit=?,
+        #     --price_net=?,
+        #     --tax_rate=?,
+        #     --sum_net=?,
+        #     --sum_gross=?
+        #     WHERE id = ?""",
+        #         (phone_no, user_id),
+        #     )
+        #     db.commit()
         return redirect(url_for("user.user_data_edit"))
     return render_template("user/user_data.html", user=user)
 
@@ -288,11 +288,10 @@ def user_data_edit():
     ).fetchone()
     if request.method == "POST":
         user_id = user["id"]
-        # user.email = user.email
+        # user.email = user['email']
         name = user["name"]
         surname = user["surname"]
         phone_no = request.form["phone_no"]
-        # user.password = user.password
         company_name = request.form["company_name"]
         street = request.form["street"]
         house_no = request.form["house_no"]
@@ -337,7 +336,5 @@ def user_data_edit():
                 ),
             )
             db.commit()
-        flash("Data updated.")
         return redirect(url_for("user.user_data"))
-        # return render_template("user/user_data_edit.html", user=user)
     return render_template("user/user_data_edit.html", user=user, is_edit=True)
