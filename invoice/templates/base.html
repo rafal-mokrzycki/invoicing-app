@@ -62,8 +62,8 @@
                     <li><a class="login-logout scrollto" href="{{ url_for('auth.logout') }}">Logout</a></li>
 
                     {% else: %}
-                    <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
+                    <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
                     <li><a class="nav-link scrollto" href="{{ url_for('auth.register') }}">Register</a></li>
                     <li><a class="login-logout scrollto" href="{{ url_for('auth.login') }}">Login</a></li>
                     {% endif %}

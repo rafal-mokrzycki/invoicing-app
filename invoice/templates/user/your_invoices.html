@@ -43,7 +43,7 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
+                    <li><a class="new-invoice scrollto" href="{{ url_for('user.new_invoice') }}">New invoice</a></li>
                     <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
                     <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>

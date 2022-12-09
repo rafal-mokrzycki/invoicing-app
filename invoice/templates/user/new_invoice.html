@@ -49,10 +49,10 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="new-invoice scrollto" href="/new_invoice">New invoice</a></li>
+                    <li><a class="new-invoice scrollto" href="{{ url_for('user.new_invoice') }}">New invoice</a></li>
                     <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
                     <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
-                    <li><a class=" nav-link scrollto" href="#contact">Contact</a></li>
+                    <li><a class=" nav-link scrollto" href="/home#contact">Contact</a></li>
                     <li><a class="login-logout scrollto" href="{{ url_for('auth.logout') }}">Logout</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -66,7 +66,7 @@
             <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
             <form class="invoice-form" action="" method="post">
                 <div class="row">
-                    <div >
+                    <div hidden>
                         <input class="form-control  datepicker f3 hasDatepicker" name="year_month" id="year_month"
                             type="text" value="{{ year_month }}">
                         <input id="regular" type="text" value="{{ invoice_number_on_type['regular'] }}">
