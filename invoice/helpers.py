@@ -4,6 +4,10 @@ Helper functions
 """
 import json
 import time
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import pandas as pd
 import repackage
@@ -79,3 +83,51 @@ def wait(step=1, max=3, string="Processing"):
         print(display, end="\r")
         time.sleep(step)
     clear_output(wait=True)
+
+
+def send_email(
+    sender_address,
+    sender_pass,
+    receiver_address,
+    subject,
+    body,
+    filename=None,
+    id=None,
+):
+    # Setup the MIME
+    message = MIMEMultipart()
+    message["From"] = sender_address
+    message["To"] = receiver_address
+    # The subject line
+    message["Subject"] = subject
+    # The body and the attachments for the mail
+    message.attach(MIMEText(body, "plain"))
+
+    if filename is not None and id is not None:
+        if os.path.exists(
+            f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/{filename}"
+        ):
+            os.remove()
+        show_pdf(id=id, download=True)
+        attach_file = open(filename, "rb")  # Open the file as binary mode
+        # os search filename in downloads and remove
+        payload = MIMEBase("application", "octate-stream")
+        payload.set_payload((attach_file).read())
+        encoders.encode_base64(payload)  # encode the attachment
+        # add payload header with filename
+        payload.add_header(
+            "Content-Decomposition", "attachment", filename=filename
+        )
+        message.attach(payload)
+    # Create SMTP session for sending the mail
+    session = smtplib.SMTP(
+        credentials["MAIL_SERVER"], credentials["MAIL_PORT"]
+    )
+    # use gmail with port
+    session.starttls()  # enable security
+    session.login(
+        sender_address, sender_pass
+    )  # login with mail_id and password
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()

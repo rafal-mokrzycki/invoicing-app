@@ -35,11 +35,11 @@ Attached I am sending the invoice no. {{invoice.invoice_no}}.
 --
 {{user.name}} {{user.surname}}
 from FlexStart team
-</textarea><a href="{{ url_for('show_pdf', id=invoice.id) }}" target=”_blank”>Check the invoice</a>
+</textarea><a href="{{ url_for('user.show_pdf', id=invoice.id) }}" target=”_blank”>Check the invoice</a>
                 </div>
                 <div class="feature-box col-lg-6 ">
                     <input class="btn btn-default" type="submit" value="Send email"> or <a
-                        href="{{ url_for('your_invoices') }}">Cancel</a>
+                        href="{{ url_for('user.your_invoices') }}">Cancel</a>
                 </div>
 
             </div>

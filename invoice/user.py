@@ -15,13 +15,19 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
+from config_files.config import credentials
+
 repackage.up()
 import datetime
 
 from invoice.auth import login_required
 from invoice.db import get_db
 from invoice.formatters import format_number, format_percentages
-from invoice.helpers import get_currencies, get_number_of_objects_in_table
+from invoice.helpers import (
+    get_currencies,
+    get_number_of_objects_in_table,
+    send_email,
+)
 
 bp = Blueprint("user", __name__)
 
@@ -338,3 +344,33 @@ def user_data_edit():
             db.commit()
         return redirect(url_for("user.user_data"))
     return render_template("user/user_data_edit.html", user=user, is_edit=True)
+
+
+@bp.route("/user/your_invoices/send_email/<int:id>", methods=["GET", "POST"])
+@login_required
+def send_invoice_as_attachment(id):
+    db = get_db()
+    invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
+    user = db.execute(
+        f"SELECT * FROM user WHERE id = {g.user['id']}"
+    ).fetchone()
+    recipient = "recipient@fake.com"  # Contractor.query.filter(invoice.recipient_id == Contractor.id).first()
+    if request.method == "POST":
+        send_email(
+            id=invoice["id"],
+            sender_address=request.form.get("issuer_email") or user["email"],
+            sender_pass=credentials["MAIL_PASSWORD"],
+            receiver_address=request.form.get("recipient_email"),
+            subject=request.form.get("subject"),
+            body=request.form.get("email_body"),
+            filename=f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/Invoice_no_{invoice['invoice_no']}.pdf",
+        )
+        return render_template("user/your_invoices.html")
+    return render_template(
+        "user/send_email.html",
+        invoice=invoice,
+        user=user,
+        recipient=recipient,
+    )
+    #     return render_template("user/user.html")
+    # return render_template("user/edit_invoice.html", invoice=invoice)
