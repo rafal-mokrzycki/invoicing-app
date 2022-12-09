@@ -26,7 +26,9 @@ Base = declarative_base()
 engine = create_engine(
     "sqlite:///database.db",
 )
-db_session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
+db_session = scoped_session(
+    sessionmaker(bind=engine, autocommit=False, autoflush=False)
+)
 
 
 def format_percentages(number):
