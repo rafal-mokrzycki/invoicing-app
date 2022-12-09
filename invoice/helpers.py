@@ -60,8 +60,17 @@ def get_currencies(filename="currencies.csv", columns=None, filepath=None):
 
 
 def get_number_of_objects_in_table(database=None, table=None, object=None):
-    query = f"SELECT {object}, count({object}) as count FROM {table} GROUP BY {object};"
-    return [tuple(row) for row in database.execute(query).fetchall()]
+    query = f"""
+    SELECT {object}, count({object})
+    AS count FROM {table}
+    GROUP BY {object};
+    """
+    list_of_tuples = [tuple(row) for row in database.execute(query).fetchall()]
+    # invoices_counted_by_type = {}
+    # for elem in list_of_tuples:
+    #     print(elem[0])
+    #     invoices_counted_by_type[elem[0]] = elem[1]
+    return {elem[0]: elem[1] for elem in list_of_tuples}
 
 
 def wait(step=1, max=3, string="Processing"):

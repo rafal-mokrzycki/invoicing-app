@@ -63,9 +63,10 @@ def new_invoice():
             db = get_db()
             db.execute(
                 """INSERT INTO invoice
-                (invoice_type, invoice_no, issue_date, issue_city, issuer_tax_no,
-                recipient_tax_no, item,amount, unit, price_net, tax_rate, sum_net,
-                sum_gross, currency, sell_date, issuer_id)
+                (invoice_type, invoice_no, issue_date, issue_city,
+                issuer_tax_no, recipient_tax_no, item,amount, unit,
+                price_net, tax_rate, sum_net, sum_gross, currency,
+                sell_date, issuer_id)
                 VALUES
                 (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
@@ -94,7 +95,10 @@ def new_invoice():
         "user/new_invoice.html",
         invoice_number_on_type=invoice_number_on_type,
         currencies=currencies,
-        today=today,
+        today=today.date(),
+        min_date=(today - datetime.timedelta(days=90)).strftime("%Y-%m-%d"),
+        max_date=(today + datetime.timedelta(days=60)).strftime("%Y-%m-%d"),
+        year_month=datetime.datetime.strftime(today, "%Y/%m/"),
     )
 
 

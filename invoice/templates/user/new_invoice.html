@@ -66,12 +66,12 @@
             <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
             <form class="invoice-form" action="" method="post">
                 <div class="row">
-                    <div hidden>
+                    <div >
                         <input class="form-control  datepicker f3 hasDatepicker" name="year_month" id="year_month"
                             type="text" value="{{ year_month }}">
-                        <input id="regular" type="text" value="{{ invoice_number_on_type[0][1] }}">
-                        <input id="proforma" type="text" value="{{ invoice_number_on_type[1][1] }}">
-                        <input id="advanced_payment" type="text" value="{{ invoice_number_on_type[2][1] }}">
+                        <input id="regular" type="text" value="{{ invoice_number_on_type['regular'] }}">
+                        <input id="proforma" type="text" value="{{ invoice_number_on_type['proforma'] }}">
+                        <input id="advanced_payment" type="text" value="{{ invoice_number_on_type['advanced_payment'] }}">
 
                     </div>
                     <div class="col-sm-4 expense_hidden22 ">
@@ -267,7 +267,7 @@
             var year_month = document.getElementById("year_month").value;
             var invoice_type = document.getElementById("invoice_type").value;
             var number = document.getElementById(invoice_type).value;
-            document.getElementById('invoice_no').value = year_month.concat('', number);
+            document.getElementById('invoice_no').value = year_month.concat('', Number(number) + 1);
         }
     </script>
     <script>
