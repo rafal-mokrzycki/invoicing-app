@@ -104,7 +104,7 @@ def new_invoice():
 
 
 @bp.route("/user/your_invoices")
-# @login_required
+@login_required
 def your_invoices():
     db = get_db()
     invoices = db.execute(
@@ -112,5 +112,80 @@ def your_invoices():
         " FROM invoice"
         " ORDER BY issue_date DESC"
     ).fetchall()
-    # https://stackoverflow.com/questions/13932380/sqlite3-dbapi2-py-date-conversion-issue
     return render_template("user/your_invoices.html", invoices=invoices)
+
+
+@bp.route("/user/your_invoices/edit/<int:id>", methods=["GET", "POST"])
+@login_required
+def edit_invoice(id):
+    """Method enables edition of existing invoices"""
+    db = get_db()
+    invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
+    if request.method == "POST":
+        # invoice.id = invoice.id
+        invoice_type = request.form.get("invoice_type")
+        invoice_no = request.form.get("invoice_no")
+        issue_date = request.form.get("issue_date")
+        issue_city = request.form.get("issue_city")
+        sell_date = datetime.datetime.strptime(
+            request.form.get("sell_date"), "%Y-%m-%d"
+        ).date()
+        issuer_tax_no = request.form.get("issuer_tax_no")
+        recipient_tax_no = request.form.get("recipient_tax_no")
+        item = request.form.get("item")
+        amount = request.form.get("amount")
+        unit = request.form.get("unit")
+        price_net = request.form.get("price_net")
+        tax_rate = request.form.get("tax_rate")
+        sum_net = request.form.get("sum_net")
+        sum_gross = request.form.get("sum_gross")
+        error = None
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                """
+            UPDATE invoice
+            SET invoice_type=?,
+            invoice_no=?,
+            issue_date=?,
+            issue_city=?,
+            issuer_tax_no=?,
+            recipient_tax_no=?,
+            item=?,
+            amount=?,
+            unit=?,
+            price_net=?,
+            tax_rate=?,
+            sum_net=?,
+            sum_gross=?
+            WHERE id = ?""",
+                (
+                    invoice_no,
+                    issue_date,
+                    issue_date,
+                    issue_city,
+                    issuer_tax_no,
+                    recipient_tax_no,
+                    item,
+                    amount,
+                    unit,
+                    price_net,
+                    tax_rate,
+                    sum_net,
+                    sum_gross,
+                    id,
+                ),
+            )
+            db.commit()
+        db.commit()
+        return render_template("user/user.html")
+    return render_template("user/edit_invoice.html", invoice=invoice)
+    # db = get_db()
+    # invoices = db.execute(
+    #     "SELECT id, invoice_no, sum_net, sum_gross, recipient_tax_no, issue_date, sell_date, item"
+    #     " FROM invoice"
+    #     " ORDER BY issue_date DESC"
+    # ).fetchall()
+    # return render_template("user/your_invoices.html", invoices=invoices)
