@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    {% block head %}
+    {% block title %}
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -41,6 +41,7 @@
 </head>
 
 <body>
+    {% block header %}
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -74,7 +75,7 @@
 
         </div>
     </header><!-- End Header -->
-
+    {% endblock %}
     {% block content %}
     {% endblock %}
 </body>
