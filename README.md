@@ -100,9 +100,9 @@ To run the project use the following steps:
 `db.create_table("accounts", drop_if_exists=True)`
 `db.create_table("contractors", drop_if_exists=True)`
 
-4. Run the `main.py` file:
+4. Run the app:
 
-`"path/to/python.exe" main.py`
+`flask --app invoice --debug run`
 
 5. Go to the browser and browse `http://127.0.0.1:5000/`. Enjoy!
 

@@ -4,7 +4,7 @@ use VScode test tools recommended (the beaker) """
 import repackage
 
 repackage.up()
-from scripts.formatters import format_number, format_percentages
+from invoice.formatters import format_number, format_percentages
 
 CURRENCY = "PLN"
 

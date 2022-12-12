@@ -8,7 +8,7 @@ import pytest
 import repackage
 
 repackage.up(2)
-from scripts.helpers import append_dict, get_currencies
+from invoice.helpers import append_dict, get_currencies
 
 
 @pytest.fixture(scope="module", name="dictionary_left")

@@ -2,33 +2,8 @@
 """
 Format functions
 """
-import repackage
-
-repackage.up(1)
-from flask import Flask
-from flask_login import LoginManager
-from flask_mail import Mail
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, scoped_session, sessionmaker
-
-from config_files.config import credentials
 
 CURRENCY = "PLN"
-
-app = Flask(__name__)
-login_manager = LoginManager()
-login_manager.init_app(app)
-app.config.update(credentials)
-mail = Mail(app)
-db = SQLAlchemy(app)
-Base = declarative_base()
-engine = create_engine(
-    "sqlite:///database.db",
-)
-db_session = scoped_session(
-    sessionmaker(bind=engine, autocommit=False, autoflush=False)
-)
 
 
 def format_percentages(number):
