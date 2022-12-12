@@ -1,10 +1,10 @@
 """ to run: python -m pytest -vv tests\test_formatters.py -s
 add --pdb to debug in command line
-use VScode test tools reccomended (the beaker) """
+use VScode test tools recommended (the beaker) """
 import repackage
 
 repackage.up()
-from scripts.formatters import format_number, format_percentages
+from invoice.formatters import format_number, format_percentages
 
 CURRENCY = "PLN"
 

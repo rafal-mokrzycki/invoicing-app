@@ -1,6 +1,6 @@
 """ to run: python -m pytest -vv tests\test_helpers.py -s
 add --pdb to debug in command line
-use VScode test tools reccomended (the beaker) """
+use VScode test tools recommended (the beaker) """
 import os
 
 import pandas as pd
@@ -8,7 +8,7 @@ import pytest
 import repackage
 
 repackage.up(2)
-from scripts.helpers import append_dict, get_currencies
+from invoice.helpers import append_dict, get_currencies
 
 
 @pytest.fixture(scope="module", name="dictionary_left")

@@ -131,10 +131,11 @@ dmypy.json
 # tmp
 *.pdf
 *.sage.py
+*.test
 
 # sql & databases
-database.db
-schema.sql
+*.db
+*.sql
 
 # config
 credentials.json

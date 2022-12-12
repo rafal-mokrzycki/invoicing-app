@@ -5,11 +5,11 @@
     "files.autoSave": "afterDelay",
     "python.linting.flake8Enabled": true,
     "editor.rulers": [
-        90
+        72, 79
     ],
     "editor.renderWhitespace": "all",
     "python.linting.flake8Args": [
-        "--max-line-length=90"
+        "--max-line-length=79"
     ],
     "files.autoSaveDelay": 5000,
     "python.linting.lintOnSave": true,
@@ -21,7 +21,7 @@
     ],
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
-        "--line-length=90"
+        "--line-length=79"
     ],
     "[python]": {
         "editor.codeActionsOnSave": {

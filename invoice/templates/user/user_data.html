@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!-- ======= Pricing Section ======= -->
+<section id="user-data" class="user-data d-flex align-items-center">
+
+    <div class="container" data-aos="fade-up">
+        <br>
+        <h1>Your company data</h1>
+        <br>
+
+        <form class="user-data-form " action="" method="post">
+            <div class="row">
+                <div class="feature-box col-lg-3 ">
+                    <label for="name">First name:</label>
+                    <input type="text" name="name" value="{{ user['name'] }}" readonly>
+                </div>
+                <div class="feature-box col-lg-3 ">
+                    <label for="surname">Last name:</label>
+                    <input type="text" name="surname" value="{{ user.surname }}" readonly>
+                </div>
+                <div class="feature-box col-lg-6 ">
+                    <label for="company_name">Company name:</label>
+                    <input type="text" name="company_name" value="{{ user['company_name'] }}" readonly>
+                </div>
+                <!--  -->
+                <div class="feature-box col-lg-3 ">
+                    <label for="phone_no">Phone number:</label>
+                    <input type="tel" name="phone_no" pattern="[0-9]+" value="{{ user.phone_no }}"
+                        readonly>
+                </div>
+                <div class="feature-box col-lg-3 ">
+                    <label for="email">Email address:</label>
+                    <input type="text" name="email" value="{{ user.email }}" readonly>
+                </div>
+
+                <div class="feature-box col-lg-6 ">
+                    <label for="street">Street:</label>
+                    <input type="text" name="street" value="{{ user.street }}" readonly>
+                </div>
+
+                <!--  -->
+                <div class="feature-box col-lg-6 ">
+                    <label for="tax_no">Tax number:</label>
+                    <input type="text" name="tax_no" value="{{ user.tax_no }}" readonly>
+                </div>
+
+                <div class="feature-box col-lg-3 ">
+                    <label for="house_no">House number:</label>
+                    <input type="text" name="house_no" value="{{ user.house_no }}" readonly>
+                </div>
+                <div class="feature-box col-lg-3 ">
+                    <label for="flat_no">Flat number:</label>
+                    <input type="text" name="flat_no" value="{{ user.flat_no }}" readonly>
+                </div>
+
+                <!--  -->
+
+                <div class="feature-box col-lg-6 ">
+                    <label for="bank_account">Bank account :</label>
+                    <input type="text" name="bank_account" value="{{ user.bank_account }}" readonly>
+                </div>
+                <div class="feature-box col-lg-3 ">
+                    <label for="zip_code">ZIP code:</label>
+                    <input type="text" name="zip_code" value="{{ user.zip_code }}" readonly>
+                </div>
+                <div class="feature-box col-lg-3 ">
+                    <label for="city">City:</label>
+                    <input type="text" name="city" value="{{ user.city }}" readonly>
+                </div>
+                <!--  -->
+                <div class="feature-box col-lg-5 ">
+                </div>
+
+
+                <div class="feature-box col-lg-6 ">
+                    <input class="btn btn-default" type="submit" value="Edit data">
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</section><!-- End Pricing Section -->
+<section id="contact" class="contact">
+    <!-- ======= Footer ======= -->
+    {% include "footer.html" %}
+    <!-- End Footer -->
+</section>
+</body>
+
+</html>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+<!-- Vendor JS Files -->
+<script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/static/vendor/aos/aos.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/static/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/static/js/main.js"></script>
+
+{% endblock %}

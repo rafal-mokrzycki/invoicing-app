@@ -98,13 +98,9 @@ To run the project use the following steps:
 
 `pip install -r requirements.txt`
 
-4. Create a database via python (you will feed the database with sample data by typing `--feed yes` [default option] or decline this step by typing `--feed no`):
+4. Run the app:
 
-`"path/to/python.exe" scripts\database.py --feed yes`
-
-4. Run the `app.py` file:
-
-`"path/to/python.exe" app.py`
+`flask --app invoice --debug run`
 
 5. Go to the browser and browse `http://127.0.0.1:5000/`. Enjoy!
 
