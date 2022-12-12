@@ -88,17 +88,15 @@ To run the project use the following steps:
 
 `git clone https://github.com/rafal-mokrzycki/invoicing_app.git`
 
-2. Install required libraries:
+2. Create and activate virtual envirionment:
+
+`python -m venv .venv`
+
+`.venv\Scripts\activate.bat`
+
+3. Install required libraries:
 
 `pip install -r requirements.txt`
-
-3. Create a database via python:
-
-`from scripts.database import Database`
-`db = Database()`
-`db.create_table("invoices", drop_if_exists=True)`
-`db.create_table("accounts", drop_if_exists=True)`
-`db.create_table("contractors", drop_if_exists=True)`
 
 4. Run the app:
 
