@@ -108,3 +108,59 @@ def wait(step: int = 1, max: int = 3, string: str = "Processing"):
         print(display, end="\r")
         time.sleep(step)
     clear_output(wait=True)
+
+
+def validate_bank_account(
+    bank_account: str, country_code: str = "PL", filepath: str = None
+):
+    with open(os.path.join("config_files", "alphabet.json")) as json_file:
+        alphabet = json.load(json_file)
+
+    if filepath is None:
+        filepath_nrb = os.path.join("config_files", "nrb.json")
+    else:
+        filepath_nrb = filepath
+        with open(filepath_nrb) as json_file:
+            bank_accounts = json.load(json_file)
+
+    if len(split_whitespaces(bank_account)) == 26:
+        if not isinstance(bank_account, str):
+            raise ValueError(
+                "Bank account number must contain digits \
+                only."
+            )
+        number = split_whitespaces(bank_account) + country_code.upper()
+    elif len(split_whitespaces(bank_account)) == 28:
+        if not isinstance(bank_account[:2], str):
+            raise ValueError("Country code must contain letters only.")
+        if not isinstance(bank_account[:2], int):
+            raise ValueError(
+                "Numerical part of bank account number must contain \
+                    digits only."
+            )
+        number = split_whitespaces(bank_account)
+    else:
+        raise ValueError("Wrong length of bank account number.")
+    number_to_check = number[4:] + number[:4]
+    for position in number_to_check:
+        if position in alphabet:
+            number_to_check = number_to_check.replace(
+                position, str(alphabet[position])
+            )
+    num1 = int(number_to_check[:15])
+    if int(str(num1 % 97) + number_to_check[15:]) % 97 != 1:
+        raise ValueError("Wrong IBAN")
+
+
+def split_whitespaces(bank_account: str):
+    return "".join(bank_account.split())
+
+
+# def add_whitespaces(bank_account: str):
+#     if " " in bank_account:
+#         return bank_account
+#     return bank_account
+
+
+def add_country_code(bank_account: str, code: str = "PL"):
+    return code + bank_account
