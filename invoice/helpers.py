@@ -95,7 +95,8 @@ def get_number_of_objects_in_table(
 
 
 def wait(step: int = 1, max: int = 3, string: str = "Processing"):
-    """_summary_
+    """Helper function displaying a string and adding dots so that the
+    user knows they are waiting and the program is processing.
 
     Args:
         step (int, optional): Length of time between steps. Defaults to 1.
