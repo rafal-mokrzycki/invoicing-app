@@ -187,5 +187,14 @@ def split_whitespaces(string: str) -> str:
 #     return bank_account
 
 
-def add_country_code(bank_account: str, code: str = "PL"):
+def add_country_code(bank_account: str, code: str = "PL") -> str:
+    """Concatenates country code and bank account number.
+
+    Args:
+        bank_account (str): Bank account number
+        code (str, optional): Country code. Defaults to "PL".
+
+    Returns:
+        str: Country code and bank account number concatenated.
+    """
     return code + bank_account
