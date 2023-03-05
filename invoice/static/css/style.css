@@ -2575,6 +2575,11 @@ section {
   background-color: #CA3F00;
 }
 
+.download,
+.download:focus {
+  background-color: #f69023;
+}
+
 .edit:hover {
   background-color: #5969f3;
 }
