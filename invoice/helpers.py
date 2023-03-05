@@ -169,8 +169,16 @@ def validate_bank_account(
         raise ValueError("Wrong IBAN")
 
 
-def split_whitespaces(bank_account: str):
-    return "".join(bank_account.split())
+def split_whitespaces(string: str) -> str:
+    """Splits a string on whitespaces.
+
+    Args:
+        string (str): A string with whitespaces in it.
+
+    Returns:
+        str: String without whitespaces.
+    """
+    return "".join(string.split())
 
 
 # def add_whitespaces(bank_account: str):
