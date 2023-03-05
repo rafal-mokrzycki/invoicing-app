@@ -113,6 +113,22 @@ def wait(step: int = 1, max: int = 3, string: str = "Processing"):
 def validate_bank_account(
     bank_account: str, country_code: str = "PL", filepath: str = None
 ):
+    """Validate bank account.
+
+    Args:
+        bank_account (str): Input string to be validated.
+        country_code (str, optional): Two-letter country code.
+        Defaults to "PL".
+        filepath (str, optional): File with real Polish bank codes
+        seamed into the IBAN number. Defaults to None.
+
+    Raises:
+        ValueError: Wrong bank account number.
+        ValueError: Wrong country code.
+        ValueError: Wrong numerical part of bank account number.
+        ValueError: Wrong length of bank account number.
+        ValueError: Wrong IBAN.
+    """
     with open(os.path.join("config_files", "alphabet.json")) as json_file:
         alphabet = json.load(json_file)
 
