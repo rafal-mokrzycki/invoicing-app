@@ -9,6 +9,9 @@
     <link href="/static/img/favicon.png" rel="icon">
     <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+    <!-- Add icon library -->
+    <script src="https://kit.fontawesome.com/a2dea3e616.js" crossorigin="anonymous"></script>
+
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -127,13 +130,17 @@
                             <td class="table-cell">{{ invoice.item }}</td>
 
                             <td class="invoice-action-buttons">
+                                <button class="col-lg-12 invoice-action print">
+                                    <a href="/user/your_invoices/show/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-eye"></i> Show</a>
+                                </button>
                                 <button class="col-lg-12 invoice-action edit">
-                                    <a href="/user/your_invoices/edit/{{ invoice.id }}" target="_blank">Edit</a>
+                                    <a href="/user/your_invoices/edit/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-file-pen"></i> Edit</a>
                                 </button>
                                 <button class="col-lg-12 invoice-action print">
-                                    <a href="/user/your_invoices/show/{{ invoice.id }}" target="_blank">Show</a> </button>
+                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-file-arrow-down"></i> Download</a>
+                                </button>
                                 <button class="col-lg-12 invoice-action send">
-                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank">Send</a>
+                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-paper-plane"></i> Send</a>
                                 </button>
                             </td>
                         </tr>
