@@ -72,6 +72,7 @@
                         <input id="regular" type="text" value="{{ invoice_number_on_type['regular'] }}">
                         <input id="proforma" type="text" value="{{ invoice_number_on_type['proforma'] }}">
                         <input id="advanced_payment" type="text" value="{{ invoice_number_on_type['advanced_payment'] }}">
+
                     </div>
                     <div class="col-sm-4 expense_hidden22 ">
                         <label for="invoice_type">Invoice type</label>
@@ -210,16 +211,19 @@
                 </div>
             </form>
         </div>
+
         {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}
             {% endif %}
         </p>
+
     </section>
     <section id="contact" class="contact">
         <!-- ======= Footer ======= -->
         {% include "footer.html" %}
         <!-- End Footer -->
     </section>
+
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 

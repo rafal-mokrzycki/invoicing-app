@@ -17,6 +17,7 @@ from invoice.helpers import (
 )
 
 
+
 @pytest.fixture(scope="module", name="dictionary_left")
 def fixture_dictionary_left():
     dictionary = {

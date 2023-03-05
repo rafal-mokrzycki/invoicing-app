@@ -7,6 +7,7 @@ import os
 import time
 from sqlite3 import Connection
 
+
 import pandas as pd
 import repackage
 from IPython.display import clear_output
@@ -23,6 +24,7 @@ def append_dict(dict1: dict, dict2: dict):
     Returns:
         dict: Result dictionary.
     """
+
     result = {}
     for i in set(list(dict1.keys()) + list(dict2.keys())):
         if i not in dict1:
@@ -51,6 +53,7 @@ def get_currencies(
     Returns:
         list: List of currencies.
     """
+
 
     if columns is None:
         columns = ["Currency Code"]
@@ -104,6 +107,7 @@ def wait(step: int = 1, max: int = 3, string: str = "Processing"):
         string (str, optional): String to be displayed in each step.
         Defaults to "Processing".
     """
+
     for x in range(0, max):
         display = string + "." * (x + 1)
         print(display, end="\r")
@@ -198,3 +202,4 @@ def add_country_code(bank_account: str, code: str = "PL") -> str:
         str: Country code and bank account number concatenated.
     """
     return code + bank_account
+

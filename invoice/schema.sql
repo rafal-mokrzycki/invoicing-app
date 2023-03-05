@@ -19,6 +19,7 @@ CREATE TABLE user (
   city TEXT,
   tax_no INTEGER,
   bank_account TEXT
+
 );
 
 CREATE TABLE invoice (
