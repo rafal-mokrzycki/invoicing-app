@@ -62,7 +62,7 @@
 
     <section id="invoices" class="invoices">
         <div id="list_table" class="narrower">
-            <div class="table-responsive ">
+            <!-- <div class="table-responsive "> -->
                 <table class="table table-hover table-striped dynamic_columns">
                     <thead>
                         <tr>
@@ -118,37 +118,19 @@
                             <input type="hidden" id="mail174063933" value="">
                             <input type="hidden" id="overdue174063933" value="false">
                             <td hidden>{{ invoice.id }}</td>
-                            <td class="table-cell-search">
+                           <td class="table-cell-search">
                                 <a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="bi bi-search"></i>
                             </td>
-                            <td class="table-cell">{{ invoice.invoice_no }}</td>
+                             <td class="table-cell">{{ invoice.invoice_no }}</td>
                             <td class="table-cell">{{ invoice.sum_net }}</td>
                             <td class="table-cell">{{ invoice.sum_gross }}</td>
                             <td class="table-cell">{{ invoice.recipient_tax_no }}</td>
                             <td class="table-cell">{{ invoice.issue_date }}</td>
                             <td class="table-cell">{{ invoice.sell_date }}</td>
                             <td class="table-cell">{{ invoice.item }}</td>
-
-                            <!-- <td class="invoice-action-buttons">
-                                <button class="col-lg-12 invoice-action print">
-                                    <a href="/user/your_invoices/show/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-eye"></i></a>
-                                </button>
-                                <button class="col-lg-12 invoice-action edit">
-                                    <a href="/user/your_invoices/edit/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-file-pen"></i></a>
-                                </button>
-                            </td>
                             <td class="invoice-action-buttons">
-                                <button class="col-lg-12 invoice-action download">
-                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-file-arrow-down"></i></a>
-                                </button>
-                                <button class="col-lg-12 invoice-action send">
-                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank"><i class="fa-solid fa-paper-plane"></i></a>
-                                </button>
-                            </td> -->
-                            <td class="invoice-action-buttons">
-                                <!-- <button class="col-lg-12 invoice-action send"><i class="fa-solid fa-bars"></i></button> -->
                                 <div class="dropdown">
-                                    <button onclick="dropdownMenu()" class="dropbtn">Actions</button>
+                                    <button onclick="dropdownMenu()" class="dropbtn">Actions <i class="fa-solid fa-bars"></i></button>
                                     <div id="myDropdown" class="dropdown-content">
                                       <a href="/user/your_invoices/show/{{ invoice.id }}"><i class="fa-solid fa-eye"></i> Show</a>
                                       <a href="/user/your_invoices/edit/{{ invoice.id }}"><i class="fa-solid fa-file-pen"></i> Edit</a>
@@ -161,7 +143,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div> <!-- table-responsive -->
+            <!-- </div> -->
             <br>
             <br>
 

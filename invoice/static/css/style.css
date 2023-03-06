@@ -2522,11 +2522,11 @@ section {
   font-weight: 500;
   color: #000;
   padding-left: 10px;
-  padding-top: 3.5%;
+  padding-top: 8px;
 }
 
 .invoices .table-cell-search {
-  padding-top: 3.5%;
+  padding-top: 8px;
 
 }
 
@@ -2582,15 +2582,14 @@ section {
 /* Dropdown button */
 .dropbtn {
   background: #4d5ef2;
-  padding: 8px 20px;
-  margin-left: 10px;
-  margin-right: 10px;
+  /* padding: 8px 20px; */
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
   border-radius: 4px;
   color: #fff;
   text-align: center;
   border-color: transparent;
   display: block;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: "Nunito", sans-serif;
@@ -2616,7 +2615,8 @@ section {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
-  position: absolute;
+  z-index:-1;
+  position:relative;
   background-color: #f9f9f9;
   min-width: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
