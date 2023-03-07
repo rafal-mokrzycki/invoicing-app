@@ -2522,11 +2522,11 @@ section {
   font-weight: 500;
   color: #000;
   padding-left: 10px;
-  padding-top: 3.5%;
+  padding-top: 8px;
 }
 
 .invoices .table-cell-search {
-  padding-top: 3.5%;
+  padding-top: 8px;
 
 }
 
@@ -2559,7 +2559,19 @@ section {
   color: #fff;
   /* margin: -10px 20px 10px 20px */
 }
-
+.action-button-squared,
+.action-button-squared a {
+  padding: 0px;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  border-color: transparent;
+  margin: 0 auto;
+  display: inline;
+  transition: 0.3s;
+}
 .edit,
 .edit:focus {
   background-color: #4d5ef2;
@@ -2575,6 +2587,11 @@ section {
   background-color: #CA3F00;
 }
 
+.download,
+.download:focus {
+  background-color: #f69023;
+}
+
 .edit:hover {
   background-color: #5969f3;
 }
@@ -2585,8 +2602,71 @@ section {
 
 .send:hover {
   background-color: #db4601;
+}
+
+.download:hover {
+  background-color: #ffa546;
+}
+
+/* Dropdown button */
+.dropbtn {
+  background: #4d5ef2;
+  /* padding: 8px 20px; */
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  border-color: transparent;
+  display: block;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus  {
+  background: #008E67;
+  transition: 0.3s;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
 
 }
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  z-index:-1;
+  position:relative;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+
+
 
 
 
