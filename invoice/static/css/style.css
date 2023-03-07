@@ -2559,7 +2559,19 @@ section {
   color: #fff;
   /* margin: -10px 20px 10px 20px */
 }
-
+.action-button-squared,
+.action-button-squared a {
+  padding: 0px;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  border-color: transparent;
+  margin: 0 auto;
+  display: inline;
+  transition: 0.3s;
+}
 .edit,
 .edit:focus {
   background-color: #4d5ef2;
@@ -2579,6 +2591,23 @@ section {
 .download:focus {
   background-color: #f69023;
 }
+
+.edit:hover {
+  background-color: #5969f3;
+}
+
+.print:hover {
+  background-color: #00a176;
+}
+
+.send:hover {
+  background-color: #db4601;
+}
+
+.download:hover {
+  background-color: #ffa546;
+}
+
 /* Dropdown button */
 .dropbtn {
   background: #4d5ef2;
@@ -2637,18 +2666,7 @@ section {
 .show {display:block;}
 
 
-.edit:hover {
-  background-color: #5969f3;
-}
 
-.print:hover {
-  background-color: #00a176;
-}
-
-.send:hover {
-  background-color: #db4601;
-
-}
 
 
 

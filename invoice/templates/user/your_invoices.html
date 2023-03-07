@@ -102,9 +102,11 @@
                                 <a href="#" class="table-header"
                                     onclick="$('#order').val('product_cache'); ; $('#form1').submit(); return false;">Product</a>
                             </th>
+                            <!-- <th>
+                                <a class="table-header"></a>
+                            </th> -->
                             <th>
-                                <a class="table-header">
-                                    </a>
+                                <a class="table-header">Actions</a>
                             </th>
                             <!-- <th></th> -->
                         </tr>
@@ -128,17 +130,24 @@
                             <td class="table-cell">{{ invoice.issue_date }}</td>
                             <td class="table-cell">{{ invoice.sell_date }}</td>
                             <td class="table-cell">{{ invoice.item }}</td>
-                            <td class="invoice-action-buttons">
+                            <!-- <td class="invoice-action-buttons">
                                 <div class="dropdown">
                                     <button onclick="dropdownMenu()" class="dropbtn">Actions <i class="fa-solid fa-bars"></i></button>
                                     <div id="myDropdown" class="dropdown-content">
-                                      <a href="/user/your_invoices/show/{{ invoice.id }}"><i class="fa-solid fa-eye"></i> Show</a>
+                                      <a href="/user/your_invoices/show/{{ invoice.id }}"><i class="fa-solid fa-eye" ></i> Show</a>
                                       <a href="/user/your_invoices/edit/{{ invoice.id }}"><i class="fa-solid fa-file-pen"></i> Edit</a>
                                       <a href="/user/your_invoices/send_email/{{ invoice.id }}"><i class="fa-solid fa-file-arrow-down"></i> Download</a>
                                       <a href="/user/your_invoices/send_email/{{ invoice.id }}"><i class="fa-solid fa-paper-plane"></i> Send</a>
                                     </div>
                                   </div>
+                            </td> -->
+                            <td>
+                                <button class="action-button-squared print"><a href="{{ show_pdf }}" target="_blank" class="fa-solid fa-eye"></a></button>
+                                <button class="action-button-squared edit"><a href="{{ edit_invoice }}" target="_blank" class="fa-solid fa-file-pen" ></a></button>
+                                <button class="action-button-squared send"><a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="fa-solid fa-paper-plane" ></a></button>
+                                <button class="action-button-squared download"><a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="fa-solid fa-arrow-down" ></a></button>
                             </td>
+
                         </tr>
                         {% endfor %}
                     </tbody>
