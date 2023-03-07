@@ -120,10 +120,10 @@
                             <input type="hidden" id="mail174063933" value="">
                             <input type="hidden" id="overdue174063933" value="false">
                             <td hidden>{{ invoice.id }}</td>
-                           <td class="table-cell-search">
+                            <td class="table-cell-search">
                                 <a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="bi bi-search"></i>
                             </td>
-                             <td class="table-cell">{{ invoice.invoice_no }}</td>
+                            <td class="table-cell">{{ invoice.invoice_no }}</td>
                             <td class="table-cell">{{ invoice.sum_net }}</td>
                             <td class="table-cell">{{ invoice.sum_gross }}</td>
                             <td class="table-cell">{{ invoice.recipient_tax_no }}</td>
@@ -141,13 +141,19 @@
                                     </div>
                                   </div>
                             </td> -->
-                            <td>
-                                <button class="action-button-squared print"><a href="{{ show_pdf }}" target="_blank" class="fa-solid fa-eye"></a></button>
-                                <button class="action-button-squared edit"><a href="{{ edit_invoice }}" target="_blank" class="fa-solid fa-file-pen" ></a></button>
-                                <button class="action-button-squared send"><a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="fa-solid fa-paper-plane" ></a></button>
-                                <button class="action-button-squared download"><a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="fa-solid fa-arrow-down" ></a></button>
-                            </td>
-
+                            <td class="invoice-action-buttons">
+                                <button class="action-button-squared print">
+                                    <a href="/user/your_invoices/show/{{ invoice.id }}" target="_blank" class="fa-solid fa-eye"></a>
+                                </button>
+                                <button class="action-button-squared edit">
+                                    <a href="/user/your_invoices/edit/{{ invoice.id }}" target="_blank" class="fa-solid fa-file-pen"></a>
+                                </button>
+                                <button class="action-button-squared send">
+                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank" class="fa-solid fa-paper-plane"></a>
+                                </button>
+                                <button class="action-button-squared download">
+                                    <a href="/user/your_invoices/download/{{ invoice.id }}" target="_blank" class="fa-solid fa-arrow-down"></a>
+                                </button>
                         </tr>
                         {% endfor %}
                     </tbody>
