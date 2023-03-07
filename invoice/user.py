@@ -194,45 +194,115 @@ def edit_invoice(id):
     return render_template("user/edit_invoice.html", invoice=invoice)
 
 
-@bp.route(
-    "/user/your_invoices/show/<int:id>",
-    methods=["GET", "POST"],
-)
+@bp.route("/user/your_invoices/show/<int:id>", methods=["GET", "POST"])
 @login_required
-def show_pdf(id, download=False):
-    path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
-    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+def show_invoice(id):
+    """Method enables edition of existing invoices"""
     db = get_db()
     invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
-    rendered = render_template(
-        "user/pdf_template.html",
-        amount=invoice["amount"],
-        invoice_no=invoice["invoice_no"],
-        invoice_type=invoice["invoice_type"].upper(),
-        issue_city=invoice["issue_city"],
-        issue_date=invoice["issue_date"],
-        issuer_tax_no=invoice["issuer_tax_no"],
-        item=invoice["item"],
-        price_net=format_number(invoice["price_net"]),
-        recipient_tax_no=invoice["recipient_tax_no"],
-        sell_date=invoice["sell_date"],
-        sum_gross=format_number(invoice["sum_gross"]),
-        sum_net=format_number(invoice["sum_net"]),
-        tax_string=format_percentages(invoice["tax_rate"]),
-        unit=invoice["unit"],
-    )
-    pdf = pdfkit.from_string(rendered, False, configuration=config)
-    response = make_response(pdf)
-    response.headers["Content-Type"] = "application/pdf"
-    if download:
-        response.headers[
-            "Content-Disposition"
-        ] = f"attachment; filename=Invoice_no_{invoice['invoice_no']}.pdf"
-    else:
-        response.headers[
-            "Content-Disposition"
-        ] = f"inline; filename=Invoice_no_{invoice['invoice_no']}.pdf"
-    return response
+    if request.method == "POST":
+        # invoice.id = invoice.id
+        invoice_type = request.form.get("invoice_type")
+        invoice_no = request.form.get("invoice_no")
+        issue_date = request.form.get("issue_date")
+        issue_city = request.form.get("issue_city")
+        sell_date = datetime.datetime.strptime(
+            request.form.get("sell_date"), "%Y-%m-%d"
+        ).date()
+        issuer_tax_no = request.form.get("issuer_tax_no")
+        recipient_tax_no = request.form.get("recipient_tax_no")
+        item = request.form.get("item")
+        amount = request.form.get("amount")
+        unit = request.form.get("unit")
+        price_net = request.form.get("price_net")
+        tax_rate = request.form.get("tax_rate")
+        sum_net = request.form.get("sum_net")
+        sum_gross = request.form.get("sum_gross")
+        error = None
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                """
+            UPDATE invoice
+            SET invoice_type=?,
+            invoice_no=?,
+            issue_date=?,
+            issue_city=?,
+            sell_date=?,
+            issuer_tax_no=?,
+            recipient_tax_no=?,
+            item=?,
+            amount=?,
+            unit=?,
+            price_net=?,
+            tax_rate=?,
+            sum_net=?,
+            sum_gross=?
+            WHERE id = ?""",
+                (
+                    invoice_type,
+                    invoice_no,
+                    issue_date,
+                    issue_city,
+                    sell_date,
+                    issuer_tax_no,
+                    recipient_tax_no,
+                    item,
+                    amount,
+                    unit,
+                    price_net,
+                    tax_rate,
+                    sum_net,
+                    sum_gross,
+                    id,
+                ),
+            )
+            db.commit()
+        return render_template("user/user.html")
+    return render_template("user/show_invoice.html", invoice=invoice)
+
+
+# @bp.route(
+#     "/user/your_invoices/show/<int:id>",
+#     methods=["GET", "POST"],
+# )
+# @login_required
+# def show_pdf(id, download=False):
+#     path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+#     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+#     db = get_db()
+#     invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
+#     rendered = render_template(
+#         "user/pdf_template.html",
+#         amount=invoice["amount"],
+#         invoice_no=invoice["invoice_no"],
+#         invoice_type=invoice["invoice_type"].upper(),
+#         issue_city=invoice["issue_city"],
+#         issue_date=invoice["issue_date"],
+#         issuer_tax_no=invoice["issuer_tax_no"],
+#         item=invoice["item"],
+#         price_net=format_number(invoice["price_net"]),
+#         recipient_tax_no=invoice["recipient_tax_no"],
+#         sell_date=invoice["sell_date"],
+#         sum_gross=format_number(invoice["sum_gross"]),
+#         sum_net=format_number(invoice["sum_net"]),
+#         tax_string=format_percentages(invoice["tax_rate"]),
+#         unit=invoice["unit"],
+#     )
+#     pdf = pdfkit.from_string(rendered, False, configuration=config)
+#     response = make_response(pdf)
+#     response.headers["Content-Type"] = "application/pdf"
+#     if download:
+#         response.headers[
+#             "Content-Disposition"
+#         ] = f"attachment; filename=Invoice_no_{invoice['invoice_no']}.pdf"
+#     else:
+#         response.headers[
+#             "Content-Disposition"
+#         ] = f"inline; filename=Invoice_no_{invoice['invoice_no']}.pdf"
+#     return response
 
 
 @bp.route(

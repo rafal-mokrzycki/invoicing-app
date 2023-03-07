@@ -2608,6 +2608,41 @@ section {
   background-color: #ffa546;
 }
 
+.button-edit ,
+.button-save,
+.button-cancel {
+
+  padding: 8px 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border-color: transparent;
+  font-size: 16px;
+  transition: 0.3s;
+  color: #fff;
+  font-weight: 700;
+}
+.button-edit {
+  background: #4d5ef2;
+}
+.button-save {
+  background: #008E67;
+}
+.button-cancel {
+  background: #FF0000;
+}
+
+.button-edit:hover {
+  background: #5969f3;
+}
+.button-save:hover {
+  background: #00a176;
+}
+.button-cancel:hover {
+  background: rgb(255, 65, 65);
+}
+
+
 /* Dropdown button */
 .dropbtn {
   background: #4d5ef2;
