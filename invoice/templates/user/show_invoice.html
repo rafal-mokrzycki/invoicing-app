@@ -134,32 +134,17 @@
                         </div>
                         <div class="col-sm-1 row3"><input id="unit" name="unit" value="{{ invoice.unit }}" readonly></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0 value="{{ invoice.price_net }}" readonly></div>
+                                min=0 value="{{ '{:.2f}'.format(invoice.price_net) }}" readonly></div>
                         <div class="col-sm-1 more row_tax"><input id="tax_rate" name="tax_rate"
-                                value="{{ invoice.tax_rate }}" readonly>
+                                value="{{ '{:.0f}'.format(invoice.tax_rate * 100) + '%' }}" readonly>
                             </div>
                         <div class="col-sm-2 row1"><input type="number" name="sum_net" id="sum_net"
-                                value="{{ sum_net }}" readonly></div>
+                                value="{{ '{:.2f}'.format(invoice.sum_net) }}" readonly></div>
                         <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross"
-                                value="{{ sum_gross }}" readonly></div>
-                        <div class="col-sm-1 row1"><a class="btn btn-delete-item" onclick="deletePosition()" hidden><i
-                                    class="bi bi-x"></i></a>
-                        </div>
+                                value="{{ '{:.2f}'.format(invoice.sum_gross) }}" readonly></div>
                     </div>
                 </div>
-                <!-- issue button -->
-                <!-- <div class="add_buttons">
-                    <a id="add_next_item" href="#" onclick="addNextFn()" accesskey="M" title="New item"
-                        class="button-add-next-item btn success">
-                        <i class="bi bi-plus-circle-dotted"></i><span>New item</span>
-                    </a>
-                </div> -->
-                <!-- <div class="action-box col-lg-4">
-                    <input class="btn btn-default" type="submit" value="Save"> or <a
-                        href="{{ url_for('user.your_invoices') }}">Cancel</a>
-                </div> -->
                 <div class="empty-div"></div>
-
                 <div class="action-box col-lg-12">
                     <a href="{{ url_for('user.your_invoices') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
                     <a href="/user/your_invoices/edit/{{ invoice.id }}"><button class="button-edit" type="button" value="Edit">Edit</button></a>

@@ -197,7 +197,7 @@ def edit_invoice(id):
 @bp.route("/user/your_invoices/show/<int:id>", methods=["GET", "POST"])
 @login_required
 def show_invoice(id):
-    """Method enables edition of existing invoices"""
+    """Method enables showing existing invoices"""
     db = get_db()
     invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
     if request.method == "POST":
