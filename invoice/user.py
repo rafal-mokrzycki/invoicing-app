@@ -264,45 +264,45 @@ def show_invoice(id):
     return render_template("user/show_invoice.html", invoice=invoice)
 
 
-# @bp.route(
-#     "/user/your_invoices/show/<int:id>",
-#     methods=["GET", "POST"],
-# )
-# @login_required
-# def show_pdf(id, download=False):
-#     path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
-#     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-#     db = get_db()
-#     invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
-#     rendered = render_template(
-#         "user/pdf_template.html",
-#         amount=invoice["amount"],
-#         invoice_no=invoice["invoice_no"],
-#         invoice_type=invoice["invoice_type"].upper(),
-#         issue_city=invoice["issue_city"],
-#         issue_date=invoice["issue_date"],
-#         issuer_tax_no=invoice["issuer_tax_no"],
-#         item=invoice["item"],
-#         price_net=format_number(invoice["price_net"]),
-#         recipient_tax_no=invoice["recipient_tax_no"],
-#         sell_date=invoice["sell_date"],
-#         sum_gross=format_number(invoice["sum_gross"]),
-#         sum_net=format_number(invoice["sum_net"]),
-#         tax_string=format_percentages(invoice["tax_rate"]),
-#         unit=invoice["unit"],
-#     )
-#     pdf = pdfkit.from_string(rendered, False, configuration=config)
-#     response = make_response(pdf)
-#     response.headers["Content-Type"] = "application/pdf"
-#     if download:
-#         response.headers[
-#             "Content-Disposition"
-#         ] = f"attachment; filename=Invoice_no_{invoice['invoice_no']}.pdf"
-#     else:
-#         response.headers[
-#             "Content-Disposition"
-#         ] = f"inline; filename=Invoice_no_{invoice['invoice_no']}.pdf"
-#     return response
+@bp.route(
+    "/user/your_invoices/show/<int:id>",
+    methods=["GET", "POST"],
+)
+@login_required
+def show_pdf(id, download=False):
+    path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    db = get_db()
+    invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
+    rendered = render_template(
+        "user/pdf_template.html",
+        amount=invoice["amount"],
+        invoice_no=invoice["invoice_no"],
+        invoice_type=invoice["invoice_type"].upper(),
+        issue_city=invoice["issue_city"],
+        issue_date=invoice["issue_date"],
+        issuer_tax_no=invoice["issuer_tax_no"],
+        item=invoice["item"],
+        price_net=format_number(invoice["price_net"]),
+        recipient_tax_no=invoice["recipient_tax_no"],
+        sell_date=invoice["sell_date"],
+        sum_gross=format_number(invoice["sum_gross"]),
+        sum_net=format_number(invoice["sum_net"]),
+        tax_string=format_percentages(invoice["tax_rate"]),
+        unit=invoice["unit"],
+    )
+    pdf = pdfkit.from_string(rendered, False, configuration=config)
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    if download:
+        response.headers[
+            "Content-Disposition"
+        ] = f"attachment; filename=Invoice_no_{invoice['invoice_no']}.pdf"
+    else:
+        response.headers[
+            "Content-Disposition"
+        ] = f"inline; filename=Invoice_no_{invoice['invoice_no']}.pdf"
+    return response
 
 
 @bp.route(

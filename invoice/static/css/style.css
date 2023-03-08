@@ -2612,6 +2612,10 @@ section {
   text-align: center;
 }
 
+.action-box-left {
+text-align: left
+}
+
 .button-edit ,
 .button-save,
 .button-cancel {
