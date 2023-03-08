@@ -66,126 +66,88 @@
             <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
             <form class="invoice-form" action="/user/your_invoices/edit/{{ invoice.id }}" method="post">
                 <div class="row">
-                    <div class="col-sm-4 expense_hidden22 ">
+                    <div class="col-sm-4 expense_hidden22">
                         <label for="invoice_type">Invoice type</label>
-                        <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
-                            type="text"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
-                            <option value="regular" selected>Regular</option>
-                            <option value="proforma">Proforma</option>
-                            <option value="advanced_payment">Advanced payment</option>
-                        </select>
+                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value="{{ invoice.invoice_type }}" readonly>
                     </div>
-                    <div class="col-sm-2 expense_hidden22 ">
+                    <div class="col-sm-2 expense_hidden22">
                         <label for="invoice_no">Invoice number</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ invoice.invoice_no }}" name="invoice_no" id="invoice_no"
-                            placeholder="YYYY/MM/number"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                            value="{{ invoice.invoice_no }}" readonly>
                     </div>
-                    <div class="col-sm-2 expense_hidden22 ">
+                    <div class="col-sm-2 expense_hidden22">
                         <label for="issue_date">Issue date</label>
-                        <input class="form-control-plaintext  datepicker f3 hasDatepicker" type="date"
+                        <input class="form-control  datepicker f3 hasDatepicker" type="date"
                             value="{{ invoice.issue_date }}" name="issue_date" id="issue_date" readonly>
                     </div>
-                    <div class="col-sm-2 expense_hidden22 ">
+                    <div class="col-sm-2 expense_hidden22">
                         <label for="issue_city">City of issue</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ invoice.issue_city }}" name="issue_city" id="issue_city"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                            value="{{ invoice.issue_city }}" name="issue_city" id="issue_city" readonly>
                     </div>
-                    <div class="col-sm-2 expense_hidden22 ">
+                    <div class="col-sm-2 expense_hidden22">
                         <label for="sell_date">Sell date</label>
                         <input class="form-control  datepicker f3 hasDatepicker" type="date"
-                            value="{{ invoice.sell_date }}" name="sell_date" id="sell_date"
-                            onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                            value="{{ invoice.sell_date }}" name="sell_date" id="sell_date" readonly>
                     </div>
                 </div>
 
                 <div class="row">
 
                     <!-- issuer -->
-                    <div class="col-sm-6 expense_hidden22 ">
+                    <div class="col-sm-6 expense_hidden22">
                         <label for="issuer">Issuer</label>
                         <p><input class="issuer_tax_no" name="issuer_tax_no" type="text" placeholder="XX9999999999"
                                 value="{{ invoice.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                 readonly>
                         </p>
 
                     </div>
 
                     <!-- recipient -->
-                    <div class="col-sm-6 expense_hidden22 ">
+                    <div class="col-sm-6 expense_hidden22">
                         <label for="recipient">Recipient</label>
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ invoice.recipient_tax_no }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"> </p>
+                                value="{{ invoice.recipient_tax_no }}" readonly> </p>
                     </div>
                 </div>
 
                 <!-- invoice item - texts -->
                 <div class="row invoice-items-texts" id="invoice-items-texts">
-                    <div class="feature-box col-lg-3 ">Invoice item</div>
-                    <div class="col-sm-1 row3 ">Amount</div>
+                    <div class="feature-box col-lg-3">Invoice item</div>
+                    <div class="col-sm-1 row3">Amount</div>
                     <div class="col-sm-1 row3">Unit</div>
                     <div class="col-sm-1 more_discount2 row1">Net price</div>
-                    <div class="col-sm-1 more row_tax ">VAT %</div>
-                    <div class="col-sm-2 row1 ">Net sum</div>
+                    <div class="col-sm-1 more row_tax">VAT %</div>
+                    <div class="col-sm-2 row1">Net sum</div>
                     <div class="col-sm-2 row1">Gross sum</div>
                 </div>
 
                 <!-- invoice item - values -->
                 <div class=" invoice-items-values" id="invoice-items-values">
                     <div class="row invoice-item-1" id="invoice-item-1">
-                        <div class="feature-box col-lg-3 "><input type="text" name="item" id="item"
-                                value="{{ invoice.item }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                        <div class="feature-box col-lg-3"><input type="text" name="item" id="item"
+                                value="{{ invoice.item }}" readonly>
                         </div>
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min="0"
-                                value="{{ invoice.amount }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                        <div class="col-sm-1 row3"><input type="number" name="amount" id="amount" min="0"
+                                value="{{ invoice.amount }}" readonly>
                         </div>
-                        <div class="col-sm-1 row3"><select id="unit" name="unit" value="{{ invoice.unit }}">
-                                <option value="item" selected>item</option>
-                                <option value="h">h</option>
-                                <option value="days">days</option>
-                                <option value="months">months</option>
-                                <option value="km">km</option>
-                                <option value="m2">m2</option>
-                                <option value="kg">kg</option>
-                            </select></div>
+                        <div class="col-sm-1 row3"><input id="unit" name="unit" value="{{ invoice.unit }}" readonly></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min="0"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{ invoice.price_net }}"></div>
-                        <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
-                                value="{{ invoice.tax_rate }}">
-                                <option value="0.0">exempt</option>
-                                <option value="0.0">0%</option>
-                                <option value="0.05">5%</option>
-                                <option value="0.08">8%</option>
-                                <option value="0.23" selected>23%</option>
-                            </select></div>
-                        <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net"
-                                value="{{ sum_net }}" readonly></div>
+                                min="0" value="{{ '{:.2f}'.format(invoice.price_net) }}" readonly></div>
+                        <div class="col-sm-1 more row_tax"><input id="tax_rate" name="tax_rate"
+                                value="{{ '{:.0f}'.format(invoice.tax_rate * 100) + '%' }}" readonly>
+                            </div>
+                        <div class="col-sm-2 row1"><input type="number" name="sum_net" id="sum_net"
+                                value="{{ '{:.2f}'.format(invoice.sum_net) }}" readonly></div>
                         <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross"
-                                value="{{ sum_gross }}" readonly></div>
-                        <div class="col-sm-1 row1"><a class="btn btn-delete-item" onclick="deletePosition()"><i
-                                    class="bi bi-x"></i></a>
-                        </div>
+                                value="{{ '{:.2f}'.format(invoice.sum_gross) }}" readonly></div>
                     </div>
                 </div>
-                <!-- issue buton -->
-                <div class="add_buttons ">
-                    <a id="add_next_item" href="#" onclick="addNextFn()" accesskey="M" title="New item"
-                        class="button-add-next-item btn success">
-                        <i class="bi bi-plus-circle-dotted"></i><span>New item</span>
-                    </a>
-                </div>
-                <div class="issue-box col-lg-12 ">
-                    <input class="btn btn-default" type="submit" value="Save"> or <a
-                        href="{{ url_for('user.your_invoices') }}">Cancel</a>
+                <div class="empty-div"></div>
+                <div class="action-box col-lg-12">
+                    <a href="{{ url_for('user.your_invoices') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
+                    <a href="/user/your_invoices/edit/{{ invoice.id }}"><button class="button-edit" type="button" value="Edit">Edit</button></a>
                 </div>
             </form>
         </div>
