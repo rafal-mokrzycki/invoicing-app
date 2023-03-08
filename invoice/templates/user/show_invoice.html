@@ -159,8 +159,8 @@
                         href="{{ url_for('user.your_invoices') }}">Cancel</a>
                 </div> -->
                 <div class="action-box col-lg-12">
-                     <button class="button-edit" type="submit" value="Back">Back</button>
-                     <button class="button-edit" type="submit" value="Edit">Edit</button>
+                    <a href="{{ url_for('user.your_invoices') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
+                    <a href="/user/your_invoices/edit/{{ invoice.id }}"><button class="button-edit" type="button" value="Edit">Edit</button></a>
                 </div>
             </form>
         </div>

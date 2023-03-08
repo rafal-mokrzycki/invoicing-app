@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
                         <label for="issue_date">Issue date</label>
-                        <input class="form-control-plaintext  datepicker f3 hasDatepicker" type="date"
+                        <input class="form-control  datepicker f3 hasDatepicker unchangable" type="date"
                             value="{{ invoice.issue_date }}" name="issue_date" id="issue_date" readonly>
                     </div>
                     <div class="col-sm-2 expense_hidden22 ">
@@ -187,10 +187,10 @@
                     <input class="btn btn-default" type="submit" value="Save"> or <a
                         href="{{ url_for('user.your_invoices') }}">Cancel</a>
                 </div> -->
-                <div>
-                    <div> <button class="button-save col-lg-1" type="submit" value="Save">Save</button></div>
-                    <div > <button class="button-cancel col-lg-1" type="submit" value="Cancel">Cancel</button><a
-                        href="{{ url_for('user.your_invoices') }}"></a></div>
+                <div class="action-box col-lg-12">
+                    <a href="{{ url_for('user.your_invoices') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
+                    <button class="button-save" type="submit" value="Save">Save</button>
+                    <a href="{{ url_for('user.your_invoices') }}"><button class="button-cancel" type="reset" value="Cancel">Cancel</button></a>
                 </div>
             </form>
         </div>
