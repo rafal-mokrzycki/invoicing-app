@@ -74,10 +74,12 @@
                 <!--  -->
                 <div class="feature-box col-lg-5 ">
                 </div>
+                <div class="empty-div"></div>
 
-
-                <div class="feature-box col-lg-6 ">
-                    <input class="btn btn-default" type="submit" value="Save">
+                <div class="action-box col-lg-12">
+                    <a href="{{ url_for('user.user') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
+                    <button class="button-save" type="submit" value="Save">Save</button>
+                    <a href="{{ url_for('user.user') }}"><button class="button-cancel" type="reset" value="Cancel">Cancel</button></a>
                 </div>
             </div>
         </form>

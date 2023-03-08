@@ -71,13 +71,12 @@
                     <label for="city">City:</label>
                     <input type="text" name="city" value="{{ user.city }}" readonly>
                 </div>
-                <!--  -->
                 <div class="feature-box col-lg-5 ">
                 </div>
-
-
-                <div class="feature-box col-lg-6 ">
-                    <input class="btn btn-default" type="submit" value="Edit data">
+                <div class="empty-div"></div>
+                <div class="action-box col-lg-12">
+                    <a href="{{ url_for('user.user') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
+                    <a href="/user/user_data_edit"><button class="button-edit" type="button" value="Edit">Edit</button></a>
                 </div>
 
             </div>
