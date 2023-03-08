@@ -415,7 +415,7 @@ def user_data_edit():
                 ),
             )
             db.commit()
-        return redirect(url_for("user.user_data"))
+        return redirect(url_for("user.user"))
     return render_template("user/user_data_edit.html", user=user, is_edit=True)
 
 
