@@ -194,6 +194,76 @@ def edit_invoice(id):
     return render_template("user/edit_invoice.html", invoice=invoice)
 
 
+@bp.route("/user/your_invoices/show/<int:id>", methods=["GET", "POST"])
+@login_required
+def show_invoice(id):
+    """Method enables showing existing invoices"""
+    db = get_db()
+    invoice = db.execute(f"SELECT * FROM invoice WHERE id = {id}").fetchone()
+    if request.method == "POST":
+        # invoice.id = invoice.id
+        invoice_type = request.form.get("invoice_type")
+        invoice_no = request.form.get("invoice_no")
+        issue_date = request.form.get("issue_date")
+        issue_city = request.form.get("issue_city")
+        sell_date = datetime.datetime.strptime(
+            request.form.get("sell_date"), "%Y-%m-%d"
+        ).date()
+        issuer_tax_no = request.form.get("issuer_tax_no")
+        recipient_tax_no = request.form.get("recipient_tax_no")
+        item = request.form.get("item")
+        amount = request.form.get("amount")
+        unit = request.form.get("unit")
+        price_net = request.form.get("price_net")
+        tax_rate = request.form.get("tax_rate")
+        sum_net = request.form.get("sum_net")
+        sum_gross = request.form.get("sum_gross")
+        error = None
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                """
+            UPDATE invoice
+            SET invoice_type=?,
+            invoice_no=?,
+            issue_date=?,
+            issue_city=?,
+            sell_date=?,
+            issuer_tax_no=?,
+            recipient_tax_no=?,
+            item=?,
+            amount=?,
+            unit=?,
+            price_net=?,
+            tax_rate=?,
+            sum_net=?,
+            sum_gross=?
+            WHERE id = ?""",
+                (
+                    invoice_type,
+                    invoice_no,
+                    issue_date,
+                    issue_city,
+                    sell_date,
+                    issuer_tax_no,
+                    recipient_tax_no,
+                    item,
+                    amount,
+                    unit,
+                    price_net,
+                    tax_rate,
+                    sum_net,
+                    sum_gross,
+                    id,
+                ),
+            )
+            db.commit()
+        return render_template("user/user.html")
+    return render_template("user/show_invoice.html", invoice=invoice)
+
+
 @bp.route(
     "/user/your_invoices/show/<int:id>",
     methods=["GET", "POST"],
@@ -345,7 +415,7 @@ def user_data_edit():
                 ),
             )
             db.commit()
-        return redirect(url_for("user.user_data"))
+        return redirect(url_for("user.user"))
     return render_template("user/user_data_edit.html", user=user, is_edit=True)
 
 
