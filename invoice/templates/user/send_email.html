@@ -1,9 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+
 {% extends "base.html" %}
 {% block content %}
 <!-- Add icon library -->
 <script src="https://kit.fontawesome.com/a2dea3e616.js" crossorigin="anonymous"></script>
 
-
+<body>
 <!-- ======= Pricing Section ======= -->
 <section id="send-email" class="send-emails d-flex align-items-center">
 
@@ -37,7 +41,7 @@ Attached I am sending the invoice no. {{invoice.invoice_no}}.
 --
 {{user.name}} {{user.surname}}
 from FlexStart team
-</textarea><a href="{{ url_for('user.show_pdf', id=invoice.id) }}" target=”_blank”><i class="fa-solid fa-paperclip"></i> Check the attachment</a>
+</textarea><a href="{{ url_for('user.show_pdf', id=invoice.id) }}" target="blank"><i class="fa-solid fa-paperclip"></i> Check the attachment</a>
                 </div>
 
                 <div class="action-box-left col-lg-12 ">

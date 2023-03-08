@@ -427,7 +427,8 @@ def send_invoice_as_attachment(id):
     user = db.execute(
         f"SELECT * FROM user WHERE id = {g.user['id']}"
     ).fetchone()
-    recipient = "recipient@fake.com"  # Contractor.query.filter(invoice.recipient_id == Contractor.id).first()
+    recipient = "recipient@fake.com"
+    # Contractor.query.filter(invoice.recipient_id == Contractor.id).first()
     if request.method == "POST":
         send_email(
             id=invoice["id"],
@@ -436,7 +437,8 @@ def send_invoice_as_attachment(id):
             receiver_address=request.form.get("recipient_email"),
             subject=request.form.get("subject"),
             body=request.form.get("email_body"),
-            filename=f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/Invoice_no_{invoice['invoice_no']}.pdf",
+            filename=f"{credentials['PATH_TO_DOWNLOAD_FOLDER']}/\
+                Invoice_no_{invoice['invoice_no']}.pdf",
         )
         return render_template("user/your_invoices.html")
     return render_template(

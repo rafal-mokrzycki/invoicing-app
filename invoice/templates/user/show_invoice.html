@@ -108,7 +108,7 @@
                     <div class="col-sm-6 expense_hidden22">
                         <label for="recipient">Recipient</label>
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ invoice.recipient_tax_no }}" readonly>
+                                value="{{ invoice.recipient_tax_no }}" readonly> </p>
                     </div>
                 </div>
 
@@ -129,12 +129,12 @@
                         <div class="feature-box col-lg-3"><input type="text" name="item" id="item"
                                 value="{{ invoice.item }}" readonly>
                         </div>
-                        <div class="col-sm-1 row3"><input type="number" name="amount" id="amount" min=0
+                        <div class="col-sm-1 row3"><input type="number" name="amount" id="amount" min="0"
                                 value="{{ invoice.amount }}" readonly>
                         </div>
                         <div class="col-sm-1 row3"><input id="unit" name="unit" value="{{ invoice.unit }}" readonly></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0 value="{{ '{:.2f}'.format(invoice.price_net) }}" readonly></div>
+                                min="0" value="{{ '{:.2f}'.format(invoice.price_net) }}" readonly></div>
                         <div class="col-sm-1 more row_tax"><input id="tax_rate" name="tax_rate"
                                 value="{{ '{:.0f}'.format(invoice.tax_rate * 100) + '%' }}" readonly>
                             </div>

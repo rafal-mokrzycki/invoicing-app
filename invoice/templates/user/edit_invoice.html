@@ -119,7 +119,7 @@
                         <label for="recipient">Recipient</label>
                         <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
                                 value="{{ invoice.recipient_tax_no }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
+                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"> </p>
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@
                                 value="{{ invoice.item }}"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
                         </div>
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0
+                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min="0"
                                 value="{{ invoice.amount }}"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)">
                         </div>
@@ -155,7 +155,7 @@
                                 <option value="kg">kg</option>
                             </select></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0
+                                min="0"
                                 onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate)"
                                 value="{{ invoice.price_net }}"></div>
                         <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate"
