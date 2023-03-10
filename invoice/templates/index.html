@@ -188,7 +188,7 @@
               <li class="na">Income interactive plots</li>
               <li class="na">Support 24/7</li>
             </ul>
-            <a href="#" class="btn-buy">Buy Now</a>
+            <a href="{{ url_for('auth.checkout', plan='free') }}" class="btn-buy">Buy Now</a>
           </div>
         </div>
 
@@ -204,7 +204,7 @@
               <li>Income interactive plots</li>
               <li class="na">Support 24/7</li>
             </ul>
-            <a href="#" class="btn-buy">Buy Now</a>
+            <a href="{{ url_for('auth.checkout', plan='starter') }}" class="btn-buy">Buy Now</a>
           </div>
         </div>
 
@@ -219,7 +219,7 @@
               <li>Income interactive plots</li>
               <li>Support 24/7</li>
             </ul>
-            <a href="#" class="btn-buy">Buy Now</a>
+            <a href="{{ url_for('auth.checkout', plan='business') }}" class="btn-buy">Buy Now</a>
           </div>
         </div>
 
@@ -234,7 +234,7 @@
               <li>Income interactive plots</li>
               <li>Golden track support</li>
             </ul>
-            <a href="#" class="btn-buy">Buy Now</a>
+            <a href="{{ url_for('auth.checkout', plan='ultimate') }}" class="btn-buy">Buy Now</a>
           </div>
         </div>
 

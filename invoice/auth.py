@@ -111,8 +111,8 @@ def reset_password():
     return render_template("auth/reset_password.html")
 
 
-@bp.route("/checkout")
-def checkout():
+@bp.route("/checkout/<string:plan>")
+def checkout(plan):
     return render_template("auth/checkout.html")
 
 
