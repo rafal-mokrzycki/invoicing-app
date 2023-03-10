@@ -111,6 +111,11 @@ def reset_password():
     return render_template("auth/reset_password.html")
 
 
+@bp.route("/checkout")
+def checkout():
+    return render_template("auth/checkout.html")
+
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
