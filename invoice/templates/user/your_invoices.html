@@ -126,8 +126,8 @@
                                 <a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="bi bi-search"></a>
                             </td>
                             <td class="table-cell">{{ invoice.invoice_no }}</td>
-                            <td class="table-cell">{{ invoice.sum_net }}</td>
-                            <td class="table-cell">{{ invoice.sum_gross }}</td>
+                            <td class="table-cell">{{ "{:.2f}".format(invoice.sum_net).replace(".", ",") }}</td>
+                            <td class="table-cell">{{ "{:.2f}".format( invoice.sum_gross).replace(".", ",") }}</td>
                             <td class="table-cell">{{ invoice.recipient_tax_no }}</td>
                             <td class="table-cell">{{ invoice.issue_date }}</td>
                             <td class="table-cell">{{ invoice.sell_date }}</td>

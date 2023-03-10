@@ -125,7 +125,7 @@
                     <!-- recipient -->
                     <div class="col-sm-6 expense_hidden22 ">
                         <label for="recipient">Recipient</label>
-                        <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
+                        <input class="recipient_tax_no" name="recipient_tax_no" type="text"
                                 value="{{ request.form.recipient_tax_no }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " required>
                     </div>
@@ -150,7 +150,7 @@
                                 value="{{ request.form.item }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " required>
                         </div>
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min=0
+                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min="0"
                                 value="{{ request.form.amount }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
                                 returnValue() " required>
                         </div>
@@ -166,7 +166,7 @@
                                 <option value="kg">kg</option>
                             </select></div>
                         <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min=0 placeholder="0.00" pattern="^\d+(?:\.\d{1,2})?$"
+                                min="0" placeholder="0.00" pattern="^\d+(?:\.\d{1,2})?$"
                                 onblur="this.parentNode.style.backgroundColor =/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'"
                                 onchange=" sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ; returnValue() "
                                 value=" {{ request.form.price_net }}" required></div>
