@@ -2884,3 +2884,7 @@ input[type=checkbox] {
   display:block;
   height: 50px;
 }
+
+.container {
+  max-width: 960px;
+}
