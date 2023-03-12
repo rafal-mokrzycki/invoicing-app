@@ -1,0 +1,460 @@
+/**
+* Template Name: FlexStart - v1.10.1
+* Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+  /*--------------------------------------------------------------
+  # YourDesktop
+  --------------------------------------------------------------*/
+  .pricing .btn-user-tile {
+    /* background-color: #003185; */
+    border: none;
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    margin: 30px 30px 30px 30px;
+    height: 250px;
+    width: 250px;
+    transition: 0.3s;
+  }
+
+  .pricing .btn-user-tile:hover {
+    margin: 25px 25px 25px 25px;
+    height: 260px;
+    width: 260px;
+  }
+
+  .company-data,
+  .company-data:focus {
+    background-color: #012970;
+  }
+
+  .your-invoices,
+  .your-invoices:focus {
+    background-color: #00a176;
+  }
+
+  .your-income,
+  .your-income:focus {
+    background-color: #4d5ef2;
+  }
+
+  .company-data:hover {
+    background-color: #013388;
+  }
+
+  .your-invoices:hover {
+    background-color: #01b081;
+  }
+
+  .your-income:hover {
+    background-color: #5d6df7;
+  }
+
+  .pricing .your-desktop-buttons {
+    margin-top: 8%;
+  }
+
+  /*--------------------------------------------------------------
+  # User Data
+  --------------------------------------------------------------*/
+
+  .user-data-form,
+  .send-email-form {
+    color: #012970;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    text-align: left;
+    /* margin-left: 10%;
+    margin-right: 10%; */
+    display: block;
+
+  }
+
+  .user-data-form .unchangable {
+    background-color: rgb(233, 232, 232);
+  }
+
+  /*--------------------------------------------------------------
+  # Table Section
+  --------------------------------------------------------------*/
+  .invoices {
+    margin: 5%;
+    color: rgb(42, 41, 41);
+  }
+
+  .invoices .table-header {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: #013289;
+  }
+
+  .invoices .table-cell {
+    font-family: "Nunito", sans-serif;
+    font-weight: 500;
+    color: #000;
+    padding-left: 10px;
+    padding-top: 8px;
+  }
+
+  .invoices .table-cell-search {
+    padding-top: 8px;
+
+  }
+
+  .bi-search {
+    color: #013289;
+    padding-left: 10px;
+  }
+
+  .invoice-action-buttons {
+    margin-right: 10px;
+  }
+
+  .invoice-action {
+    padding: 0px;
+    margin: 5px 5px 5px 5px;
+    border-radius: 4px;
+    width: 70%;
+    height: 50%;
+    color: #fff;
+    text-align: center;
+    border-color: transparent;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .invoice-action a {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: .8em;
+    color: #fff;
+    /* margin: -10px 20px 10px 20px */
+  }
+  .action-button-squared,
+  .action-button-squared a {
+    padding: 0px;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+    text-align: center;
+    border-color: transparent;
+    margin: 0 auto;
+    display: inline;
+    transition: 0.3s;
+  }
+  .edit,
+  .edit:focus {
+    background-color: #4d5ef2;
+  }
+
+  .print,
+  .print:focus {
+    background-color: #008E67;
+  }
+
+  .send,
+  .send:focus {
+    background-color: #CA3F00;
+  }
+
+  .download,
+  .download:focus {
+    background-color: #f69023;
+  }
+
+  .edit:hover {
+    background-color: #5969f3;
+  }
+
+  .print:hover {
+    background-color: #00a176;
+  }
+
+  .send:hover {
+    background-color: #db4601;
+  }
+
+  .download:hover {
+    background-color: #ffa546;
+  }
+
+  .action-box {
+    text-align: center;
+  }
+
+  .action-box-left {
+  text-align: left
+  }
+
+  .button-edit ,
+  .button-save,
+  .button-cancel {
+    padding: 8px 20px;
+    margin: auto;
+    /* margin-left: 10px;
+    margin-right: 10px; */
+    border-radius: 4px;
+    border-color: transparent;
+    font-size: 16px;
+    transition: 0.3s;
+    color: #fff;
+    font-weight: 700;
+    height: 40px;
+    width: 135px;
+    text-align: center;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+  }
+  .button-edit {
+    background: #4d5ef2;
+
+  }
+  .button-save {
+    background: #008E67;
+  }
+  .button-cancel {
+    background: #FF0000;
+  }
+
+  .button-edit:hover {
+    background: #5969f3;
+  }
+  .button-save:hover {
+    background: #00a176;
+  }
+  .button-cancel:hover {
+    background: rgb(255, 65, 65);
+  }
+
+
+  /* Dropdown button */
+  .dropbtn {
+    background: #4d5ef2;
+    /* padding: 8px 20px; */
+    /* margin-left: 10px; */
+    /* margin-right: 10px; */
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    border-color: transparent;
+    display: block;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus  {
+    background: #008E67;
+    transition: 0.3s;
+  }
+
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+
+  }
+
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    z-index:-1;
+    position:relative;
+    background-color: #f9f9f9;
+    min-width: 140px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #f1f1f1}
+
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
+
+
+
+
+
+
+
+  /* Login page */
+
+  #login h1,
+  #register h1,
+  #new-invoice h1,
+  #user-data h1,
+  #send-email h1 {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 700;
+    color: #012970;
+    text-align: center;
+  }
+
+  #login h1,
+  #new-invoice h1 {
+    margin: 0;
+
+  }
+
+  #register h1 {
+    margin-top: 5%;
+  }
+
+  #new-invoice h1 {
+    text-align: left
+  }
+
+  .login-form,
+  .register-form {
+    text-align: center;
+  }
+
+  .error-message {
+    text-align: center;
+    color: rgb(201, 36, 36);
+  }
+
+  .register-form {
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+
+  .register-form .choose-plan {
+    padding: 15px 0 0 20px;
+  }
+
+  /* Invoice page */
+
+  .new-invoice-form {
+    margin-top: 10%;
+  }
+
+  .invoice-items-values input,
+  .invoice-items-values select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 8px;
+  }
+
+  .button-add-next-item,
+  .button-add-next-item:focus {
+    background: #012970;
+    padding: 8px 20px;
+    border-radius: 4px;
+    color: #fff;
+  }
+
+  .button-add-next-item:hover,
+  .button-add-next-item:focus:hover {
+    color: #fff;
+    background: #003185;
+  }
+
+  .bi-plus-circle-dotted {
+    margin-right: 7px;
+  }
+
+  .btn-delete-item {
+    background: red;
+    border: red;
+    border-radius: 4px;
+    margin: 8px -10px;
+    display: inline-block;
+
+  }
+
+  .btn-delete-item:hover {
+    background: rgb(255, 65, 65);
+    border: rgb(255, 65, 65);
+
+  }
+
+  .bi-x {
+    color: white;
+  }
+
+
+  /* Style inputs */
+  input,
+  select,
+  .send-email-form textarea {
+    width: 100%;
+    padding: 8px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .login input[type=text],
+  .login input[type=password],
+  .login input[type=email] {
+    width: 30%;
+  }
+
+  /* Style the submit button */
+  input[type=submit] {
+    width: 30%;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: none;
+    font-size: 16px;
+    background: #4154f1;
+    color: #fff;
+    transition: 0.3s;
+  }
+
+  input[type=submit]:hover {
+    background: #5969f3;
+    color: #fff
+  }
+
+  .checkbox {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  /* TODO minus percent */
+  input[type=checkbox] {
+    width: 20%;
+    margin: -5%;
+  }
+
+  .feature-box p {
+    margin: 0% 30%;
+    padding-bottom: 10px;
+    font-size: 14px;
+  }
+
+
+  /* OTHER */
+  .empty-div {
+    display:block;
+    height: 50px;
+  }
