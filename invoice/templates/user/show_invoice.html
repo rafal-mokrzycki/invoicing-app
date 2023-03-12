@@ -1,187 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<head>
-    <title>Edit Invoice</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <head>
+        <title>Edit Invoice</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet" media="screen">
 
-    <!-- Favicons -->
-    <link href="/static/img/favicon.png" rel="icon">
-    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Favicons -->
+        <link href="/static/img/favicon.png" rel="icon">
+        <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Font Awesome -->
+        <script defer
+            src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <!-- Vendor CSS Files -->
+        <link href="/static/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet">
+        <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
+            rel="stylesheet">
+        <link href="/static/vendor/glightbox/css/glightbox.min.css"
+            rel="stylesheet">
+        <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/static/vendor/swiper/swiper-bundle.min.css"
+            rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/style-custom.css" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="/static/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!-- jQery relatec links -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    </head>
+    <!-- ======== HEADER ======== -->
 
-    <!-- Template Main CSS File -->
-    <link href="/static/css/style.css" rel="stylesheet">
-    <link href="/static/css/style-custom.css" rel="stylesheet">
+    <body>
 
-    <!-- jQery relatec links -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-</head>
-<!-- ======== HEADER ======== -->
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center
+                justify-content-between">
 
-<body>
+                <a href="/home" class="logo d-flex align-items-center">
+                    <img src="/static/img/logo.png" alt="">
+                    <span>FlexStart</span>
+                </a>
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="new-invoice scrollto" href="{{
+                                url_for('user.new_invoice') }}">New invoice</a></li>
+                        <li><a class="nav-link scrollto" href="{{
+                                url_for('user.user') }}">YourDesktop</a></li>
+                        <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
+                        <li><a class=" nav-link scrollto" href="/home#contact">Contact</a></li>
+                        <li><a class="login-logout scrollto" href="{{
+                                url_for('auth.logout') }}">Logout</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav><!-- .navbar -->
 
-            <a href="/home" class="logo d-flex align-items-center">
-                <img src="/static/img/logo.png" alt="">
-                <span>FlexStart</span>
-            </a>
+            </div>
+        </header><!-- End Header -->
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="new-invoice scrollto" href="{{ url_for('user.new_invoice') }}">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
-                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
-                    <li><a class=" nav-link scrollto" href="/home#contact">Contact</a></li>
-                    <li><a class="login-logout scrollto" href="{{ url_for('auth.logout') }}">Logout</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
-        </div>
-    </header><!-- End Header -->
-
-    <section id="new-invoice" class="new-invoice d-flex align-items-center">
-        <div class="container">
-            <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
-            <form class="invoice-form" action="/user/your_invoices/edit/{{ invoice.id }}" method="post">
-                <div class="row">
-                    <div class="col-sm-4 expense_hidden22">
-                        <label for="invoice_type">Invoice type</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text" value="{{ invoice.invoice_type }}" readonly>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22">
-                        <label for="invoice_no">Invoice number</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ invoice.invoice_no }}" readonly>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22">
-                        <label for="issue_date">Issue date</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="date"
-                            value="{{ invoice.issue_date }}" name="issue_date" id="issue_date" readonly>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22">
-                        <label for="issue_city">City of issue</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ invoice.issue_city }}" name="issue_city" id="issue_city" readonly>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22">
-                        <label for="sell_date">Sell date</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="date"
-                            value="{{ invoice.sell_date }}" name="sell_date" id="sell_date" readonly>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <!-- issuer -->
-                    <div class="col-sm-6 expense_hidden22">
-                        <label for="issuer">Issuer</label>
-                        <p><input class="issuer_tax_no" name="issuer_tax_no" type="text" placeholder="XX9999999999"
-                                value="{{ invoice.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}"
-                                 readonly>
-                        </p>
-
-                    </div>
-
-                    <!-- recipient -->
-                    <div class="col-sm-6 expense_hidden22">
-                        <label for="recipient">Recipient</label>
-                        <p><input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ invoice.recipient_tax_no }}" readonly> </p>
-                    </div>
-                </div>
-
-                <!-- invoice item - texts -->
-                <div class="row invoice-items-texts" id="invoice-items-texts">
-                    <div class="feature-box col-lg-3">Invoice item</div>
-                    <div class="col-sm-1 row3">Amount</div>
-                    <div class="col-sm-1 row3">Unit</div>
-                    <div class="col-sm-1 more_discount2 row1">Net price</div>
-                    <div class="col-sm-1 more row_tax">VAT %</div>
-                    <div class="col-sm-2 row1">Net sum</div>
-                    <div class="col-sm-2 row1">Gross sum</div>
-                </div>
-
-                <!-- invoice item - values -->
-                <div class=" invoice-items-values" id="invoice-items-values">
-                    <div class="row invoice-item-1" id="invoice-item-1">
-                        <div class="feature-box col-lg-3"><input type="text" name="item" id="item"
-                                value="{{ invoice.item }}" readonly>
+        <section id="new-invoice" class="new-invoice d-flex align-items-center">
+            <div class="container">
+                <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
+                <form class="invoice-form" action="/user/your_invoices/edit/{{
+                    invoice.id }}" method="post">
+                    <div class="row">
+                        <div class="col-sm-4 expense_hidden22">
+                            <label for="invoice_type">Invoice type</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="text" value="{{
+                                invoice.invoice_type }}" readonly>
                         </div>
-                        <div class="col-sm-1 row3"><input type="number" name="amount" id="amount" min="0"
-                                value="{{ invoice.amount }}" readonly>
+                        <div class="col-sm-2 expense_hidden22">
+                            <label for="invoice_no">Invoice number</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="text"
+                                value="{{ invoice.invoice_no }}" readonly>
                         </div>
-                        <div class="col-sm-1 row3"><input id="unit" name="unit" value="{{ invoice.unit }}" readonly></div>
-                        <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min="0" value="{{ '{:.2f}'.format(invoice.price_net) }}" readonly></div>
-                        <div class="col-sm-1 more row_tax"><input id="tax_rate" name="tax_rate"
-                                value="{{ '{:.0f}'.format(invoice.tax_rate * 100) + '%' }}" readonly>
+                        <div class="col-sm-2 expense_hidden22">
+                            <label for="issue_date">Issue date</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="date"
+                                value="{{ invoice.issue_date }}"
+                                name="issue_date" id="issue_date" readonly>
+                        </div>
+                        <div class="col-sm-2 expense_hidden22">
+                            <label for="issue_city">City of issue</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="text"
+                                value="{{ invoice.issue_city }}"
+                                name="issue_city" id="issue_city" readonly>
+                        </div>
+                        <div class="col-sm-2 expense_hidden22">
+                            <label for="sell_date">Sell date</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="date"
+                                value="{{ invoice.sell_date }}" name="sell_date"
+                                id="sell_date" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- issuer -->
+                        <div class="col-sm-6 expense_hidden22">
+                            <label for="issuer">Issuer</label>
+                            <p><input class="issuer_tax_no" name="issuer_tax_no"
+                                    type="text" placeholder="XX9999999999"
+                                    value="{{ invoice.issuer_tax_no }}"
+                                    pattern="([A-Z]{2})?[0-9]{10}"
+                                    readonly>
+                            </p>
+
+                        </div>
+
+                        <!-- recipient -->
+                        <div class="col-sm-6 expense_hidden22">
+                            <label for="recipient">Recipient</label>
+                            <p><input class="recipient_tax_no"
+                                    name="recipient_tax_no" type="text"
+                                    value="{{ invoice.recipient_tax_no }}"
+                                    readonly> </p>
+                        </div>
+                    </div>
+
+                    <!-- invoice item - texts -->
+                    <div class="row invoice-items-texts"
+                        id="invoice-items-texts">
+                        <div class="feature-box col-lg-3">Invoice item</div>
+                        <div class="col-sm-1 row3">Amount</div>
+                        <div class="col-sm-1 row3">Unit</div>
+                        <div class="col-sm-1 more_discount2 row1">Net price</div>
+                        <div class="col-sm-1 more row_tax">VAT %</div>
+                        <div class="col-sm-2 row1">Net sum</div>
+                        <div class="col-sm-2 row1">Gross sum</div>
+                    </div>
+
+                    <!-- invoice item - values -->
+                    <div class=" invoice-items-values"
+                        id="invoice-items-values">
+                        <div class="row invoice-item-1" id="invoice-item-1">
+                            <div class="feature-box col-lg-3"><input type="text"
+                                    name="item" id="item"
+                                    value="{{ invoice.item }}" readonly>
                             </div>
-                        <div class="col-sm-2 row1"><input type="number" name="sum_net" id="sum_net"
-                                value="{{ '{:.2f}'.format(invoice.sum_net) }}" readonly></div>
-                        <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross"
-                                value="{{ '{:.2f}'.format(invoice.sum_gross) }}" readonly></div>
+                            <div class="col-sm-1 row3"><input type="number"
+                                    name="amount" id="amount" min="0"
+                                    value="{{ invoice.amount }}" readonly>
+                            </div>
+                            <div class="col-sm-1 row3"><input id="unit"
+                                    name="unit" value="{{ invoice.unit }}"
+                                    readonly></div>
+                            <div class="col-sm-1 more_discount2 row1"><input
+                                    type="number" id="price_net"
+                                    name="price_net"
+                                    min="0" value="{{
+                                    '{:.2f}'.format(invoice.price_net) }}"
+                                    readonly></div>
+                            <div class="col-sm-1 more row_tax"><input
+                                    id="tax_rate" name="tax_rate"
+                                    value="{{ '{:.0f}'.format(invoice.tax_rate *
+                                    100) + '%' }}" readonly>
+                            </div>
+                            <div class="col-sm-2 row1"><input type="number"
+                                    name="sum_net" id="sum_net"
+                                    value="{{ '{:.2f}'.format(invoice.sum_net)
+                                    }}" readonly></div>
+                            <div class="col-sm-2 row1"><input type="number"
+                                    name="sum_gross" id="sum_gross"
+                                    value="{{ '{:.2f}'.format(invoice.sum_gross)
+                                    }}" readonly></div>
+                        </div>
                     </div>
-                </div>
-                <div class="empty-div"></div>
-                <div class="action-box col-lg-12">
-                    <a href="{{ url_for('user.your_invoices') }}"><button class="button-edit" type="button" value="Back">Back</button></a>
-                    <a href="/user/your_invoices/edit/{{ invoice.id }}"><button class="button-edit" type="button" value="Edit">Edit</button></a>
-                </div>
-            </form>
-        </div>
+                    <div class="empty-div"></div>
+                    <div class="action-box col-lg-12">
+                        <a href="{{ url_for('user.your_invoices') }}"><button
+                                class="button-edit" type="button" value="Back">Back</button></a>
+                        <a href="/user/your_invoices/edit/{{ invoice.id }}"><button
+                                class="button-edit" type="button" value="Edit">Edit</button></a>
+                    </div>
+                </form>
+            </div>
 
-        {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-            {% endif %}
-        </p>
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+                {% endif %}
+            </p>
 
-    </section>
-    <section id="contact" class="contact">
-        <!-- ======= Footer ======= -->
-        {% include "footer.html" %}
-        <!-- End Footer -->
-    </section>
+        </section>
+        <section id="contact" class="contact">
+            <!-- ======= Footer ======= -->
+            {% include "footer.html" %}
+            <!-- End Footer -->
+        </section>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+        <a href="#" class="back-to-top d-flex align-items-center
+            justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
-    <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="/static/vendor/aos/aos.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="/static/vendor/php-email-form/validate.js"></script>
+        <!-- Vendor JS Files -->
+        <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="/static/vendor/aos/aos.js"></script>
+        <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/static/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
-    <script src="/static/js/main.js"></script>
+        <!-- Template Main JS File -->
+        <script src="/static/js/main.js"></script>
 
-    <!-- Custom JavaScript Functions -->
-    <script>
+        <!-- Custom JavaScript Functions -->
+        <script>
         function sumNetFunction() {
             // Capture item number
 
@@ -191,8 +233,7 @@
             // Multiply them and display
             var multiplication = amount * price_net;
             document.getElementById('sum_net').value = multiplication;
-        }    </script>
-    <script>
+        }
         function sumGrossFunction() {
             // Capture the entered values of two input boxes
             var amount = document.getElementById('amount').value;
@@ -202,21 +243,16 @@
             var multiplication = amount * price_net + (amount * price_net * tax_rate);
             document.getElementById('sum_gross').value = multiplication;
         }
-    </script>
-    <script>
         function addNextFn() {
             var parent_element = document.getElementById("invoice-items-values");
             var example_item = document.getElementById("invoice-item-0");
             var new_item = example_item.cloneNode(true);
             new_item.id = "invoice-item-2";
             parent_element.appendChild(new_item);
-        }</script>
-    <script>
+        }
         function deletePosition() {
         }
     </script>
-
-
-</body>
+    </body>
 
 </html>
