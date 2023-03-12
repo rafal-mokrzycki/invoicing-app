@@ -1,68 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-{% extends "base.html" %}
-{% block content %}
-<!-- Add icon library -->
-<script src="https://kit.fontawesome.com/a2dea3e616.js" crossorigin="anonymous"></script>
+    {% extends "base.html" %}
+    {% block content %}
+    <!-- Add icon library -->
+    <script src="https://kit.fontawesome.com/a2dea3e616.js"
+        crossorigin="anonymous"></script>
 
-<body>
-<!-- ======= Pricing Section ======= -->
-<section id="send-email" class="send-emails d-flex align-items-center">
+    <body>
+        <!-- ======= Pricing Section ======= -->
+        <section id="send-email" class="send-emails d-flex align-items-center">
+            <div class="container" data-aos="fade-up">
+                <br>
+                <h1>Send your invoice</h1>
+                <br>
 
-    <div class="container" data-aos="fade-up">
-        <br>
-        <h1>Send your invoice</h1>
-        <br>
+                <form class="send-email-form " action="" method="post">
+                    <div class="row">
+                        <div class="feature-box col-lg-12 ">
+                            <label for="issuer_email">Your email:</label>
+                            <input type="email" name="issuer_email"
+                                id="issuer_email" value="{{user.email}}"
+                                required>
+                        </div>
+                        <div class="feature-box col-lg-12 ">
+                            <label for="recipient_email">Customer email:</label>
+                            <input type="email" name="recipient_email"
+                                id="recipient_email"
+                                value="{{ request.form.recipient_email }}"
+                                required>
+                        </div>
+                        <div class="feature-box col-lg-12 ">
+                            <label for="subject">Subject:</label>
+                            <input type="text" name="subject" id="subject"
+                                value="{{ request.form.body }}" required>
+                        </div>
 
-        <form class="send-email-form " action="" method="post">
-            <div class="row">
-                <div class="feature-box col-lg-12 ">
-                    <label for="issuer_email">Your email:</label>
-                    <input type="email" name="issuer_email" id="issuer_email" value="{{user.email}}" required>
-                </div>
-                <div class="feature-box col-lg-12 ">
-                    <label for="recipient_email">Customer email:</label>
-                    <input type="email" name="recipient_email" id="recipient_email"
-                        value="{{ request.form.recipient_email }}" required>
-                </div>
-                <div class="feature-box col-lg-12 ">
-                    <label for="subject">Subject:</label>
-                    <input type="text" name="subject" id="subject" value="{{ request.form.body }}" required>
-                </div>
+                        <div class="feature-box col-lg-12 ">
+                            <label for="email_body">Body:</label>
+                            <textarea class="email_body" name="email_body"
+                                id="email_body" rows="8">Dear {{recipient.name}}
+                                Attached I am sending the invoice no.
+                                {{invoice.invoice_no}}.
 
-                <div class="feature-box col-lg-12 ">
-                    <label for="email_body">Body:</label>
-                    <textarea class="email_body" name="email_body" id="email_body" rows="8">Dear {{recipient.name}}
+                                --
+                                {{user.name}} {{user.surname}}
+                                from FlexStart team
+                            </textarea><a href="{{ url_for('user.show_pdf',
+                                id=invoice.id) }}" target="blank"><i
+                                    class="fa-solid fa-paperclip"></i> Check the
+                                attachment</a>
+                        </div>
 
-Attached I am sending the invoice no. {{invoice.invoice_no}}.
+                        <div class="action-box-left col-lg-12 ">
+                            <button class="button-edit" type="submit"
+                                value="Back">Send</button>
+                            <a href="{{ url_for('user.your_invoices') }}"><button
+                                    class="button-cancel" type="button"
+                                    value="Edit">Cancel</button></a>
+                        </div>
 
---
-{{user.name}} {{user.surname}}
-from FlexStart team
-</textarea><a href="{{ url_for('user.show_pdf', id=invoice.id) }}" target="blank"><i class="fa-solid fa-paperclip"></i> Check the attachment</a>
-                </div>
-
-                <div class="action-box-left col-lg-12 ">
-                    <button class="button-edit" type="submit" value="Back">Send</button>
-                    <a href="{{ url_for('user.your_invoices') }}"><button class="button-cancel" type="button" value="Edit">Cancel</button></a>
-                </div>
-
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
 
-</section><!-- End Pricing Section -->
-<section id="contact" class="contact">
-    <!-- ======= Footer ======= -->
-    {% include "footer.html" %}
-    <!-- End Footer -->
-</section>
-</body>
+        </section><!-- End Pricing Section -->
+        <section id="contact" class="contact">
+            <!-- ======= Footer ======= -->
+            {% include "footer.html" %}
+            <!-- End Footer -->
+        </section>
+    </body>
 
 </html>
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+<a href="#" class="back-to-top d-flex align-items-center
+    justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 <!-- Vendor JS Files -->
 <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>

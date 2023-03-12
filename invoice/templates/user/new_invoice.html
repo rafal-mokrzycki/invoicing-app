@@ -1,246 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<head>
-    <title>New invoice</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <head>
+        <title>New invoice</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet" media="screen">
 
-    <!-- Favicons -->
-    <link href="/static/img/favicon.png" rel="icon">
-    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Favicons -->
+        <link href="/static/img/favicon.png" rel="icon">
+        <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Font Awesome -->
+        <script defer
+            src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <!-- Vendor CSS Files -->
+        <link href="/static/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet">
+        <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
+            rel="stylesheet">
+        <link href="/static/vendor/glightbox/css/glightbox.min.css"
+            rel="stylesheet">
+        <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/static/vendor/swiper/swiper-bundle.min.css"
+            rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/style-custom.css" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="/static/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!-- jQery relatec links -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 
-    <!-- Template Main CSS File -->
-    <link href="/static/css/style.css" rel="stylesheet">
+        <!-- Template Main JS File -->
+        <script src="/static/js/main.js"></script>
+        <!-- Custom JavaScript Functions -->
+        <script type="text/javascript" src="/static/js/custom.js"></script>
+    </head>
+    <!-- ======== HEADER ======== -->
 
-    <!-- jQery relatec links -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-</head>
-<!-- ======== HEADER ======== -->
+    <body>
 
-<body>
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center
+                justify-content-between">
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="/home" class="logo d-flex align-items-center">
+                    <img src="/static/img/logo.png" alt="">
+                    <span>FlexStart</span>
+                </a>
 
-            <a href="/home" class="logo d-flex align-items-center">
-                <img src="/static/img/logo.png" alt="">
-                <span>FlexStart</span>
-            </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="new-invoice scrollto" href="{{
+                                url_for('user.new_invoice') }}">New invoice</a></li>
+                        <li><a class="nav-link scrollto" href="{{
+                                url_for('user.user') }}">YourDesktop</a></li>
+                        <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
+                        <li><a class=" nav-link scrollto" href="/home#contact">Contact</a></li>
+                        <li><a class="login-logout scrollto" href="{{
+                                url_for('auth.logout') }}">Logout</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav><!-- .navbar -->
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="new-invoice scrollto" href="{{ url_for('user.new_invoice') }}">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
-                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
-                    <li><a class=" nav-link scrollto" href="/home#contact">Contact</a></li>
-                    <li><a class="login-logout scrollto" href="{{ url_for('auth.logout') }}">Logout</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </div>
+        </header><!-- End Header -->
 
-        </div>
-    </header><!-- End Header -->
-
-    <section id="new-invoice" class="new-invoice d-flex align-items-center">
-        <div class="container">
-            <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
-            <form class="invoice-form" action="" method="post">
-                <div class="row">
-                    <div hidden>
-                        <input class="form-control  datepicker f3 hasDatepicker" name="year_month" id="year_month"
-                            type="text" value="{{ year_month }}">
-                        <input id="regular" type="text" value="{{ invoice_number_on_type['regular'] }}">
-                        <input id="proforma" type="text" value="{{ invoice_number_on_type['proforma'] }}">
-                        <input id="advanced_payment" type="text" value="{{ invoice_number_on_type['advanced_payment'] }}">
-
-                    </div>
-                    <div class="col-sm-4 expense_hidden22 ">
-                        <label for="invoice_type">Invoice type</label>
-                        <select class="form-control  datepicker f3 hasDatepicker" name="invoice_type" id="invoice_type"
-                            type="text" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                            returnValue() ">
-                            <option value="regular" selected>Regular</option>
-                            <option value="proforma">Proforma</option>
-                            <option value="advanced_payment">Advanced payment</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22 ">
-                        <label for="invoice_no">Invoice number </label>
-                        <input class="form-control  datepicker f3 hasDatepicker" name="invoice_no" id="invoice_no"
-                            type="text" value="{{ request.form.invoice_no }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                            returnValue() ">
-
-                    </div>
-                    <div class="col-sm-2 expense_hidden22 ">
-                        <label for="issue_date">Issue date</label>
-                        <input class="form-control-plaintext  datepicker f3 hasDatepicker" type="date"
-                            value="{{ today }}" name="issue_date" id="issue_date" readonly required>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22 ">
-                        <label for="issue_city">City of issue</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="text"
-                            value="{{ request.form.issue_city }}" name="issue_city" id="issue_city" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                            returnValue() " required>
-                    </div>
-                    <div class="col-sm-2 expense_hidden22 ">
-                        <label for="sell_date">Sell date</label>
-                        <input class="form-control  datepicker f3 hasDatepicker" type="date"
-                            value="{{ request.form.sell_date }}" name="sell_date" id="sell_date" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                            returnValue() " required>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <!-- issuer -->
-                    <div class="col-sm-6 expense_hidden22 ">
-                        <label for="issuer">Issuer</label>
-                        <p><input class="issuer_tax_no" name="issuer_tax_no" type="text" placeholder="XX9999999999"
-                                value="{{ request.form.issuer_tax_no }}" pattern="([A-Z]{2})?[0-9]{10}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " required>
-                        </p>
-
-                    </div>
-
-                    <!-- recipient -->
-                    <div class="col-sm-6 expense_hidden22 ">
-                        <label for="recipient">Recipient</label>
-                        <input class="recipient_tax_no" name="recipient_tax_no" type="text"
-                                value="{{ request.form.recipient_tax_no }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " required>
-                    </div>
-                </div>
-
-                <!-- invoice position - texts -->
-                <div class="row invoice-positions-texts" id="invoice-positions-texts">
-                    <div class="feature-box col-lg-2 ">Invoice position</div>
-                    <div class="col-sm-1 row3 ">Amount</div>
-                    <div class="col-sm-1 row3">Unit</div>
-                    <div class="col-sm-1 more_discount2 row1">Net price</div>
-                    <div class="col-sm-1 more_discount2 row1">Currency</div>
-                    <div class="col-sm-1 more row_tax ">VAT %</div>
-                    <div class="col-sm-2 row1 ">Net sum</div>
-                    <div class="col-sm-2 row1">Gross sum</div>
-                </div>
-
-                <!-- invoice item - values -->
-                <div class="invoice-items-values" id="invoice-items-values">
-                    <div class="row invoice-item-1" id="invoice-item-1">
-                        <div class="feature-box col-lg-2 "><input type="text" name="item" id="item"
-                                value="{{ request.form.item }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " required>
+        <section id="new-invoice" class="new-invoice d-flex align-items-center">
+            <div class="container">
+                <!-- <form class="new-invoice-form" id="new-invoice-form" action="" method="post"> -->
+                <form class="invoice-form" action="" method="post">
+                    <div class="row">
+                        <div hidden>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" name="year_month" id="year_month"
+                                type="text" value="{{ year_month }}">
+                            <input id="regular" type="text" value="{{
+                                invoice_number_on_type['regular'] }}">
+                            <input id="proforma" type="text" value="{{
+                                invoice_number_on_type['proforma'] }}">
+                            <input id="advanced_payment" type="text" value="{{
+                                invoice_number_on_type['advanced_payment'] }}">
                         </div>
-                        <div class="col-sm-1 row3 "><input type="number" name="amount" id="amount" min="0"
-                                value="{{ request.form.amount }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " required>
-                        </div>
-                        <div class="col-sm-1 row3"><select id="unit" name="unit" value="{{ request.form.unit }}"
-                                onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " required>
-                                <option value="item" selected>item</option>
-                                <option value="h">h</option>
-                                <option value="days">days</option>
-                                <option value="months">months</option>
-                                <option value="km">km</option>
-                                <option value="m2">m2</option>
-                                <option value="kg">kg</option>
-                            </select></div>
-                        <div class="col-sm-1 more_discount2 row1"><input type="number" id="price_net" name="price_net"
-                                min="0" placeholder="0.00" pattern="^\d+(?:\.\d{1,2})?$"
-                                onblur="this.parentNode.style.backgroundColor =/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'"
-                                onchange=" sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ; returnValue() "
-                                value=" {{ request.form.price_net }}" required></div>
-                        <div class="col-sm-1 row3">
-                            <select id="currency" name="currency" value="{{ request.form.currency }}" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                    returnValue() " required>
-                                <option value="{{ currencies[0][0] }}" selected>{{currencies[0][0]}}</option>"
-                                {% for currency in currencies[0][1:] %}
-                                <option value="{{ currency }}">{{currency}}</option>"
-                                {% endfor %}
-                                {% for currency in currencies[1] %}
-                                <option value="{{currency}}">{{currency}}</option>"
-                                {% endfor %}
+                        <div class="col-sm-4 expense_hidden22 ">
+                            <label for="invoice_type">Invoice type</label>
+                            <select class="form-control datepicker f3
+                                hasDatepicker" name="invoice_type"
+                                id="invoice_type"
+                                type="text" onchange="sumNetFunction(amount,
+                                price_net) ; sumGrossFunction(amount, price_net,
+                                tax_rate) ;
+                                returnValue() ">
+                                <option value="regular" selected>Regular</option>
+                                <option value="proforma">Proforma</option>
+                                <option value="advanced_payment">Advanced
+                                    payment</option>
                             </select>
                         </div>
-                        <div class="col-sm-1 more row_tax "><select id="tax_rate" name="tax_rate" onchange="sumNetFunction(amount, price_net) ; sumGrossFunction(amount, price_net, tax_rate) ;
-                                returnValue() " value="{{ request.form.tax_rate }}" required>
-                                <option value="0.0">exempt</option>
-                                <option value="0.0">0%</option>
-                                <option value="0.05">5%</option>
-                                <option value="0.08">8%</option>
-                                <option value="0.23" selected>23%</option>
-                            </select></div>
-                        <div class="col-sm-2 row1 "><input type="number" name="sum_net" id="sum_net"
-                                value="{{ sum_net }}" readonly required></div>
-                        <div class="col-sm-2 row1"><input type="number" name="sum_gross" id="sum_gross"
-                                value="{{ sum_gross }}" readonly required></div>
-                        <div class="col-sm-1 row1"><a class="btn btn-delete-item" onclick="deletePosition()"><i
-                                    class="bi bi-x"></i></a>
+                        <div class="col-sm-2 expense_hidden22 ">
+                            <label for="invoice_no">Invoice number </label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" name="invoice_no" id="invoice_no"
+                                type="text" value="{{ request.form.invoice_no
+                                }}" onchange="sumNetFunction(amount, price_net)
+                                ; sumGrossFunction(amount, price_net, tax_rate)
+                                ;
+                                returnValue() ">
+
+                        </div>
+                        <div class="col-sm-2 expense_hidden22 ">
+                            <label for="issue_date">Issue date</label>
+                            <input class="form-control-plaintext datepicker f3
+                                hasDatepicker" type="date"
+                                value="{{ today }}" name="issue_date"
+                                id="issue_date" readonly required>
+                        </div>
+                        <div class="col-sm-2 expense_hidden22 ">
+                            <label for="issue_city">City of issue</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="text"
+                                value="{{ request.form.issue_city }}"
+                                name="issue_city" id="issue_city"
+                                onchange="sumNetFunction(amount, price_net) ;
+                                sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() " required>
+                        </div>
+                        <div class="col-sm-2 expense_hidden22 ">
+                            <label for="sell_date">Sell date</label>
+                            <input class="form-control datepicker f3
+                                hasDatepicker" type="date"
+                                value="{{ request.form.sell_date }}"
+                                name="sell_date" id="sell_date"
+                                onchange="sumNetFunction(amount, price_net) ;
+                                sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() " required>
                         </div>
                     </div>
-                </div>
-                <!-- issue buton -->
-                <div class="add_buttons ">
-                    <a id="add_next_position" href="" onclick="addNextFn()" accesskey="M" title="New position"
-                        class="button-add-next-item btn success">
-                        <i class="bi bi-plus-circle-dotted"></i><span>New position</span>
-                    </a>
-                </div>
-                <div class="action-box col-lg-12 ">
-                    <input class="btn btn-default" type="submit" value="Issue">
-                </div>
-            </form>
-        </div>
 
-        {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-            {% endif %}
-        </p>
+                    <div class="row">
 
-    </section>
-    <section id="contact" class="contact">
-        <!-- ======= Footer ======= -->
-        {% include "footer.html" %}
-        <!-- End Footer -->
-    </section>
+                        <!-- issuer -->
+                        <div class="col-sm-6 expense_hidden22 ">
+                            <label for="issuer">Issuer</label>
+                            <p><input class="issuer_tax_no" name="issuer_tax_no"
+                                    type="text" placeholder="XX9999999999"
+                                    value="{{ request.form.issuer_tax_no }}"
+                                    pattern="([A-Z]{2})?[0-9]{10}"
+                                    onchange="sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ;
+                                    returnValue() " required>
+                            </p>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+                        </div>
 
-    <!-- Vendor JS Files -->
-    <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="/static/vendor/aos/aos.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="/static/vendor/php-email-form/validate.js"></script>
+                        <!-- recipient -->
+                        <div class="col-sm-6 expense_hidden22 ">
+                            <label for="recipient">Recipient</label>
+                            <input class="recipient_tax_no"
+                                name="recipient_tax_no" type="text"
+                                value="{{ request.form.recipient_tax_no }}"
+                                onchange="sumNetFunction(amount, price_net) ;
+                                sumGrossFunction(amount, price_net, tax_rate) ;
+                                returnValue() " required>
+                        </div>
+                    </div>
 
-    <!-- Template Main JS File -->
-    <script src="/static/js/main.js"></script>
+                    <!-- invoice position - texts -->
+                    <div class="row invoice-positions-texts"
+                        id="invoice-positions-texts">
+                        <div class="feature-box col-lg-2 ">Invoice position</div>
+                        <div class="col-sm-1 row3 ">Amount</div>
+                        <div class="col-sm-1 row3">Unit</div>
+                        <div class="col-sm-1 more_discount2 row1">Net price</div>
+                        <div class="col-sm-1 more_discount2 row1">Currency</div>
+                        <div class="col-sm-1 more row_tax ">VAT %</div>
+                        <div class="col-sm-2 row1 ">Net sum</div>
+                        <div class="col-sm-2 row1">Gross sum</div>
+                    </div>
 
-    <!-- Custom JavaScript Functions -->
-    <script>
+                    <!-- invoice item - values -->
+                    <div class="invoice-items-values" id="invoice-items-values">
+                        <div class="row invoice-item-1" id="invoice-item-1">
+                            <div class="feature-box col-lg-2 "><input
+                                    type="text" name="item" id="item"
+                                    value="{{ request.form.item }}"
+                                    onchange="sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ;
+                                    returnValue() " required>
+                            </div>
+                            <div class="col-sm-1 row3 "><input type="number"
+                                    name="amount" id="amount" min="0"
+                                    value="{{ request.form.amount }}"
+                                    onchange="sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ;
+                                    returnValue() " required>
+                            </div>
+                            <div class="col-sm-1 row3"><select id="unit"
+                                    name="unit" value="{{ request.form.unit }}"
+                                    onchange="sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ;
+                                    returnValue() " required>
+                                    <option value="item" selected>item</option>
+                                    <option value="h">h</option>
+                                    <option value="days">days</option>
+                                    <option value="months">months</option>
+                                    <option value="km">km</option>
+                                    <option value="m2">m2</option>
+                                    <option value="kg">kg</option>
+                                </select></div>
+                            <div class="col-sm-1 more_discount2 row1"><input
+                                    type="number" id="price_net"
+                                    name="price_net"
+                                    min="0" placeholder="0.00"
+                                    pattern="^\d+(?:\.\d{1,2})?$"
+                                    onblur="this.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'"
+                                    onchange=" sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ; returnValue() "
+                                    value=" {{ request.form.price_net }}"
+                                    required></div>
+                            <div class="col-sm-1 row3">
+                                <select id="currency" name="currency" value="{{
+                                    request.form.currency }}"
+                                    onchange="sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ;
+                                    returnValue() " required>
+                                    <option value="{{ currencies[0][0] }}"
+                                        selected>{{currencies[0][0]}}</option>"
+                                    {% for currency in currencies[0][1:] %}
+                                    <option value="{{ currency }}">{{currency}}</option>"
+                                    {% endfor %}
+                                    {% for currency in currencies[1] %}
+                                    <option value="{{currency}}">{{currency}}</option>"
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-1 more row_tax "><select
+                                    id="tax_rate" name="tax_rate"
+                                    onchange="sumNetFunction(amount, price_net)
+                                    ; sumGrossFunction(amount, price_net,
+                                    tax_rate) ;
+                                    returnValue() " value="{{
+                                    request.form.tax_rate }}" required>
+                                    <option value="0.0">exempt</option>
+                                    <option value="0.0">0%</option>
+                                    <option value="0.05">5%</option>
+                                    <option value="0.08">8%</option>
+                                    <option value="0.23" selected>23%</option>
+                                </select></div>
+                            <div class="col-sm-2 row1 "><input type="number"
+                                    name="sum_net" id="sum_net"
+                                    value="{{ sum_net }}" readonly required></div>
+                            <div class="col-sm-2 row1"><input type="number"
+                                    name="sum_gross" id="sum_gross"
+                                    value="{{ sum_gross }}" readonly required></div>
+                            <div class="col-sm-1 row1"><a class="btn
+                                    btn-delete-item" onclick="deletePosition()"><i
+                                        class="bi bi-x"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- issue buton -->
+                    <div class="add_buttons ">
+                        <a id="add_next_position" href="" onclick="addNextFn()"
+                            accesskey="M" title="New position"
+                            class="button-add-next-item btn success">
+                            <i class="bi bi-plus-circle-dotted"></i><span>New
+                                position</span>
+                        </a>
+                    </div>
+                    <div class="action-box col-lg-12 ">
+                        <input class="btn btn-default" type="submit"
+                            value="Issue">
+                    </div>
+                </form>
+            </div>
+
+            {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+                {% endif %}
+            </p>
+
+        </section>
+        <section id="contact" class="contact">
+            <!-- ======= Footer ======= -->
+            {% include "footer.html" %}
+            <!-- End Footer -->
+        </section>
+
+        <a href="#" class="back-to-top d-flex align-items-center
+            justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
+
+        <!-- Vendor JS Files -->
+        <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="/static/vendor/aos/aos.js"></script>
+        <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/static/vendor/php-email-form/validate.js"></script>
+
+
+
+        <!-- Custom JavaScript Functions -->
+        <script>
         function sumNetFunction() {
             // Capture position number
 
@@ -250,8 +329,7 @@
             // Multiply them and display
             var multiplication = amount * price_net;
             document.getElementById('sum_net').value = multiplication.toFixed(2);
-        }    </script>
-    <script>
+        }
         function sumGrossFunction() {
             // Capture the entered values of two input boxes
             var amount = document.getElementById('amount').value;
@@ -261,16 +339,12 @@
             var multiplication = amount * price_net + (amount * price_net * tax_rate);
             document.getElementById('sum_gross').value = multiplication.toFixed(2);
         }
-    </script>
-    <script>
         function returnValue() {
             var year_month = document.getElementById("year_month").value;
             var invoice_type = document.getElementById("invoice_type").value;
             var number = document.getElementById(invoice_type).value;
             document.getElementById('invoice_no').value = year_month.concat('', Number(number) + 1);
         }
-    </script>
-    <script>
         var room = 1;
         function addNextFn() {
             room++;
@@ -278,13 +352,10 @@
             var divtest = document.createElement("div");
             divtest.innerHTML = '<div class="row invoice-item-3">Room 3:</div>'
             objTo.appendChild(divtest)
-        }</script>
-    <script>
+        }
         function deletePosition() {
         }
     </script>
-
-
-</body>
+    </body>
 
 </html>
