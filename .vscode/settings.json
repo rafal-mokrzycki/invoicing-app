@@ -5,8 +5,12 @@
     "files.autoSave": "afterDelay",
     "python.linting.flake8Enabled": true,
     "editor.rulers": [
-        72, 79
-    ],
+        {
+          "column": 72,
+          "color": "#965a0080"
+        },
+        79
+      ],
     "editor.renderWhitespace": "all",
     "python.linting.flake8Args": [
         "--max-line-length=79"
@@ -15,7 +19,7 @@
     "python.linting.lintOnSave": true,
     "python.linting.maxNumberOfProblems": 10,
     "editor.formatOnSave": true,
-    "python.sortImports.args": [
+    "isort.args": [
         "-rc",
         "-sp isort.cfg"
     ],

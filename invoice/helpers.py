@@ -7,7 +7,6 @@ import os
 import time
 from sqlite3 import Connection
 
-
 import pandas as pd
 import repackage
 from IPython.display import clear_output
@@ -44,16 +43,17 @@ def get_currencies(
     """Reads the CSV file with currency symbols and parses them to UI.
 
     Args:
-        filename (str, optional): File where info about currencies is stored.
+        filename (str, optional): File where info about currencies
+        is stored.
         Defaults to "currencies.csv".
-        columns (list, optional): List of columns to use. Defaults to None.
+        columns (list, optional): List of columns to use. Defaults
+        to None.
         filepath (str, optional): Filepath to the file where info about
         currencies is stored. Defaults to None.
 
     Returns:
         list: List of currencies.
     """
-
 
     if columns is None:
         columns = ["Currency Code"]
@@ -202,4 +202,3 @@ def add_country_code(bank_account: str, code: str = "PL") -> str:
         str: Country code and bank account number concatenated.
     """
     return code + bank_account
-
