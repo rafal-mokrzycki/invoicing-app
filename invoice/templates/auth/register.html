@@ -5,39 +5,49 @@
 
 <!-- ======= Register Section ======= -->
 
-<section id="register" class="register d-flex align-items-center">
+<section id="register" class="register d-flex align-items-center"
+    data-aos="fade-up"
+    data-aos-delay="200">
     <div class="container">
         <h1>New here? Please register</h1>
         <br>
         <form class="register-form" action="" method="post">
             <div class="row">
                 <div class="feature-box col-lg-6 ">
-                    <input type="text" placeholder="First name" name="surname" value="{{
-          request.form.surname }}">
+                    <input type="text" placeholder="First name" name="surname"
+                        value="{{
+                        request.form.surname }}">
                 </div>
                 <div class="feature-box col-lg-6 ">
-                    <input type="text" placeholder="Last name" name="name" value="{{
-          request.form.name }}">
+                    <input type="text" placeholder="Last name" name="name"
+                        value="{{
+                        request.form.name }}">
                 </div>
                 <div class="feature-box col-lg-6 ">
-                    <input type="tel" placeholder="Phone number" name="phone_no" pattern="[0-9]+"
+                    <input type="tel" placeholder="Phone number" name="phone_no"
+                        pattern="[0-9]+"
                         value="{{ request.form.phone_no }}" required>
                 </div>
                 <div class="feature-box col-lg-6 ">
-                    <input type="text" placeholder="Email address" name="email" value="{{ request.form.email }}"
+                    <input type="text" placeholder="Email address" name="email"
+                        value="{{ request.form.email }}"
                         required>
                 </div>
                 <div class="feature-box col-lg-12 ">
-                    <input type="password" placeholder="Password" name="password" id="password"
-                        value="{{ request.form.password }}" onchange="validatePassword()" required>
+                    <input type="password" placeholder="Password"
+                        name="password" id="password"
+                        value="{{ request.form.password }}"
+                        onchange="validatePassword()" required>
                 </div>
                 <div class="feature-box col-lg-12 ">
-                    <input type="password" placeholder="Confirm password" id="confirm_password" name="confirm_password"
+                    <input type="password" placeholder="Confirm password"
+                        id="confirm_password" name="confirm_password"
                         onkeyup="validatePassword()" required>
                 </div>
                 <div class="col-lg-3 choose-plan">Choose plan:</div>
                 <div class="col-lg-9">
-                    <select id="plan" name="plan" value="{{ request.form.plan }}" required>
+                    <select id="plan" name="plan" value="{{ request.form.plan
+                        }}" required>
                         <option value="free" selected>Free ($0/mo)</option>
                         <option value="starter">Starter ($19/mo)</option>
                         <option value="business">Business ($29/mo)</option>
@@ -45,16 +55,20 @@
                     </select>
                 </div>
                 <div class="checkbox col-lg-12 ">
-                    <input type="checkbox" id="terms" name="terms" checked="{{ request.form.terms }}" required>I
-                    accept the <a href="/terms-and-conditions" target="_blank">Terms and Conditions</a> and the <a
+                    <input type="checkbox" id="terms" name="terms" checked="{{
+                        request.form.terms }}" required>I
+                    accept the <a href="/terms-and-conditions" target="_blank">Terms
+                        and Conditions</a> and the <a
                         href="/privacy-policy" target="_blank">Privacy Policy</a>
                 </div>
                 <div class="checkbox col-lg-12 ">
-                    <input type="checkbox" id="newsletter" name="newsletter" checked="{{ request.form.newsletter }}">I
+                    <input type="checkbox" id="newsletter" name="newsletter"
+                        checked="{{ request.form.newsletter }}">I
                     wish to subscribe to the newsletter
                 </div>
                 <div class="feature-box col-lg-12 ">
-                    <input class="btn btn-default" type="submit" value="Register">
+                    <input class="btn btn-default" type="submit"
+                        value="Register">
                 </div>
                 <div class="feature-box col-lg-12 ">
                     <a href="/login">Already have an account?</a>
@@ -64,7 +78,7 @@
         </form>
         {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}</p>
-            {% endif %}
+        {% endif %}
     </div>
 </section>
 <section id="contact" class="contact">
@@ -84,4 +98,15 @@
         }
     }
 </script>
+<!-- Vendor JS Files -->
+<script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="/static/vendor/aos/aos.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+<!-- <script src="/static/vendor/php-email-form/validate.js"></script> -->
+
+<!-- Template Main JS File -->
+<script src="/static/js/main.js"></script>
 {% endblock %}

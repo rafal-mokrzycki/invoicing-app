@@ -116,8 +116,8 @@ def new_invoice():
 def your_invoices():
     db = get_db()
     invoices = db.execute(
-        """SELECT id, invoice_no, sum_net, sum_gross, recipient_tax_no,
-        issue_date, sell_date, item
+        """SELECT id, invoice_no, invoice_type, sum_net, sum_gross,
+        recipient_tax_no, issue_date, sell_date, item
          FROM invoice
          ORDER BY issue_date DESC"""
     ).fetchall()

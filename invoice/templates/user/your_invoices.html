@@ -88,6 +88,9 @@
                                     onclick="$('#order').val('number'); ;
                                     $('#form1').submit(); return false;">Number</a>
                             </th>
+                            <th><a href="#" class="table-header"
+                                    onclick="$('#order').val('price_gross'); ;
+                                    $('#form1').submit(); return false;">Type</a></th>
                             <th>
                                 <a href="#" class="table-header"
                                     onclick="$('#order').val('price_net'); ;
@@ -143,10 +146,12 @@
                                 value="false">
                             <td hidden>{{ invoice.id }}</td>
                             <td class="table-cell-search">
-                                <a href="/your_invoices/show/{{ invoice.id }}"
+                                <a href="/user/your_invoices/show/{{ invoice.id
+                                    }}"
                                     target="_blank" class="bi bi-search"></a>
                             </td>
                             <td class="table-cell">{{ invoice.invoice_no }}</td>
+                            <td class="table-cell">{{ invoice.invoice_type }}</td>
                             <td class="table-cell">{{
                                 "{:.2f}".format(invoice.sum_net).replace(".",
                                 ",") }}</td>
