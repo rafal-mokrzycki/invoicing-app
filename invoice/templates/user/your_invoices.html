@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<head>
-    <title>Your Invoices</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <head>
+        <title>Your Invoices</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet" media="screen">
 
-    <!-- Favicons -->
-    <link href="/static/img/favicon.png" rel="icon">
-    <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Favicons -->
+        <link href="/static/img/favicon.png" rel="icon">
+        <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <!-- Add icon library -->
+        <script src="https://kit.fontawesome.com/a2dea3e616.js"
+            crossorigin="anonymous"></script>
 
-    <!-- Add icon library -->
-    <script src="https://kit.fontawesome.com/a2dea3e616.js" crossorigin="anonymous"></script>
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+        <!-- Vendor CSS Files -->
+        <link href="/static/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/static/vendor/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet">
+        <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css"
+            rel="stylesheet">
+        <link href="/static/vendor/glightbox/css/glightbox.min.css"
+            rel="stylesheet">
+        <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
+        <link href="/static/vendor/swiper/swiper-bundle.min.css"
+            rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link href="/static/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/static/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/static/css/style.css" rel="stylesheet">
+        <link href="/static/css/style-custom.css" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
-    <link href="/static/css/style.css" rel="stylesheet">
-    <link href="/static/css/style-custom.css" rel="stylesheet">
+        <!-- jQery relatec links -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    </head>
 
-    <!-- jQery relatec links -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-</head>
+    <body>
 
-<body>
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top">
+            <div class="container-fluid container-xl d-flex align-items-center
+                justify-content-between">
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+                <a href="/home" class="logo d-flex align-items-center">
+                    <img src="/static/img/logo.png" alt="">
+                    <span>FlexStart</span>
+                </a>
 
-            <a href="/home" class="logo d-flex align-items-center">
-                <img src="/static/img/logo.png" alt="">
-                <span>FlexStart</span>
-            </a>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li><a class="new-invoice scrollto" href="{{
+                                url_for('user.new_invoice') }}">New invoice</a></li>
+                        <li><a class="nav-link scrollto" href="{{
+                                url_for('user.user') }}">YourDesktop</a></li>
+                        <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
+                        <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
+                        <li><a class="login-logout scrollto" href="{{
+                                url_for('auth.logout') }}">Logout</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav><!-- .navbar -->
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="new-invoice scrollto" href="{{ url_for('user.new_invoice') }}">New invoice</a></li>
-                    <li><a class="nav-link scrollto" href="{{ url_for('user.user') }}">YourDesktop</a></li>
-                    <li><a class="nav-link scrollto" href="/home#pricing">Pricing</a></li>
-                    <li><a class="nav-link scrollto" href="/home#contact">Contact</a></li>
-                    <li><a class="login-logout scrollto" href="{{ url_for('auth.logout') }}">Logout</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </div>
+        </header><!-- End Header -->
 
-        </div>
-    </header><!-- End Header -->
+        <!-- ======= Table Section ======= -->
 
-    <!-- ======= Table Section ======= -->
-
-    <section id="invoices" class="invoices">
-        <div id="list_table" class="narrower">
-            <!-- <div class="table-responsive "> -->
+        <section id="invoices" class="invoices">
+            <div id="list_table" class="narrower">
+                <!-- <div class="table-responsive "> -->
                 <table class="table table-hover table-striped dynamic_columns">
                     <thead>
                         <tr>
@@ -75,35 +85,42 @@
                             </th>
                             <th id="number_th">
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('number'); ; $('#form1').submit(); return false;">Number</a>
+                                    onclick="$('#order').val('number'); ;
+                                    $('#form1').submit(); return false;">Number</a>
                             </th>
                             <th>
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('price_net'); ; $('#form1').submit(); return false;">Net
+                                    onclick="$('#order').val('price_net'); ;
+                                    $('#form1').submit(); return false;">Net
                                     sum</a>
                             </th>
                             <th class="text-right">
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('price_gross'); ; $('#form1').submit(); return false;">Gross
+                                    onclick="$('#order').val('price_gross'); ;
+                                    $('#form1').submit(); return false;">Gross
                                     sum</a>
                             </th>
                             <th>
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('buyer_name'); ; $('#form1').submit(); return false;">Client</a>
+                                    onclick="$('#order').val('buyer_name'); ;
+                                    $('#form1').submit(); return false;">Client</a>
                             </th>
                             <th>
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('issue_date'); ; $('#form1').submit(); return false;">Issue
+                                    onclick="$('#order').val('issue_date'); ;
+                                    $('#form1').submit(); return false;">Issue
                                     date</a>
                             </th>
                             <th>
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('paid_date'); ; $('#form1').submit(); return false;">Sell
+                                    onclick="$('#order').val('paid_date'); ;
+                                    $('#form1').submit(); return false;">Sell
                                     date</a>
                             </th>
                             <th>
                                 <a href="#" class="table-header"
-                                    onclick="$('#order').val('product_cache'); ; $('#form1').submit(); return false;">Product</a>
+                                    onclick="$('#order').val('product_cache'); ;
+                                    $('#form1').submit(); return false;">Product</a>
                             </th>
                             <!-- <th>
                                 <a class="table-header"></a>
@@ -119,17 +136,24 @@
 
                         <tr id="trline174063933">
 
-                            <input type="hidden" id="attachment174063933" value="0">
+                            <input type="hidden" id="attachment174063933"
+                                value="0">
                             <input type="hidden" id="mail174063933" value="">
-                            <input type="hidden" id="overdue174063933" value="false">
+                            <input type="hidden" id="overdue174063933"
+                                value="false">
                             <td hidden>{{ invoice.id }}</td>
                             <td class="table-cell-search">
-                                <a href="/your_invoices/show/{{ invoice.id }}" target="_blank" class="bi bi-search"></a>
+                                <a href="/your_invoices/show/{{ invoice.id }}"
+                                    target="_blank" class="bi bi-search"></a>
                             </td>
                             <td class="table-cell">{{ invoice.invoice_no }}</td>
-                            <td class="table-cell">{{ "{:.2f}".format(invoice.sum_net).replace(".", ",") }}</td>
-                            <td class="table-cell">{{ "{:.2f}".format( invoice.sum_gross).replace(".", ",") }}</td>
-                            <td class="table-cell">{{ invoice.recipient_tax_no }}</td>
+                            <td class="table-cell">{{
+                                "{:.2f}".format(invoice.sum_net).replace(".",
+                                ",") }}</td>
+                            <td class="table-cell">{{ "{:.2f}".format(
+                                invoice.sum_gross).replace(".", ",") }}</td>
+                            <td class="table-cell">{{ invoice.recipient_tax_no
+                                }}</td>
                             <td class="table-cell">{{ invoice.issue_date }}</td>
                             <td class="table-cell">{{ invoice.sell_date }}</td>
                             <td class="table-cell">{{ invoice.item }}</td>
@@ -146,36 +170,44 @@
                             </td> -->
                             <td class="invoice-action-buttons">
                                 <button class="action-button-squared print">
-                                    <a href="/user/your_invoices/show/{{ invoice.id }}" target="_blank" class="fa-solid fa-eye"></a>
+                                    <a href="/user/your_invoices/show/{{
+                                        invoice.id }}" target="_blank"
+                                        class="fa-solid fa-eye"></a>
                                 </button>
                                 <button class="action-button-squared edit">
-                                    <a href="/user/your_invoices/edit/{{ invoice.id }}" target="_blank" class="fa-solid fa-file-pen"></a>
+                                    <a href="/user/your_invoices/edit/{{
+                                        invoice.id }}" target="_blank"
+                                        class="fa-solid fa-file-pen"></a>
                                 </button>
                                 <button class="action-button-squared send">
-                                    <a href="/user/your_invoices/send_email/{{ invoice.id }}" target="_blank" class="fa-solid fa-paper-plane"></a>
+                                    <a href="/user/your_invoices/send_email/{{
+                                        invoice.id }}" target="_blank"
+                                        class="fa-solid fa-paper-plane"></a>
                                 </button>
                                 <button class="action-button-squared download">
-                                    <a href="/user/your_invoices/download/{{ invoice.id }}" target="_blank" class="fa-solid fa-arrow-down"></a>
+                                    <a href="/user/your_invoices/download/{{
+                                        invoice.id }}" target="_blank"
+                                        class="fa-solid fa-arrow-down"></a>
                                 </button>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-            <!-- </div> -->
-            <br>
-            <br>
+                <!-- </div> -->
+                <br>
+                <br>
 
-            <div class="options bottom" id="options_bottom"></div>
-        </div>
-    </section>
-    <section id="contact" class="contact">
-        <!-- ======= Footer ======= -->
-        {% include "footer.html" %}
-        <!-- End Footer -->
-    </section>
-</body>
-<script>
+                <div class="options bottom" id="options_bottom"></div>
+            </div>
+        </section>
+        <section id="contact" class="contact">
+            <!-- ======= Footer ======= -->
+            {% include "footer.html" %}
+            <!-- End Footer -->
+        </section>
+    </body>
+    <script>
 
 function dropdownMenu() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -196,5 +228,4 @@ window.onclick = function(event) {
   }
 }
 </script>
-
 </html>

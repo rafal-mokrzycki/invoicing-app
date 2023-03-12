@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8" />
-    <title>invoice.pdf</title>
+    <head>
+        <meta charset="utf-8" />
+        <title>invoice.pdf</title>
 
-    <style>
+        <style>
         .invoice-box {
             max-width: 800px;
             margin: auto;
@@ -104,80 +104,80 @@
         }
 
     </style>
-</head>
+    </head>
 
-<body>
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="6">
-                    <table>
-                        <tr>
-                            <td class="title">
-                                <h4>{{invoice_type}} INVOICE</h4>
-                            </td>
+    <body>
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="6">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    <h4>{{invoice_type}} INVOICE</h4>
+                                </td>
 
-                            <td>
-                                Invoice number: {{ invoice_no }}<br />
-                                Issue date: {{ issue_date }}<br />
-                                Sell date: {{ sell_date }}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <div class="div-inter"></div>
-        <table cellpadding="0" cellspacing="0">
-            <tr class="heading">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>Issuer</td>
-                            <td>Recipient</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr class="details">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>{{issuer_tax_no}}</td>
-                            <td>{{ recipient_tax_no }}</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <div class="div-inter"></div>
-        <table cellpadding="0" cellspacing="0">
-            <tr class="heading">
-                <td>Item</td>
-                <td>Price net</td>
-                <td>Amount</td>
-                <td>Sum net</td>
-                <td>Tax</td>
-                <td>Price gross</td>
-            </tr>
-            <tr class="item">
-                <td>{{item}}</td>
-                <td>{{price_net}}</td>
-                <td>{{amount}}</td>
-                <td>{{sum_net}}</td>
-                <td>{{tax_string}}</td>
-                <td>{{sum_gross}}</td>
-            </tr>
-            <tr class="total">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>TOTAL SUM:</td>
-                <td>{{sum_gross}}</td>
-            </tr>
-        </table>
-    </div>
-</body>
+                                <td>
+                                    Invoice number: {{ invoice_no }}<br />
+                                    Issue date: {{ issue_date }}<br />
+                                    Sell date: {{ sell_date }}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="div-inter"></div>
+            <table cellpadding="0" cellspacing="0">
+                <tr class="heading">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>Issuer</td>
+                                <td>Recipient</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="details">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>{{issuer_tax_no}}</td>
+                                <td>{{ recipient_tax_no }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="div-inter"></div>
+            <table cellpadding="0" cellspacing="0">
+                <tr class="heading">
+                    <td>Item</td>
+                    <td>Price net</td>
+                    <td>Amount</td>
+                    <td>Sum net</td>
+                    <td>Tax</td>
+                    <td>Price gross</td>
+                </tr>
+                <tr class="item">
+                    <td>{{item}}</td>
+                    <td>{{price_net}}</td>
+                    <td>{{amount}}</td>
+                    <td>{{sum_net}}</td>
+                    <td>{{tax_string}}</td>
+                    <td>{{sum_gross}}</td>
+                </tr>
+                <tr class="total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>TOTAL SUM:</td>
+                    <td>{{sum_gross}}</td>
+                </tr>
+            </table>
+        </div>
+    </body>
 
 </html>
