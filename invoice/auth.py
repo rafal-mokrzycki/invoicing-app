@@ -59,7 +59,10 @@ def register():
             except db.IntegrityError:
                 error = f"User {email} is already registered."
             else:
-                return redirect(url_for("auth.login"))
+                if plan.lower() != "free":
+                    return redirect(url_for("auth.checkout", plan=plan))
+                else:
+                    return redirect(url_for("auth.login"))
         flash(error)
     return render_template("auth/register.html")
 
